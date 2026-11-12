@@ -1,0 +1,1300 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html b:css='false' b:defaultwidgetversion='2' b:layoutsversion='3' expr:dir='data:blog.languageDirection' expr:lang='data:blog.locale' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+<head>
+  <meta content='width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=5' name='viewport'/>
+  <title><data:blog.pageTitle/></title>
+
+  <b:include data='blog' name='all-head-content'/>
+
+  <!-- Google Fonts -->
+  <link href='https://fonts.googleapis.com' rel='preconnect'/>
+  <link crossorigin='anonymous' href='https://fonts.gstatic.com' rel='preconnect'/>
+  <link href='https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700&amp;display=swap' rel='stylesheet'/>
+
+  <b:skin><![CDATA[
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  :root {
+    --bg-page: #fafafa;
+    --bg-card: #ffffff;
+    --bg-subtle: #f5f5f5;
+    --text-primary: #171717;
+    --text-secondary: #525252;
+    --text-muted: #737373;
+    --border-color: #e5e5e5;
+    --accent: #d97706;
+    --accent-soft: #fef3c7;
+    --accent-text: #92400e;
+    --primary: #0a0a0a;
+    --primary-contrast: #ffffff;
+    --whatsapp: #059669;
+    --rose: #e11d48;
+    --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    --font-serif: 'Source Serif 4', Georgia, serif;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.06);
+  }
+
+  body.dark-mode {
+    --bg-page: #0a0a0a;
+    --bg-card: #141414;
+    --bg-subtle: #1c1c1c;
+    --text-primary: #f5f5f5;
+    --text-secondary: #a3a3a3;
+    --text-muted: #737373;
+    --border-color: #262626;
+    --accent-soft: rgba(217, 119, 6, 0.16);
+    --accent-text: #fde68a;
+    --primary: #ffffff;
+    --primary-contrast: #0a0a0a;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--bg-page);
+    color: var(--text-primary);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  /* Hide legacy preloaders, Blogger navbar, attribution, post images, and ad clutter */
+  #loader, .preloader, #outline, .check-out,
+  #navbar-iframe, .navbar-iframe, .Attribution,
+  .post-body img, .post-body picture, .post-body figure,
+  .post-body .separator, .post-body .tr-caption-container,
+  .adsbygoogle, ins.adsbygoogle, iframe[src*="ad"],
+  [id*="ad-"], [class*="ad-banner"], [class*="ad-slot"] {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+  }
+
+  button, input, select, textarea {
+    font-family: inherit;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 16px;
+  }
+
+  /* Top Announcement Bar */
+  .top-bar {
+    background-color: #050505;
+    color: #a3a3a3;
+    font-size: 11px;
+    padding: 7px 16px;
+    border-bottom: 1px solid #262626;
+    text-align: center;
+  }
+  .top-bar strong { color: #f5f5f5; }
+  .top-bar a { color: #fbbf24; font-weight: 600; }
+  .top-bar a:hover { text-decoration: underline; }
+
+  /* Sticky Navbar */
+  .navbar-wrapper {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color);
+  }
+  body.dark-mode .navbar-wrapper {
+    background: rgba(20, 20, 20, 0.94);
+  }
+  .navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 68px;
+    gap: 12px;
+  }
+  .brand-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+  }
+  .brand-monogram {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: var(--primary);
+    color: var(--primary-contrast);
+    font-size: 17px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border: 1px solid var(--border-color);
+  }
+  .brand-title {
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: -0.4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .badge-tag {
+    font-size: 9px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+  .brand-sub {
+    font-size: 11px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .nav-links {
+    display: none;
+    align-items: center;
+    gap: 18px;
+    list-style: none;
+  }
+  @media (min-width: 960px) {
+    .nav-links { display: flex; }
+  }
+  .nav-link {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+  }
+  .nav-link:hover { color: var(--text-primary); }
+
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+  .btn-wa-header {
+    background: var(--whatsapp);
+    color: #ffffff;
+    padding: 8px 13px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    display: none;
+    align-items: center;
+    gap: 6px;
+  }
+  @media (min-width: 640px) {
+    .btn-wa-header { display: inline-flex; }
+  }
+  .btn-icon {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 7px 11px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  .btn-icon:hover {
+    background: var(--bg-subtle);
+  }
+  .mobile-menu-btn {
+    display: inline-flex;
+  }
+  @media (min-width: 960px) {
+    .mobile-menu-btn { display: none; }
+  }
+  .mobile-drawer {
+    display: none;
+    border-top: 1px solid var(--border-color);
+    background: var(--bg-card);
+    padding: 12px 16px 16px;
+  }
+  .mobile-drawer.open { display: block; }
+  .mobile-drawer a {
+    display: block;
+    padding: 10px 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border-color);
+  }
+  .mobile-drawer a:last-child { border-bottom: none; }
+
+  /* Hero Section */
+  .hero-section {
+    padding: 44px 0 48px;
+    border-bottom: 1px solid var(--border-color);
+    background: var(--bg-card);
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  @media (min-width: 960px) {
+    .hero-grid {
+      grid-template-columns: 7fr 5fr;
+      align-items: center;
+    }
+  }
+  .hero-kicker {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--accent);
+    letter-spacing: 0.5px;
+    margin-bottom: 14px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+  }
+  .hero-kicker .verified-link {
+    color: var(--whatsapp);
+  }
+  .author-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .author-monogram {
+    width: 44px;
+    height: 44px;
+    border-radius: 11px;
+    background: var(--primary);
+    color: var(--primary-contrast);
+    font-weight: 800;
+    font-size: 17px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .status-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #10b981;
+    border: 2px solid var(--bg-card);
+    position: absolute;
+    bottom: -2px;
+    right: -2px;
+  }
+  .hero-title {
+    font-size: 30px;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.6px;
+    margin-bottom: 14px;
+  }
+  @media (min-width: 640px) {
+    .hero-title { font-size: 42px; }
+  }
+  .hero-desc {
+    font-size: 15px;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    line-height: 1.65;
+  }
+  .hero-quote {
+    background: var(--bg-page);
+    border: 1px solid var(--border-color);
+    border-left: 4px solid var(--accent);
+    padding: 15px 16px;
+    border-radius: 10px;
+    font-style: italic;
+    font-family: var(--font-serif);
+    margin-bottom: 22px;
+    color: var(--text-primary);
+    font-size: 15px;
+  }
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+  .btn-primary {
+    background: var(--primary);
+    color: var(--primary-contrast);
+    padding: 11px 18px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    border: none;
+    cursor: pointer;
+  }
+  .btn-outline {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 11px 18px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    cursor: pointer;
+  }
+  .btn-outline:hover {
+    background: var(--bg-subtle);
+  }
+
+  .metrics-bar {
+    padding-top: 18px;
+    border-top: 1px solid var(--border-color);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+  @media (min-width: 640px) {
+    .metrics-bar { grid-template-columns: repeat(4, 1fr); }
+  }
+  .metric-val { font-size: 15px; font-weight: 800; }
+  .metric-lbl { font-size: 11px; color: var(--text-muted); }
+
+  /* Pillars Stack */
+  .pillars-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .pillar-card {
+    display: block;
+    background: var(--bg-page);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 16px;
+  }
+  .pillar-card:hover {
+    border-color: var(--text-muted);
+  }
+  .pillar-title {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .pillar-desc {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  /* Main Sections */
+  .section-pad {
+    padding: 48px 0;
+    border-bottom: 1px solid var(--border-color);
+  }
+  .sec-tag {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--accent);
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+  .sec-title {
+    font-size: 26px;
+    font-weight: 800;
+    margin-bottom: 8px;
+    letter-spacing: -0.4px;
+  }
+  .sec-desc {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 28px;
+    max-width: 680px;
+  }
+
+  /* Grids */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  @media (min-width: 768px) {
+    .grid-2 { grid-template-columns: repeat(2, 1fr); }
+  }
+  .grid-3 {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  @media (min-width: 768px) {
+    .grid-3 { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 1024px) {
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  .content-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: var(--shadow-sm);
+  }
+  .card-accent-line {
+    height: 3px;
+    width: 48px;
+    background: var(--accent);
+    border-radius: 99px;
+    margin-bottom: 14px;
+  }
+  .content-card h3 {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    line-height: 1.35;
+  }
+  .content-card p {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+
+  /* Blog Posts Feed & Filter */
+  .feed-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .search-input {
+    width: 100%;
+    max-width: 320px;
+    padding: 9px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-page);
+    color: var(--text-primary);
+    font-size: 13px;
+  }
+  .post-card {
+    background: var(--bg-page);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow-sm);
+  }
+  .post-meta {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+  }
+  .post-title {
+    font-size: 22px;
+    font-weight: 800;
+    line-height: 1.3;
+    margin-bottom: 8px;
+    letter-spacing: -0.3px;
+  }
+  .post-title a:hover { color: var(--accent); }
+  .post-body {
+    font-family: var(--font-serif);
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--text-primary);
+  }
+  .post-body h2, .post-body h3, .post-body h4 {
+    font-family: var(--font-sans);
+    margin: 22px 0 10px;
+    font-weight: 700;
+  }
+  .post-body p { margin-bottom: 14px; }
+  .post-body ul, .post-body ol { margin-left: 20px; margin-bottom: 14px; }
+  .post-body li { margin-bottom: 6px; }
+  .post-body a { color: var(--accent); text-decoration: underline; }
+
+  .pager-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 24px;
+  }
+
+  /* Student Calculator */
+  .calc-box {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 26px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  @media (min-width: 860px) {
+    .calc-box { grid-template-columns: 1fr 1fr; align-items: center; }
+  }
+  .calc-input-group { margin-bottom: 16px; }
+  .calc-label {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    display: block;
+    color: var(--text-muted);
+  }
+  .calc-select {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-page);
+    color: var(--text-primary);
+    font-size: 13px;
+  }
+  .calc-result-box {
+    background: var(--accent-soft);
+    border: 1px solid rgba(217, 119, 6, 0.25);
+    border-radius: 12px;
+    padding: 22px;
+    color: var(--accent-text);
+  }
+  .calc-amount {
+    font-size: 36px;
+    font-weight: 800;
+    margin: 6px 0;
+  }
+
+  /* Charity Highlight */
+  .charity-band {
+    background: #0a0a0a;
+    color: #f5f5f5;
+    padding: 52px 0;
+    text-align: center;
+    border-bottom: 1px solid #262626;
+  }
+  .charity-quote {
+    font-family: var(--font-serif);
+    font-style: italic;
+    color: #fda4af;
+    font-size: 18px;
+    margin: 10px 0 14px;
+  }
+
+  /* Contact Cards */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  @media (min-width: 860px) {
+    .contact-grid { grid-template-columns: 5fr 7fr; }
+  }
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 15px 16px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    margin-bottom: 12px;
+  }
+  .contact-item:hover {
+    border-color: var(--text-muted);
+  }
+  .contact-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    background: var(--bg-page);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 800;
+    border: 1px solid var(--border-color);
+    flex-shrink: 0;
+  }
+  .form-input {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-page);
+    color: var(--text-primary);
+    font-size: 13px;
+  }
+
+  /* Footer */
+  footer {
+    background: #050505;
+    color: #a3a3a3;
+    padding: 48px 0 24px;
+    font-size: 12px;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    margin-bottom: 36px;
+  }
+  @media (min-width: 768px) {
+    .footer-grid { grid-template-columns: 2fr 1fr 1fr 1fr; }
+  }
+  .footer-col h4 {
+    color: #f5f5f5;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .footer-col ul { list-style: none; }
+  .footer-col li { margin-bottom: 8px; }
+  .footer-col a:hover { color: #ffffff; }
+  .footer-btm {
+    border-top: 1px solid #262626;
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    color: #737373;
+  }
+  ]]></b:skin>
+</head>
+<body>
+
+  <!-- Announcement Bar -->
+  <div class='top-bar'>
+    Official <strong>M R S Multiverse</strong> Portal &#183; WhatsApp: <a href='https://wa.me/8809611056361' rel='noopener noreferrer' target='_blank'>+880 9611-056361</a> &#183; Calendly: <a href='https://calendly.com/mrxshahin' rel='noopener noreferrer' target='_blank'>calendly.com/mrxshahin</a>
+  </div>
+
+  <!-- Header Navigation -->
+  <header class='navbar-wrapper'>
+    <div class='container'>
+      <div class='navbar'>
+        <a class='brand-group' expr:href='data:blog.homepageUrl'>
+          <div class='brand-monogram'>M</div>
+          <div>
+            <div class='brand-title'>
+              MRS ADMIN <span class='badge-tag'>MULTIVERSE</span>
+            </div>
+            <div class='brand-sub'>Online Business &#183; Side Gigs &#183; Tech Tricks</div>
+          </div>
+        </a>
+
+        <ul class='nav-links'>
+          <li><a class='nav-link' href='#post-section'>Articles</a></li>
+          <li><a class='nav-link' href='#student-section'>Student Earning</a></li>
+          <li><a class='nav-link' href='#services-section'>Services</a></li>
+          <li><a class='nav-link' href='#projects-section'>Future Projects</a></li>
+          <li><a class='nav-link' href='#charity-section'>Charity</a></li>
+          <li><a class='nav-link' href='#contact-section'>Contact</a></li>
+        </ul>
+
+        <div class='nav-actions'>
+          <button class='btn-icon' id='theme-toggle-btn' type='button'>Theme</button>
+          <a class='btn-wa-header' href='https://wa.me/8809611056361?text=Hello%20M%20R%20S,%20I%20would%20like%20to%20connect!' rel='noopener noreferrer' target='_blank'>
+            WhatsApp
+          </a>
+          <button aria-label='Toggle Menu' class='btn-icon mobile-menu-btn' id='mobile-menu-btn' type='button'>Menu</button>
+        </div>
+      </div>
+    </div>
+    <div class='mobile-drawer' id='mobile-drawer'>
+      <a href='#post-section'>Articles</a>
+      <a href='#student-section'>Student Earning</a>
+      <a href='#services-section'>Services</a>
+      <a href='#projects-section'>Future Projects</a>
+      <a href='#charity-section'>Charity Foundation</a>
+      <a href='#contact-section'>Contact M R S</a>
+    </div>
+  </header>
+
+  <!-- Hero: This is M R S multiverse -->
+  <section class='hero-section'>
+    <div class='container'>
+      <div class='hero-grid'>
+        <div>
+          <div class='hero-kicker'>
+            <span>The M R S Multiverse</span>
+            <span>&#183;</span>
+            <span>Remote IT &amp; Digital Growth</span>
+            <span>&#183;</span>
+            <a class='verified-link' href='https://gravatar.com/mrxshahin' rel='noopener noreferrer' target='_blank'>Gravatar Verified (@mrxshahin)</a>
+          </div>
+
+          <div class='author-row'>
+            <div class='author-monogram'>
+              M
+              <span class='status-dot'/>
+            </div>
+            <div>
+              <div style='font-size: 15px; font-weight: 800;'>M R S <span style='font-size: 12px; font-weight: 500; color: var(--text-muted);'>(@mrxshahin)</span></div>
+              <div style='font-size: 12px; color: var(--text-muted);'>Remote IT Support, Virtual Assistance &amp; Web Management</div>
+            </div>
+          </div>
+
+          <h1 class='hero-title'>This is M R S multiverse</h1>
+          <p class='hero-desc'>
+            Welcome! I&#8217;m <strong>M R S</strong> &#8212; an online entrepreneur, web manager, and remote operations specialist. Through my platforms, I share practical strategies to simplify daily operations, increase income, and stay ahead in the digital economy.
+          </p>
+
+          <div class='hero-quote'>
+            &#8220;If you want to build something big, you have to start with a small step.&#8221;
+            <div style='font-size: 12px; font-weight: 600; margin-top: 6px; font-style: normal; color: var(--text-muted);'>&#8212; M R S, Founder &amp; Web Manager &#183; Certified Systems Specialist</div>
+          </div>
+
+          <div class='hero-actions'>
+            <a class='btn-primary' href='#post-section'>Explore Publications</a>
+            <a class='btn-outline' href='https://calendly.com/mrxshahin' rel='noopener noreferrer' target='_blank'>Book on Calendly</a>
+            <a class='btn-outline' href='#student-section'>Student Earning Corner</a>
+          </div>
+
+          <div class='metrics-bar'>
+            <div>
+              <div class='metric-val'>360-Hour</div>
+              <div class='metric-lbl'>Certified Systems</div>
+            </div>
+            <div>
+              <div class='metric-val'>Since 2018</div>
+              <div class='metric-lbl'>Tech Documentation</div>
+            </div>
+            <div>
+              <div class='metric-val'>Async-Ready</div>
+              <div class='metric-lbl'>Cross Time Zones</div>
+            </div>
+            <div>
+              <div class='metric-val'>Charity</div>
+              <div class='metric-lbl'>Poverty Relief</div>
+            </div>
+          </div>
+        </div>
+
+        <div class='pillars-container'>
+          <div style='font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted);'>Core Ecosystem Pillars</div>
+
+          <a class='pillar-card' href='#post-section'>
+            <div class='pillar-title'>
+              <span>01. Business Hub</span>
+              <span style='color: var(--accent);'>&#8594;</span>
+            </div>
+            <div class='pillar-desc'>Actionable advice, scaling blueprints, and frameworks to turn micro-ideas into sustainable revenue.</div>
+          </a>
+
+          <a class='pillar-card' href='#student-section'>
+            <div class='pillar-title'>
+              <span>02. Money-Making Platform</span>
+              <span style='color: var(--whatsapp);'>&#8594;</span>
+            </div>
+            <div class='pillar-desc'>Tested strategies, side gigs, and digital asset tips designed for students and working professionals.</div>
+          </a>
+
+          <a class='pillar-card' href='#services-section'>
+            <div class='pillar-title'>
+              <span>03. Learning &amp; Tech Tricks</span>
+              <span style='color: #2563eb;'>&#8594;</span>
+            </div>
+            <div class='pillar-desc'>Blogspot optimization, speed boosts, SEO tactics, and digital skills to maintain a modern web presence.</div>
+          </a>
+
+          <a class='pillar-card' href='#projects-section'>
+            <div class='pillar-title'>
+              <span>04. Loved Ones Tracking App &amp; AI</span>
+              <span style='color: #7c3aed;'>&#8594;</span>
+            </div>
+            <div class='pillar-desc'>Upcoming safety GPS connectivity for families plus personalized AI-driven productivity tools.</div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Blog & Posts Feed -->
+  <section class='section-pad' id='post-section' style='background: var(--bg-card);'>
+    <div class='container'>
+      <div class='feed-toolbar'>
+        <div>
+          <div class='sec-tag'>Publications &amp; Articles</div>
+          <h2 class='sec-title' style='margin-bottom: 4px;'>Curated Insights &amp; Portals</h2>
+          <p style='font-size: 13px; color: var(--text-secondary);'>Clean, fast-loading articles on digital entrepreneurship, side gigs, and web performance.</p>
+        </div>
+        <input aria-label='Filter posts' class='search-input' id='post-filter-input' placeholder='Filter posts by keyword...' type='search'/>
+      </div>
+
+      <b:section class='main' id='main' showaddelement='yes'>
+        <b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog'>
+          <b:includable id='main' var='top'>
+            <b:if cond='data:posts.empty'>
+              <div class='post-card'>
+                <h3>No posts published yet</h3>
+                <p style='font-size: 13px; color: var(--text-secondary);'>New guides and updates from M R S Multiverse will appear here soon.</p>
+              </div>
+            <b:else/>
+              <b:loop values='data:posts' var='post'>
+                <article class='post-card'>
+                  <div class='post-meta'>
+                    <span>By M R S</span>
+                    <b:if cond='data:post.timestamp'>
+                      <span>&#183;</span>
+                      <span><data:post.timestamp/></span>
+                    </b:if>
+                    <b:if cond='data:post.labels'>
+                      <span>&#183;</span>
+                      <b:loop values='data:post.labels' var='label'>
+                        <a expr:href='data:label.url' style='color: var(--accent); font-weight: 600;'><data:label.name/></a>
+                        <b:if cond='not data:label.isLast'><span>, </span></b:if>
+                      </b:loop>
+                    </b:if>
+                  </div>
+                  <h2 class='post-title'>
+                    <a expr:href='data:post.url'><data:post.title/></a>
+                  </h2>
+                  <div class='post-body'>
+                    <data:post.body/>
+                  </div>
+                </article>
+              </b:loop>
+
+              <div class='pager-row'>
+                <div>
+                  <b:if cond='data:newerPageUrl'>
+                    <a class='btn-outline' expr:href='data:newerPageUrl'>&#8592; Newer Posts</a>
+                  </b:if>
+                </div>
+                <div>
+                  <b:if cond='data:olderPageUrl'>
+                    <a class='btn-outline' expr:href='data:olderPageUrl'>Older Posts &#8594;</a>
+                  </b:if>
+                </div>
+              </div>
+            </b:if>
+          </b:includable>
+        </b:widget>
+      </b:section>
+    </div>
+  </section>
+
+  <!-- Supporting Students & Aspiring Earners (Calculator) -->
+  <section class='section-pad' id='student-section'>
+    <div class='container'>
+      <div class='sec-tag'>Zero Upfront Investment</div>
+      <h2 class='sec-title'>Supporting Students &amp; Aspiring Earners</h2>
+      <p class='sec-desc'>Easy-to-implement methods tailored for students to earn extra income around study hours with zero upfront capital.</p>
+
+      <div class='calc-box'>
+        <div>
+          <div class='calc-input-group'>
+            <label class='calc-label' for='hours-slider'>Study Spare Hours / Week: <span id='hours-val'>10</span> hrs</label>
+            <input id='hours-slider' max='25' min='4' style='width: 100%; accent-color: var(--accent);' type='range' value='10'/>
+          </div>
+
+          <div class='calc-input-group' style='margin-bottom: 0;'>
+            <label class='calc-label' for='skill-select'>Select Your Skill Area</label>
+            <select class='calc-select' id='skill-select'>
+              <option value='12'>Content &amp; Study Notes Proofreading (~$12/hr)</option>
+              <option value='15'>Graphics &amp; Document Formatting (~$15/hr)</option>
+              <option value='10'>Data Entry &amp; Spreadsheet Cleanup (~$10/hr)</option>
+              <option value='18'>Blogger / Web Setup (~$18/hr)</option>
+              <option value='16'>Peer &amp; Subject Tutoring (~$16/hr)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class='calc-result-box'>
+          <div style='font-size: 11px; text-transform: uppercase; font-weight: 800; letter-spacing: 0.4px;'>Projected Monthly Earnings</div>
+          <div class='calc-amount' id='calc-total'>$480</div>
+          <p style='font-size: 12px; margin-bottom: 14px;'>Based on consistent weekly hours and zero financial investment.</p>
+          <a class='btn-primary' href='https://wa.me/8809611056361?text=Hello%20M%20R%20S,%20I%20am%20a%20student%20and%20need%20guidance%20on%20online%20earning' rel='noopener noreferrer' target='_blank'>Get Guidance on WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Special Services Available Now -->
+  <section class='section-pad' id='services-section' style='background: var(--bg-card);'>
+    <div class='container'>
+      <div class='sec-tag'>Direct Solutions</div>
+      <h2 class='sec-title'>Special Services Available Now</h2>
+      <p class='sec-desc'>Professional IT support, administrative assistance, and clean web templates &#8212; order directly through WhatsApp or email.</p>
+
+      <div class='grid-2'>
+        <div class='content-card'>
+          <div>
+            <div class='card-accent-line'/>
+            <h3>Remote IT Support &amp; Technical Troubleshooting</h3>
+            <p>Windows PC diagnostics, Android device troubleshooting, software setup, Wi-Fi fixes, and clear step-by-step documentation.</p>
+          </div>
+          <a class='btn-primary' href='https://wa.me/8809611056361?text=Hello%20M%20R%20S,%20I%20need%20Remote%20IT%20Support%20for%20my%20system.' rel='noopener noreferrer' target='_blank'>Request IT Support</a>
+        </div>
+
+        <div class='content-card'>
+          <div>
+            <div class='card-accent-line'/>
+            <h3>Virtual Assistance &amp; Office Admin</h3>
+            <p>Reliable data entry, Excel/Sheets cleanup, email inbox triage, online research, and organized async execution across time zones.</p>
+          </div>
+          <a class='btn-primary' href='https://wa.me/8809611056361?text=Hello%20M%20R%20S,%20I%20am%20interested%20in%20your%20Virtual%20Assistance%20services.' rel='noopener noreferrer' target='_blank'>Hire Virtual Assistant</a>
+        </div>
+
+        <div class='content-card'>
+          <div>
+            <div class='card-accent-line'/>
+            <h3>Advanced Professional CV Design</h3>
+            <p>Standout CVs designed with ATS-compliant typography, clean executive structure, editable source files, and print-ready PDFs.</p>
+          </div>
+          <a class='btn-primary' href='https://wa.me/8809611056361?text=Hello%20M%20R%20S,%20I%20would%20like%20to%20order%20an%20Advanced%20Professional%20CV' rel='noopener noreferrer' target='_blank'>Order via WhatsApp</a>
+        </div>
+
+        <div class='content-card'>
+          <div>
+            <div class='card-accent-line'/>
+            <h3>Blogspot &amp; WordPress Web Management</h3>
+            <p>Ultra-fast, mobile-first themes, responsive layout repairs, SEO tuning, and clean ad-free publishing setups.</p>
+          </div>
+          <a class='btn-primary' href='https://wa.me/8809611056361?text=Hello%20M%20R%20S,%20I%20need%20Customized%20Blogspot%20and%20Web%20Management' rel='noopener noreferrer' target='_blank'>Order via WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Innovative Projects Coming Soon -->
+  <section class='section-pad' id='projects-section'>
+    <div class='container'>
+      <div class='sec-tag'>Innovation &amp; Social Impact</div>
+      <h2 class='sec-title'>Innovative Projects &amp; Ecosystem</h2>
+      <p class='sec-desc'>We are actively developing next-generation safety tools, AI-assisted resources, and community impact platforms.</p>
+
+      <div class='grid-3'>
+        <div class='content-card'>
+          <div>
+            <div class='card-accent-line'/>
+            <h3>Loved Ones Live Tracking App</h3>
+            <p>Privacy-first family GPS connectivity with smart safe-zone geofencing alerts, low-battery monitoring, and one-touch emergency SOS.</p>
+          </div>
+          <a class='btn-outline' href='https://wa.me/8809611056361?text=Hello%20M%20R%20S,%20I%20want%20to%20join%20the%20tracking%20app%20waitlist' rel='noopener noreferrer' target='_blank'>Join Beta Waitlist</a>
+        </div>
+
+        <div class='content-card'>
+          <div>
+            <div class='card-accent-line'/>
+            <h3>AI-Powered Earning &amp; Content Hub</h3>
+            <p>Intelligent assistant tools offering structured blogging prompts, keyword workflows, and student productivity guidance.</p>
+          </div>
+          <a class='btn-outline' href='https://wa.me/8809611056361?text=Hello%20M%20R%20S,%20I%20want%20to%20learn%20more%20about%20the%20AI%20Content%20Hub' rel='noopener noreferrer' target='_blank'>Request Early Access</a>
+        </div>
+
+        <div class='content-card'>
+          <div>
+            <div class='card-accent-line'/>
+            <h3>MRX Tech Support Portal</h3>
+            <p>Sister hub dedicated to vetted free earning methods, website breakdowns, and practical digital guides for learners.</p>
+          </div>
+          <a class='btn-outline' href='https://mrxshahin.blogspot.com/' rel='noopener noreferrer' target='_blank'>Visit Portal</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Charity Foundation Highlight -->
+  <section class='charity-band' id='charity-section'>
+    <div class='container'>
+      <div style='font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: #fda4af; margin-bottom: 8px;'>Our Non-Profit Movement</div>
+      <h2 class='sec-title' style='color: #ffffff;'>M R S Charity Foundation</h2>
+      <p class='charity-quote'>&#8220;Poverty Ends With Us &#8212; Humanity United Against Poverty&#8221;</p>
+      <p style='font-size: 13px; color: #d4d4d4; max-width: 600px; margin: 0 auto 22px; line-height: 1.65;'>
+        Part of the proceeds from our web and design services directly funds student scholarships, examination fees, computer literacy workshops, and emergency food drives.
+      </p>
+      <div style='display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;'>
+        <a class='btn-primary' href='https://mrscharityfoundation.blogspot.com/' rel='noopener noreferrer' style='background: #e11d48; color: #ffffff;' target='_blank'>Visit Charity Foundation</a>
+        <a class='btn-outline' href='#contact-section' style='border-color: #404040; color: #f5f5f5;'>Partner With Us</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact & Direct Support -->
+  <section class='section-pad' id='contact-section' style='background: var(--bg-card);'>
+    <div class='container'>
+      <div class='sec-tag'>Verified Direct Channels</div>
+      <h2 class='sec-title'>Connect with M R S</h2>
+      <p class='sec-desc'>Available for independent remote contracts, IT support, virtual administrative operations, and web solutions.</p>
+
+      <div class='contact-grid'>
+        <div>
+          <a class='contact-item' href='https://wa.me/8809611056361' rel='noopener noreferrer' target='_blank'>
+            <div class='contact-icon' style='color: var(--whatsapp);'>WA</div>
+            <div>
+              <div style='font-size: 11px; color: var(--text-muted);'>WhatsApp &amp; Mobile</div>
+              <div style='font-size: 14px; font-weight: 700;'>+880 9611-056361</div>
+            </div>
+          </a>
+
+          <a class='contact-item' href='https://calendly.com/mrxshahin' rel='noopener noreferrer' target='_blank'>
+            <div class='contact-icon' style='color: var(--accent);'>CAL</div>
+            <div>
+              <div style='font-size: 11px; color: var(--text-muted);'>1-on-1 Meeting Scheduler</div>
+              <div style='font-size: 14px; font-weight: 700;'>calendly.com/mrxshahin</div>
+            </div>
+          </a>
+
+          <a class='contact-item' href='mailto:mr216873@gmail.com'>
+            <div class='contact-icon'>@</div>
+            <div>
+              <div style='font-size: 11px; color: var(--text-muted);'>Direct Email (Gravatar Verified)</div>
+              <div style='font-size: 14px; font-weight: 700;'>mr216873@gmail.com</div>
+            </div>
+          </a>
+
+          <a class='contact-item' href='https://gravatar.com/mrxshahin' rel='noopener noreferrer' target='_blank'>
+            <div class='contact-icon' style='color: #0284c7;'>GV</div>
+            <div>
+              <div style='font-size: 11px; color: var(--text-muted);'>Public Gravatar Profile</div>
+              <div style='font-size: 14px; font-weight: 700;'>gravatar.com/mrxshahin</div>
+            </div>
+          </a>
+        </div>
+
+        <div style='background: var(--bg-page); border: 1px solid var(--border-color); border-radius: 14px; padding: 24px;'>
+          <h3 style='font-size: 18px; font-weight: 700; margin-bottom: 8px;'>Send a Direct Message</h3>
+          <p style='font-size: 12px; color: var(--text-secondary); margin-bottom: 16px;'>Fill out the form below to forward directly to WhatsApp or email mr216873@gmail.com.</p>
+
+          <form id='direct-contact-form'>
+            <div style='margin-bottom: 12px;'>
+              <input class='form-input' id='msg-name' placeholder='Your Name' required='required' type='text'/>
+            </div>
+            <div style='margin-bottom: 12px;'>
+              <input class='form-input' id='msg-email' placeholder='Your Email Address' type='email'/>
+            </div>
+            <div style='margin-bottom: 12px;'>
+              <textarea class='form-input' id='msg-text' placeholder='Describe your task, project, or question...' required='required' rows='4'/>
+            </div>
+            <div style='display: flex; flex-wrap: wrap; gap: 10px;'>
+              <button class='btn-primary' style='flex: 1;' type='submit'>Forward via WhatsApp</button>
+              <a class='btn-outline' href='mailto:mr216873@gmail.com?subject=Inquiry%20for%20M%20R%20S'>Email Directly</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class='container'>
+      <div class='footer-grid'>
+        <div class='footer-col'>
+          <div style='display: flex; align-items: center; gap: 10px; margin-bottom: 12px;'>
+            <div style='width: 34px; height: 34px; border-radius: 8px; background: #ffffff; color: #0a0a0a; font-weight: 800; display: flex; align-items: center; justify-content: center;'>M</div>
+            <div>
+              <div style='color: #ffffff; font-weight: 800; font-size: 14px;'>M R S</div>
+              <div style='font-size: 11px; color: #a3a3a3;'>@mrxshahin &#183; Remote Operations</div>
+            </div>
+          </div>
+          <p style='line-height: 1.6; margin-bottom: 10px;'>Certified IT support, virtual administrative operations, and web management since 2018.</p>
+          <p style='font-style: italic; color: #d4d4d4;'>&#8220;If you want to build something big, you have to start with a small step.&#8221;</p>
+        </div>
+
+        <div class='footer-col'>
+          <h4>Ecosystem</h4>
+          <ul>
+            <li><a href='#post-section'>Publications</a></li>
+            <li><a href='#student-section'>Student Earning</a></li>
+            <li><a href='#services-section'>Special Services</a></li>
+            <li><a href='#projects-section'>Future Projects</a></li>
+          </ul>
+        </div>
+
+        <div class='footer-col'>
+          <h4>Verified Profiles</h4>
+          <ul>
+            <li><a href='https://gravatar.com/mrxshahin' rel='noopener noreferrer' target='_blank'>Gravatar Profile</a></li>
+            <li><a href='https://calendly.com/mrxshahin' rel='noopener noreferrer' target='_blank'>Calendly Scheduler</a></li>
+            <li><a href='https://www.linkedin.com/in/mrmahbubur' rel='noopener noreferrer' target='_blank'>LinkedIn Profile</a></li>
+            <li><a href='https://x.com/Mrshahinx' rel='noopener noreferrer' target='_blank'>X (@Mrshahinx)</a></li>
+            <li><a href='https://bsky.app/profile/mrxshahin.bsky.social' rel='noopener noreferrer' target='_blank'>Bluesky</a></li>
+            <li><a href='https://mrxshahin.wordpress.com' rel='noopener noreferrer' target='_blank'>WordPress</a></li>
+          </ul>
+        </div>
+
+        <div class='footer-col'>
+          <h4>Social Impact</h4>
+          <ul>
+            <li><a href='https://mrscharityfoundation.blogspot.com/' rel='noopener noreferrer' style='color: #fb7185;' target='_blank'>M R S Charity Foundation</a></li>
+            <li><a href='https://mrxshahin.blogspot.com/' rel='noopener noreferrer' target='_blank'>MRX Tech Portal</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class='footer-btm'>
+        <div>&#169; 2026 <strong style='color: #ffffff;'>M R S</strong>. All rights reserved.</div>
+        <div>WhatsApp: +880 9611-056361 &#183; Email: mr216873@gmail.com</div>
+      </div>
+    </div>
+  </footer>
+
+  <script type='text/javascript'>
+  //<![CDATA[
+  (function() {
+    // 1. Theme persistence
+    try {
+      var savedTheme = localStorage.getItem('mrs_theme');
+      if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+      }
+    } catch (e) {}
+
+    var themeBtn = document.getElementById('theme-toggle-btn');
+    if (themeBtn) {
+      themeBtn.addEventListener('click', function() {
+        document.body.classList.toggle('dark-mode');
+        try {
+          localStorage.setItem('mrs_theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+        } catch (e) {}
+      });
+    }
+
+    // 2. Mobile drawer toggle
+    var menuBtn = document.getElementById('mobile-menu-btn');
+    var drawer = document.getElementById('mobile-drawer');
+    if (menuBtn && drawer) {
+      menuBtn.addEventListener('click', function() {
+        drawer.classList.toggle('open');
+      });
+      var drawerLinks = drawer.querySelectorAll('a');
+      for (var i = 0; i < drawerLinks.length; i++) {
+        drawerLinks[i].addEventListener('click', function() {
+          drawer.classList.remove('open');
+        });
+      }
+    }
+
+    // 3. Strip legacy post images and ad/monetization links from Blogger post bodies
+    var adDomains = [
+      'profitableratecpmnetwork',
+      'uplcm',
+      'adsterra',
+      'effectiveratecpm',
+      'highperformanceformat',
+      'popads',
+      'propellerads',
+      'googlesyndication',
+      'doubleclick'
+    ];
+    var bodies = document.querySelectorAll('.post-body');
+    for (var b = 0; b < bodies.length; b++) {
+      var bodyEl = bodies[b];
+      var imgs = bodyEl.querySelectorAll('img, picture, figure, .separator, ins.adsbygoogle');
+      for (var m = 0; m < imgs.length; m++) {
+        if (imgs[m].parentNode) {
+          imgs[m].parentNode.removeChild(imgs[m]);
+        }
+      }
+      var links = bodyEl.querySelectorAll('a[href]');
+      for (var l = 0; l < links.length; l++) {
+        var href = (links[l].getAttribute('href') || '').toLowerCase();
+        var isAd = false;
+        for (var d = 0; d < adDomains.length; d++) {
+          if (href.indexOf(adDomains[d]) !== -1) {
+            isAd = true;
+            break;
+          }
+        }
+        if (isAd && links[l].parentNode) {
+          links[l].parentNode.removeChild(links[l]);
+        }
+      }
+    }
+
+    // 4. Live post keyword filter
+    var filterInput = document.getElementById('post-filter-input');
+    if (filterInput) {
+      filterInput.addEventListener('input', function() {
+        var query = (filterInput.value || '').toLowerCase().trim();
+        var cards = document.querySelectorAll('#post-section .post-card');
+        for (var c = 0; c < cards.length; c++) {
+          var txt = (cards[c].innerText || cards[c].textContent || '').toLowerCase();
+          cards[c].style.display = (!query || txt.indexOf(query) !== -1) ? 'block' : 'none';
+        }
+      });
+    }
+
+    // 5. Student Earning Calculator
+    var slider = document.getElementById('hours-slider');
+    var skillSelect = document.getElementById('skill-select');
+    function updateCalc() {
+      if (!slider || !skillSelect) return;
+      var hours = parseInt(slider.value, 10) || 10;
+      var rate = parseInt(skillSelect.value, 10) || 12;
+      var hoursEl = document.getElementById('hours-val');
+      var totalEl = document.getElementById('calc-total');
+      if (hoursEl) hoursEl.textContent = String(hours);
+      if (totalEl) totalEl.textContent = '$' + (hours * 4 * rate);
+    }
+    if (slider) slider.addEventListener('input', updateCalc);
+    if (skillSelect) skillSelect.addEventListener('change', updateCalc);
+    updateCalc();
+
+    // 6. Direct Contact Form
+    var contactForm = document.getElementById('direct-contact-form');
+    if (contactForm) {
+      contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var name = (document.getElementById('msg-name') || {}).value || '';
+        var email = (document.getElementById('msg-email') || {}).value || '';
+        var msg = (document.getElementById('msg-text') || {}).value || '';
+        var payload = 'Hello M R S, my name is ' + name + (email ? ' (' + email + ')' : '') + '. Message: ' + msg;
+        window.open('https://wa.me/8809611056361?text=' + encodeURIComponent(payload), '_blank', 'noopener,noreferrer');
+      });
+    }
+  })();
+  //]]>
+  </script>
+
+</body>
+</html>

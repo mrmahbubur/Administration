@@ -1,0 +1,6 @@
+{
+  "name": "MRS ADMIN — Digital Entrepreneurship & Web Resource Hub",
+  "description": "Official portal for MRS ADMIN (M R S Multiverse): online business insights, legitimate student earning tricks, web management, future tracking tech, charity initiatives, and bespoke design services.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
