@@ -74,9 +74,17 @@ export const Footer: React.FC<FooterProps> = ({ onSelectCategory, onSelectTab, o
           {/* Core Capabilities */}
           <div>
             <h4 className="text-white text-xs font-bold uppercase tracking-wider mb-3">
-              Professional Capabilities
+              Portal &amp; Capabilities
             </h4>
             <ul className="space-y-2">
+              <li>
+                <button
+                  onClick={() => onSelectTab('about')}
+                  className="hover:text-white transition-colors text-left"
+                >
+                  Owner Profile &amp; About
+                </button>
+              </li>
               <li>
                 <button
                   onClick={() => onSelectTab('capabilities')}
@@ -103,18 +111,10 @@ export const Footer: React.FC<FooterProps> = ({ onSelectCategory, onSelectTab, o
               </li>
               <li>
                 <button
-                  onClick={() => onSelectTab('capabilities')}
-                  className="hover:text-white transition-colors text-left"
+                  onClick={() => onSelectTab('reviews')}
+                  className="hover:text-white transition-colors text-left text-amber-300"
                 >
-                  Technical Writing &amp; Guides
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => onSelectTab('capabilities')}
-                  className="hover:text-white transition-colors text-left"
-                >
-                  AI Tools &amp; Automation
+                  Verified Client Reviews
                 </button>
               </li>
             </ul>

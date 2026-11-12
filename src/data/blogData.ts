@@ -4,8 +4,13 @@ export const PROFILE_DATA = {
   displayName: 'M R S',
   fullName: 'M R S',
   username: 'mrxshahin',
+  role: 'Founder, Web Manager & Remote Operations Specialist',
   headline: 'Remote IT Support, Virtual Assistance & Administrative Operations Specialist',
   subHeadline: 'I help businesses, entrepreneurs, and individuals simplify their daily operations, solve technical problems, manage digital tasks, and stay productive — without the overhead of hiring a full-time employee.',
+  availability: 'Open for Remote Contracts, Consultations & Web Solutions',
+  timezone: 'UTC+6 (Async Coverage Across US, UK, EU & APAC Time Zones)',
+  languages: ['English (Professional)', 'Bengali (Native)'],
+  experienceSince: '2018',
   gravatarUrl: 'https://gravatar.com/mrxshahin',
   phone: '+8809611056361',
   phoneFormatted: '+880 9611-056361',
@@ -19,6 +24,30 @@ export const PROFILE_DATA = {
   wordpressUrl: 'https://mrxshahin.wordpress.com',
   charityUrl: 'https://mrscharityfoundation.blogspot.com/',
   quote: 'If you want to build something big, you have to start with a small step.',
+  aboutTitle: 'About M R S — Independent Digital Operations & Multiverse Mission',
+  aboutParagraphs: [
+    'I am M R S (@mrxshahin), an independent online entrepreneur, remote IT specialist, and web manager building practical digital systems since 2018. After completing a certified 360-Hour Computer Systems Course, I focused on bridging technical troubleshooting with everyday administrative and digital growth needs.',
+    'Through MRS ADMIN and the broader M R S Multiverse, my focus is straightforward: give small businesses, solo founders, and students reliable guidance and hands-on support without unnecessary complexity or inflated agency overhead.',
+    'Beyond client operations and web management, a portion of proceeds from custom services goes directly toward the M R S Charity Foundation — funding student scholarships, exam support, computer literacy workshops, and grassroots community relief.'
+  ],
+  coreValues: [
+    {
+      title: 'Accuracy & Clean Execution',
+      detail: 'Structured spreadsheets, tested web layouts, and clear documentation delivered right the first time.'
+    },
+    {
+      title: 'Asynchronous Global Readiness',
+      detail: 'Reliable progress across international time zones with clear written updates and minimal back-and-forth.'
+    },
+    {
+      title: 'Zero-Capital Student Empowerment',
+      detail: 'Vetted, practical earning guides designed for students without upfront fees or misleading schemes.'
+    },
+    {
+      title: 'Direct Owner Accountability',
+      detail: 'Every task, CV, web setup, and support ticket is handled directly by M R S via WhatsApp, email, or Calendly.'
+    }
+  ],
   credentials: [
     { label: 'Certified', value: '360-Hour Computer Systems Course' },
     { label: 'Technical Writing', value: 'Authoring Guides & Docs Since 2018' },

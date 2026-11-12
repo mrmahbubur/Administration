@@ -11,22 +11,54 @@ import {
   Calendar, 
   ExternalLink,
   ShieldCheck,
-  UserCheck
+  UserCheck,
+  Loader2
 } from 'lucide-react';
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { BLOG_METADATA, PROFILE_DATA, FAQS } from '../data/blogData';
+import { db, handleFirestoreError, OperationType } from '../firebase';
+import { useAuth } from '../contexts/AuthContext';
 
 export const ContactSection: React.FC = () => {
+  const { user } = useAuth();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [serviceCategory, setServiceCategory] = useState('Remote IT Support & Troubleshooting');
   const [urgency, setUrgency] = useState('Standard');
   const [message, setMessage] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [savedToDb, setSavedToDb] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setSaving(true);
+    setSavedToDb(false);
+    try {
+      if (user) {
+        await addDoc(collection(db, 'inquiries'), {
+          senderUid: user.uid,
+          senderName: (name || user.displayName || 'Visitor').trim().slice(0, 80),
+          senderEmail: (email || user.email || '').trim().slice(0, 120),
+          serviceCategory: serviceCategory.slice(0, 100),
+          urgency: urgency.slice(0, 60),
+          message: message.trim().slice(0, 2000),
+          status: 'new',
+          createdAt: serverTimestamp(),
+        });
+        setSavedToDb(true);
+      }
+    } catch (error) {
+      try {
+        handleFirestoreError(error, OperationType.CREATE, 'inquiries');
+      } catch {
+        // Logged via handleFirestoreError
+      }
+    } finally {
+      setSaving(false);
+      setSubmitted(true);
+    }
   };
 
   const getWhatsAppMessage = () => {
@@ -183,7 +215,10 @@ export const ContactSection: React.FC = () => {
                     Inquiry Sent Successfully!
                   </h4>
                   <p className="text-sm text-neutral-600 dark:text-neutral-300 max-w-md mx-auto">
-                    Thank you, <strong>{name}</strong>! Your inquiry regarding <em>{serviceCategory}</em> has been logged. I will reply via email or WhatsApp within a few hours.
+                    Thank you, <strong>{name}</strong>! Your inquiry regarding <em>{serviceCategory}</em> is ready.{' '}
+                    {savedToDb
+                      ? 'It has been saved to our database inbox and you can also forward it directly below.'
+                      : 'Forward via WhatsApp or Email below for immediate delivery.'}
                   </p>
 
                   <div className="pt-4 flex flex-col sm:flex-row gap-3 justify-center">
@@ -196,6 +231,13 @@ export const ContactSection: React.FC = () => {
                       <MessageCircle className="w-4 h-4" />
                       <span>Forward to WhatsApp ({PROFILE_DATA.phoneFormatted})</span>
                     </a>
+                    <a
+                      href={`mailto:${PROFILE_DATA.email}?subject=${encodeURIComponent(`Inquiry: ${serviceCategory}`)}&body=${getWhatsAppMessage()}`}
+                      className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg bg-neutral-900 hover:bg-neutral-800 dark:bg-white dark:text-neutral-950 text-white text-xs font-semibold"
+                    >
+                      <Mail className="w-4 h-4" />
+                      <span>Send via Email</span>
+                    </a>
                     <button
                       onClick={() => {
                         setSubmitted(false);
@@ -203,7 +245,7 @@ export const ContactSection: React.FC = () => {
                       }}
                       className="px-4 py-2.5 rounded-lg border border-neutral-300 dark:border-neutral-700 text-xs font-medium text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800"
                     >
-                      Submit Another Inquiry
+                      Submit Another
                     </button>
                   </div>
                 </div>
@@ -294,10 +336,11 @@ export const ContactSection: React.FC = () => {
                   <div className="pt-2 flex flex-col sm:flex-row gap-3">
                     <button
                       type="submit"
-                      className="flex-1 inline-flex items-center justify-center gap-2 py-3 rounded-lg bg-neutral-900 hover:bg-neutral-800 dark:bg-white dark:hover:bg-neutral-100 text-white dark:text-neutral-950 text-xs font-semibold transition-colors"
+                      disabled={saving}
+                      className="flex-1 inline-flex items-center justify-center gap-2 py-3 rounded-lg bg-neutral-900 hover:bg-neutral-800 dark:bg-white dark:hover:bg-neutral-100 text-white dark:text-neutral-950 text-xs font-semibold transition-colors disabled:opacity-60"
                     >
-                      <Send className="w-3.5 h-3.5" />
-                      <span>Send Direct Message</span>
+                      {saving ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Send className="w-3.5 h-3.5" />}
+                      <span>{saving ? 'Saving...' : 'Send Direct Message'}</span>
                     </button>
 
                     <a

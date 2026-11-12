@@ -1,0 +1,191 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Global default-deny safety net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() >= 1 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isVerifiedUser() {
+      return isSignedIn() && request.auth.token.email_verified == true;
+    }
+
+    function isAdmin() {
+      return isVerifiedUser() && (
+        request.auth.token.email == 'mr216873@gmail.com' ||
+        request.auth.token.email == 'mrshahinunofficial@gmail.com'
+      );
+    }
+
+    function isValidReview(data) {
+      return data.keys().hasAll([
+          'authorUid',
+          'authorName',
+          'roleOrCompany',
+          'serviceUsed',
+          'rating',
+          'title',
+          'comment',
+          'createdAt',
+          'updatedAt'
+        ])
+        && data.keys().hasOnly([
+          'authorUid',
+          'authorName',
+          'roleOrCompany',
+          'serviceUsed',
+          'rating',
+          'title',
+          'comment',
+          'createdAt',
+          'updatedAt'
+        ])
+        && data.authorUid is string && data.authorUid.size() >= 1 && data.authorUid.size() <= 128
+        && data.authorName is string && data.authorName.size() >= 2 && data.authorName.size() <= 80
+        && data.roleOrCompany is string && data.roleOrCompany.size() <= 80
+        && data.serviceUsed is string && data.serviceUsed.size() >= 2 && data.serviceUsed.size() <= 60
+        && data.serviceUsed in [
+          'Remote IT Support',
+          'Virtual Assistance & Admin',
+          'Professional CV Design',
+          'Blogspot & WordPress Management',
+          'Student Earning Guidance',
+          'General Consultation'
+        ]
+        && data.rating is int && data.rating >= 1 && data.rating <= 5
+        && data.title is string && data.title.size() >= 3 && data.title.size() <= 100
+        && data.comment is string && data.comment.size() >= 10 && data.comment.size() <= 1000
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    function isValidArticleComment(data) {
+      return data.keys().hasAll(['articleId', 'authorUid', 'authorName', 'text', 'createdAt'])
+        && data.keys().hasOnly(['articleId', 'authorUid', 'authorName', 'text', 'createdAt'])
+        && data.articleId is string && data.articleId.size() >= 1 && data.articleId.size() <= 64 && data.articleId.matches('^[a-zA-Z0-9_\\-]+$')
+        && data.authorUid is string && data.authorUid.size() >= 1 && data.authorUid.size() <= 128
+        && data.authorName is string && data.authorName.size() >= 2 && data.authorName.size() <= 80
+        && data.text is string && data.text.size() >= 2 && data.text.size() <= 800
+        && data.createdAt is timestamp;
+    }
+
+    function isValidInquiry(data) {
+      return data.keys().hasAll([
+          'senderUid',
+          'senderName',
+          'senderEmail',
+          'serviceCategory',
+          'urgency',
+          'message',
+          'status',
+          'createdAt'
+        ])
+        && data.keys().hasOnly([
+          'senderUid',
+          'senderName',
+          'senderEmail',
+          'serviceCategory',
+          'urgency',
+          'message',
+          'status',
+          'createdAt'
+        ])
+        && data.senderUid is string && data.senderUid.size() >= 1 && data.senderUid.size() <= 128
+        && data.senderName is string && data.senderName.size() >= 2 && data.senderName.size() <= 80
+        && data.senderEmail is string && data.senderEmail.size() <= 120
+        && data.serviceCategory is string && data.serviceCategory.size() >= 2 && data.serviceCategory.size() <= 100
+        && data.urgency is string && data.urgency.size() >= 2 && data.urgency.size() <= 60
+        && data.message is string && data.message.size() >= 5 && data.message.size() <= 2000
+        && data.status is string && data.status in ['new', 'reviewed', 'archived']
+        && data.createdAt is timestamp;
+    }
+
+    // Public non-PII client reviews
+    match /reviews/{reviewId} {
+      allow get: if isValidId(reviewId);
+      allow list: if true;
+      allow create: if isVerifiedUser()
+        && isValidId(reviewId)
+        && isValidReview(incoming())
+        && incoming().authorUid == request.auth.uid
+        && incoming().createdAt == request.time
+        && incoming().updatedAt == request.time;
+      allow update: if isVerifiedUser()
+        && isValidId(reviewId)
+        && isValidReview(incoming())
+        && incoming().authorUid == existing().authorUid
+        && incoming().authorName == existing().authorName
+        && incoming().createdAt == existing().createdAt
+        && incoming().updatedAt == request.time
+        && incoming().diff(existing()).affectedKeys().hasOnly([
+          'roleOrCompany',
+          'serviceUsed',
+          'rating',
+          'title',
+          'comment',
+          'updatedAt'
+        ])
+        && (isAdmin() || existing().authorUid == request.auth.uid);
+      allow delete: if isVerifiedUser()
+        && isValidId(reviewId)
+        && (isAdmin() || existing().authorUid == request.auth.uid);
+    }
+
+    // Public non-PII article discussion comments
+    match /article_comments/{commentId} {
+      allow get: if isValidId(commentId);
+      allow list: if true;
+      allow create: if isVerifiedUser()
+        && isValidId(commentId)
+        && isValidArticleComment(incoming())
+        && incoming().authorUid == request.auth.uid
+        && incoming().createdAt == request.time;
+      allow update: if false;
+      allow delete: if isVerifiedUser()
+        && isValidId(commentId)
+        && (isAdmin() || existing().authorUid == request.auth.uid);
+    }
+
+    // Private PII-bearing inquiries (strictly owner or admin)
+    match /inquiries/{inquiryId} {
+      allow get: if isVerifiedUser()
+        && isValidId(inquiryId)
+        && (isAdmin() || existing().senderUid == request.auth.uid);
+      allow list: if isVerifiedUser()
+        && (isAdmin() || resource.data.senderUid == request.auth.uid);
+      allow create: if isVerifiedUser()
+        && isValidId(inquiryId)
+        && isValidInquiry(incoming())
+        && incoming().senderUid == request.auth.uid
+        && incoming().status == 'new'
+        && incoming().createdAt == request.time;
+      allow update: if isVerifiedUser()
+        && isValidId(inquiryId)
+        && isValidInquiry(incoming())
+        && isAdmin()
+        && existing().status != 'archived'
+        && incoming().senderUid == existing().senderUid
+        && incoming().createdAt == existing().createdAt
+        && incoming().diff(existing()).affectedKeys().hasOnly(['status']);
+      allow delete: if isVerifiedUser()
+        && isValidId(inquiryId)
+        && isAdmin();
+    }
+  }
+}

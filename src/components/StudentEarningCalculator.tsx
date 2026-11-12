@@ -245,7 +245,7 @@ export const StudentEarningCalculator: React.FC = () => {
             {/* CTAs */}
             <div className="mt-8 pt-6 border-t border-neutral-200 dark:border-neutral-800 flex flex-wrap items-center gap-3">
               <a
-                href={`https://wa.me/?text=${whatsappMessage}`}
+                href={`https://wa.me/8809611056361?text=${whatsappMessage}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex-1 min-w-[200px] inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold transition-colors shadow-xs"

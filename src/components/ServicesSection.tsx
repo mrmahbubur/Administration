@@ -49,7 +49,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
           {SERVICES.map((service) => {
             const Icon = getServiceIcon(service.id);
-            const waUrl = `https://wa.me/?text=${encodeURIComponent(service.whatsappPreset)}`;
+            const waUrl = `https://wa.me/8809611056361?text=${encodeURIComponent(service.whatsappPreset)}`;
 
             return (
               <div

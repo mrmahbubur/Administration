@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { 
-  Menu, 
-  X, 
-  Search, 
-  Bookmark, 
-  Moon, 
-  Sun, 
-  MessageCircle, 
+import {
+  Menu,
+  X,
+  Search,
+  Bookmark,
+  Moon,
+  Sun,
+  MessageCircle,
   ExternalLink,
   BookOpen,
   Briefcase,
@@ -14,9 +14,15 @@ import {
   HeartHandshake,
   Send,
   Compass,
-  Calendar
+  Calendar,
+  UserCheck,
+  Star,
+  LogIn,
+  LogOut,
+  Inbox,
 } from 'lucide-react';
 import { BLOG_METADATA, PROFILE_DATA } from '../data/blogData';
+import { useAuth } from '../contexts/AuthContext';
 
 interface NavbarProps {
   currentTab: string;
@@ -28,6 +34,7 @@ interface NavbarProps {
   onToggleDark: () => void;
   onOpenConsultation: () => void;
   onOpenCalendly: () => void;
+  onOpenOwnerInbox: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -39,17 +46,21 @@ export const Navbar: React.FC<NavbarProps> = ({
   isDark,
   onToggleDark,
   onOpenConsultation,
-  onOpenCalendly
+  onOpenCalendly,
+  onOpenOwnerInbox,
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { user, isAdmin, authLoading, signInWithGoogle, logout } = useAuth();
 
   const navItems = [
-    { id: 'articles', label: 'All Articles', icon: BookOpen },
-    { id: 'student', label: 'Student Earning', icon: Compass },
-    { id: 'services', label: 'Services & Templates', icon: Briefcase },
-    { id: 'projects', label: 'Future Projects', icon: Layers },
-    { id: 'charity', label: 'Charity Foundation', icon: HeartHandshake },
-    { id: 'contact', label: 'Contact', icon: Send }
+    { id: 'articles', label: 'Articles', icon: BookOpen },
+    { id: 'about', label: 'Owner & About', icon: UserCheck },
+    { id: 'services', label: 'Services', icon: Briefcase },
+    { id: 'reviews', label: 'Reviews', icon: Star },
+    { id: 'student', label: 'Student Guide', icon: Compass },
+    { id: 'projects', label: 'Projects', icon: Layers },
+    { id: 'charity', label: 'Charity', icon: HeartHandshake },
+    { id: 'contact', label: 'Contact', icon: Send },
   ];
 
   const handleNavClick = (id: string) => {
@@ -115,14 +126,14 @@ export const Navbar: React.FC<NavbarProps> = ({
             </div>
 
             {/* Desktop Navigation Links */}
-            <nav className="hidden lg:flex items-center gap-1 xl:gap-2">
+            <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1">
               {navItems.map((item) => {
                 const isActive = currentTab === item.id;
                 return (
                   <button
                     key={item.id}
                     onClick={() => handleNavClick(item.id)}
-                    className={`px-3 py-2 text-sm font-medium rounded-md transition-colors relative ${
+                    className={`px-2.5 py-2 text-xs xl:text-sm font-medium rounded-md transition-colors relative whitespace-nowrap ${
                       isActive
                         ? 'text-neutral-950 dark:text-white font-semibold'
                         : 'text-neutral-600 hover:text-neutral-950 dark:text-neutral-300 dark:hover:text-white'
@@ -130,7 +141,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   >
                     {item.label}
                     {isActive && (
-                      <span className="absolute bottom-0 left-3 right-3 h-0.5 bg-neutral-950 dark:bg-white rounded-full" />
+                      <span className="absolute bottom-0 left-2.5 right-2.5 h-0.5 bg-neutral-950 dark:bg-white rounded-full" />
                     )}
                   </button>
                 );
@@ -184,15 +195,53 @@ export const Navbar: React.FC<NavbarProps> = ({
                 {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
               </button>
 
+              {/* Owner Inbox (Admin Only) */}
+              {isAdmin && (
+                <button
+                  onClick={onOpenOwnerInbox}
+                  className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-neutral-950 text-xs font-bold transition-colors"
+                  title="Open Owner Inquiries Inbox"
+                >
+                  <Inbox className="w-3.5 h-3.5" />
+                  <span>Inbox</span>
+                </button>
+              )}
+
+              {/* Google Auth Button (Desktop) */}
+              {!authLoading && (
+                user ? (
+                  <button
+                    onClick={logout}
+                    className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-neutral-300 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-800 dark:text-neutral-200 text-xs font-medium transition-colors"
+                    title={`Signed in as ${user.displayName || user.email}. Click to sign out.`}
+                  >
+                    <span className="w-5 h-5 rounded-full bg-neutral-900 dark:bg-white text-white dark:text-neutral-950 text-[10px] font-bold flex items-center justify-center">
+                      {(user.displayName || user.email || 'U').charAt(0).toUpperCase()}
+                    </span>
+                    <LogOut className="w-3.5 h-3.5 text-neutral-500" />
+                  </button>
+                ) : (
+                  <button
+                    onClick={signInWithGoogle}
+                    className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-neutral-300 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-800 dark:text-neutral-200 text-xs font-semibold transition-colors"
+                    title="Sign in with Google to leave reviews or comments"
+                  >
+                    <LogIn className="w-3.5 h-3.5" />
+                    <span>Sign In</span>
+                  </button>
+                )
+              )}
+
               {/* WhatsApp Quick Action (Desktop) */}
               <a
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hidden md:inline-flex items-center gap-2 px-3.5 py-2 text-xs font-semibold rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white transition-colors shadow-sm"
+                className="hidden md:inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white transition-colors shadow-sm"
               >
                 <MessageCircle className="w-4 h-4" />
-                <span>WhatsApp M R S</span>
+                <span className="hidden xl:inline">WhatsApp M R S</span>
+                <span className="xl:hidden">WhatsApp</span>
               </a>
 
               {/* Mobile Hamburger Toggle */}
@@ -299,6 +348,47 @@ export const Navbar: React.FC<NavbarProps> = ({
                     {savedCount}
                   </span>
                 </button>
+
+                {isAdmin && (
+                  <button
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      onOpenOwnerInbox();
+                    }}
+                    className="flex items-center gap-3 w-full px-3.5 py-2.5 rounded-lg text-left text-sm font-semibold text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/30"
+                  >
+                    <Inbox className="w-4 h-4" />
+                    <span>Owner Inquiries Inbox</span>
+                  </button>
+                )}
+
+                {!authLoading && (
+                  user ? (
+                    <button
+                      onClick={() => {
+                        logout();
+                        setMobileMenuOpen(false);
+                      }}
+                      className="flex items-center justify-between w-full px-3.5 py-2.5 rounded-lg text-left text-sm text-neutral-700 dark:text-neutral-200 hover:bg-neutral-50 dark:hover:bg-neutral-800"
+                    >
+                      <span className="flex items-center gap-3 truncate">
+                        <LogOut className="w-4 h-4 text-neutral-400 shrink-0" />
+                        <span className="truncate">Sign Out ({user.displayName || 'Account'})</span>
+                      </span>
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => {
+                        signInWithGoogle();
+                        setMobileMenuOpen(false);
+                      }}
+                      className="flex items-center gap-3 w-full px-3.5 py-2.5 rounded-lg text-left text-sm font-semibold text-neutral-900 dark:text-white bg-neutral-100 dark:bg-neutral-800"
+                    >
+                      <LogIn className="w-4 h-4" />
+                      <span>Sign In with Google</span>
+                    </button>
+                  )
+                )}
               </div>
             </div>
 
@@ -341,13 +431,13 @@ export const Navbar: React.FC<NavbarProps> = ({
           </button>
 
           <button
-            onClick={() => onSelectTab('student')}
+            onClick={() => onSelectTab('about')}
             className={`flex flex-col items-center justify-center py-1 rounded-md text-[11px] ${
-              currentTab === 'student' ? 'text-neutral-950 dark:text-white font-semibold' : 'text-neutral-500 dark:text-neutral-400'
+              currentTab === 'about' ? 'text-neutral-950 dark:text-white font-semibold' : 'text-neutral-500 dark:text-neutral-400'
             }`}
           >
-            <Compass className="w-4 h-4 mb-0.5" />
-            <span>Student</span>
+            <UserCheck className="w-4 h-4 mb-0.5" />
+            <span>Owner</span>
           </button>
 
           <button
@@ -361,16 +451,13 @@ export const Navbar: React.FC<NavbarProps> = ({
           </button>
 
           <button
-            onClick={onOpenSaved}
-            className="flex flex-col items-center justify-center py-1 rounded-md text-[11px] text-neutral-500 dark:text-neutral-400 relative"
+            onClick={() => onSelectTab('reviews')}
+            className={`flex flex-col items-center justify-center py-1 rounded-md text-[11px] ${
+              currentTab === 'reviews' ? 'text-neutral-950 dark:text-white font-semibold' : 'text-neutral-500 dark:text-neutral-400'
+            }`}
           >
-            <Bookmark className="w-4 h-4 mb-0.5" />
-            <span>Saved</span>
-            {savedCount > 0 && (
-              <span className="absolute top-0.5 right-4 w-3.5 h-3.5 rounded-full bg-amber-500 text-neutral-950 text-[9px] font-bold flex items-center justify-center">
-                {savedCount}
-              </span>
-            )}
+            <Star className="w-4 h-4 mb-0.5" />
+            <span>Reviews</span>
           </button>
 
           <button

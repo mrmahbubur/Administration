@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { X, MessageCircle, Send, CheckCircle2, ShieldCheck } from 'lucide-react';
+import { X, MessageCircle, Send, CheckCircle2, ShieldCheck, Loader2 } from 'lucide-react';
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { Service, Project } from '../types';
-import { BLOG_METADATA } from '../data/blogData';
+import { db, handleFirestoreError, OperationType } from '../firebase';
+import { useAuth } from '../contexts/AuthContext';
 
 interface OrderModalProps {
   item: Service | Project | null;
@@ -10,10 +12,12 @@ interface OrderModalProps {
 }
 
 export const OrderModal: React.FC<OrderModalProps> = ({ item, type, onClose }) => {
+  const { user } = useAuth();
   const [name, setName] = useState('');
   const [contact, setContact] = useState('');
   const [details, setDetails] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [saving, setSaving] = useState(false);
 
   if (!item) return null;
 
@@ -21,9 +25,32 @@ export const OrderModal: React.FC<OrderModalProps> = ({ item, type, onClose }) =
   const service = item as Service;
   const project = item as Project;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setSaving(true);
+    try {
+      if (user) {
+        await addDoc(collection(db, 'inquiries'), {
+          senderUid: user.uid,
+          senderName: (name || user.displayName || 'Visitor').trim().slice(0, 80),
+          senderEmail: (contact || user.email || '').trim().slice(0, 120),
+          serviceCategory: item.title.slice(0, 100),
+          urgency: isService ? 'Service Order' : 'Beta Waitlist',
+          message: (details || `${isService ? 'Service inquiry' : 'Waitlist request'} for ${item.title}`).trim().slice(0, 2000),
+          status: 'new',
+          createdAt: serverTimestamp(),
+        });
+      }
+    } catch (error) {
+      try {
+        handleFirestoreError(error, OperationType.CREATE, 'inquiries');
+      } catch {
+        // Logged via handleFirestoreError
+      }
+    } finally {
+      setSaving(false);
+      setSubmitted(true);
+    }
   };
 
   const generateWhatsAppUrl = () => {
@@ -33,7 +60,7 @@ export const OrderModal: React.FC<OrderModalProps> = ({ item, type, onClose }) =
     } else {
       msg = `Hello M R S, my name is ${name || 'a visitor'}. I would like to join the early waitlist for "${project.title}". (Contact: ${contact})`;
     }
-    return `https://wa.me/?text=${encodeURIComponent(msg)}`;
+    return `https://wa.me/8809611056361?text=${encodeURIComponent(msg)}`;
   };
 
   return (
@@ -146,10 +173,11 @@ export const OrderModal: React.FC<OrderModalProps> = ({ item, type, onClose }) =
               <div className="pt-2 flex flex-col sm:flex-row gap-2">
                 <button
                   type="submit"
-                  className="flex-1 inline-flex items-center justify-center gap-2 py-2.5 rounded-lg bg-neutral-900 hover:bg-neutral-800 dark:bg-white dark:hover:bg-neutral-100 text-white dark:text-neutral-950 text-xs font-semibold transition-colors"
+                  disabled={saving}
+                  className="flex-1 inline-flex items-center justify-center gap-2 py-2.5 rounded-lg bg-neutral-900 hover:bg-neutral-800 dark:bg-white dark:hover:bg-neutral-100 text-white dark:text-neutral-950 text-xs font-semibold transition-colors disabled:opacity-60"
                 >
-                  <Send className="w-3.5 h-3.5" />
-                  <span>Submit Request</span>
+                  {saving ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Send className="w-3.5 h-3.5" />}
+                  <span>{saving ? 'Submitting...' : 'Submit Request'}</span>
                 </button>
 
                 <a

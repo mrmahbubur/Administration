@@ -10,10 +10,26 @@ import {
   ChevronLeft, 
   MessageSquare, 
   Send,
-  ExternalLink
+  ExternalLink,
+  Trash2,
+  LogIn,
+  Loader2
 } from 'lucide-react';
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  onSnapshot,
+  query,
+  serverTimestamp,
+  Timestamp,
+  where,
+} from 'firebase/firestore';
 import { Article, CommentItem } from '../types';
 import { BLOG_METADATA } from '../data/blogData';
+import { db, handleFirestoreError, OperationType } from '../firebase';
+import { useAuth } from '../contexts/AuthContext';
 
 interface ArticleReaderModalProps {
   article: Article | null;
@@ -32,37 +48,50 @@ export const ArticleReaderModal: React.FC<ArticleReaderModalProps> = ({
   onSelectArticle,
   allArticles
 }) => {
+  const { user, isAdmin, signInWithGoogle, authLoading } = useAuth();
   const [fontSize, setFontSize] = useState<'normal' | 'large' | 'huge'>('normal');
   const [copied, setCopied] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [comments, setComments] = useState<CommentItem[]>([]);
-  const [commentName, setCommentName] = useState('');
   const [commentText, setCommentText] = useState('');
+  const [commentSubmitting, setCommentSubmitting] = useState(false);
   const [commentSuccess, setCommentSuccess] = useState(false);
+  const [commentError, setCommentError] = useState<string | null>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
-  // Load comments from localStorage
+  // Load real comments from Firestore
   useEffect(() => {
     if (!article) return;
-    try {
-      const stored = localStorage.getItem(`comments_${article.id}`);
-      if (stored) {
-        setComments(JSON.parse(stored));
-      } else {
-        // Initial sample welcoming comment
-        setComments([
-          {
-            id: 'c1',
-            articleId: article.id,
-            name: 'M R S (Founder)',
-            text: 'Thank you for reading! Feel free to ask questions or reach out via WhatsApp for direct support.',
-            createdAt: 'Recently'
-          }
-        ]);
+    const q = query(
+      collection(db, 'article_comments'),
+      where('articleId', '==', article.id)
+    );
+    const unsubscribe = onSnapshot(
+      q,
+      (snapshot) => {
+        const items: CommentItem[] = snapshot.docs.map((docSnap) => {
+          const d = docSnap.data();
+          return {
+            id: docSnap.id,
+            articleId: String(d.articleId || article.id),
+            authorUid: String(d.authorUid || ''),
+            authorName: String(d.authorName || 'Reader'),
+            text: String(d.text || ''),
+            createdAt: d.createdAt instanceof Timestamp ? d.createdAt.toMillis() : Date.now(),
+          };
+        });
+        items.sort((a, b) => b.createdAt - a.createdAt);
+        setComments(items);
+      },
+      (error) => {
+        try {
+          handleFirestoreError(error, OperationType.LIST, 'article_comments');
+        } catch {
+          // Logged via handleFirestoreError
+        }
       }
-    } catch {
-      // Ignore
-    }
+    );
+    return () => unsubscribe();
   }, [article]);
 
   // Track scroll progress
@@ -82,33 +111,56 @@ export const ArticleReaderModal: React.FC<ArticleReaderModalProps> = ({
 
   const handleShareWhatsApp = () => {
     const text = `Check out this article on MRS ADMIN: "${article.title}"`;
-    window.open(`https://wa.me/?text=${encodeURIComponent(text + ' ' + window.location.href)}`, '_blank');
+    window.open(`https://wa.me/8809611056361?text=${encodeURIComponent(text + ' ' + window.location.href)}`, '_blank');
   };
 
-  const handleAddComment = (e: React.FormEvent) => {
+  const handleAddComment = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!commentName.trim() || !commentText.trim()) return;
-
-    const newComment: CommentItem = {
-      id: Date.now().toString(),
-      articleId: article.id,
-      name: commentName.trim(),
-      text: commentText.trim(),
-      createdAt: 'Just now'
-    };
-
-    const updated = [newComment, ...comments];
-    setComments(updated);
-    try {
-      localStorage.setItem(`comments_${article.id}`, JSON.stringify(updated));
-    } catch {
-      // Ignore
+    setCommentError(null);
+    if (!user) {
+      setCommentError('Please sign in with Google to post a comment.');
+      return;
+    }
+    const cleanText = commentText.trim().slice(0, 800);
+    if (cleanText.length < 2) {
+      setCommentError('Please write at least 2 characters.');
+      return;
     }
 
-    setCommentName('');
-    setCommentText('');
-    setCommentSuccess(true);
-    setTimeout(() => setCommentSuccess(false), 3000);
+    setCommentSubmitting(true);
+    try {
+      await addDoc(collection(db, 'article_comments'), {
+        articleId: article.id,
+        authorUid: user.uid,
+        authorName: (user.displayName || 'Reader').trim().slice(0, 80),
+        text: cleanText,
+        createdAt: serverTimestamp(),
+      });
+      setCommentText('');
+      setCommentSuccess(true);
+      setTimeout(() => setCommentSuccess(false), 3000);
+    } catch (error) {
+      setCommentError('Could not post comment right now.');
+      try {
+        handleFirestoreError(error, OperationType.CREATE, 'article_comments');
+      } catch {
+        // Logged via handleFirestoreError
+      }
+    } finally {
+      setCommentSubmitting(false);
+    }
+  };
+
+  const handleDeleteComment = async (commentId: string) => {
+    try {
+      await deleteDoc(doc(db, 'article_comments', commentId));
+    } catch (error) {
+      try {
+        handleFirestoreError(error, OperationType.DELETE, `article_comments/${commentId}`);
+      } catch {
+        // Logged via handleFirestoreError
+      }
+    }
   };
 
   const nextArticle = allArticles.find(a => a.id !== article.id);
@@ -292,7 +344,7 @@ export const ArticleReaderModal: React.FC<ArticleReaderModalProps> = ({
               </div>
 
               <a
-                href={`https://wa.me/?text=${encodeURIComponent(`Hi M R S, I read your article "${article.title}" and wanted to ask...`)}`}
+                href={`https://wa.me/8809611056361?text=${encodeURIComponent(`Hi M R S, I read your article "${article.title}" and wanted to ask...`)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-neutral-100 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 hover:bg-emerald-50 hover:text-emerald-700 dark:hover:bg-emerald-950/40 dark:hover:text-emerald-400 transition-colors"
@@ -329,7 +381,7 @@ export const ArticleReaderModal: React.FC<ArticleReaderModalProps> = ({
                 </div>
 
                 <a
-                  href={`https://wa.me/?text=${encodeURIComponent(`Hello M R S, I found your article "${article.title}" very helpful!`)}`}
+                  href={`https://wa.me/8809611056361?text=${encodeURIComponent(`Hello M R S, I found your article "${article.title}" very helpful!`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold transition-colors"
@@ -370,57 +422,91 @@ export const ArticleReaderModal: React.FC<ArticleReaderModalProps> = ({
               </div>
 
               {/* Add Comment Form */}
-              <form onSubmit={handleAddComment} className="mb-8 p-4 rounded-xl bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-800">
-                <p className="text-xs font-medium text-neutral-600 dark:text-neutral-400 mb-3">
-                  Leave your thought or question for M R S:
-                </p>
-                <div className="flex flex-col gap-3">
-                  <input
-                    type="text"
-                    placeholder="Your Name (e.g. Alex M.)"
-                    value={commentName}
-                    onChange={(e) => setCommentName(e.target.value)}
-                    required
-                    className="w-full px-3 py-2 text-sm rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-neutral-950 dark:focus:ring-white"
-                  />
-                  <textarea
-                    rows={3}
-                    placeholder="Write your question, feedback, or tip here..."
-                    value={commentText}
-                    onChange={(e) => setCommentText(e.target.value)}
-                    required
-                    className="w-full px-3 py-2 text-sm rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-neutral-950 dark:focus:ring-white"
-                  />
-                  <div className="flex items-center justify-between">
-                    {commentSuccess && (
-                      <span className="text-xs text-emerald-600 dark:text-emerald-400 font-medium">
-                        ✓ Comment posted successfully!
-                      </span>
-                    )}
-                    <button
-                      type="submit"
-                      className="ml-auto inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-neutral-900 hover:bg-neutral-800 dark:bg-white dark:hover:bg-neutral-100 text-white dark:text-neutral-950 text-xs font-semibold transition-colors"
-                    >
-                      <Send className="w-3.5 h-3.5" />
-                      <span>Post Comment</span>
-                    </button>
-                  </div>
+              {!user ? (
+                <div className="mb-8 p-4 rounded-xl bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                  <p className="text-xs text-neutral-600 dark:text-neutral-400">
+                    Sign in with Google to leave a verified question or comment for M R S.
+                  </p>
+                  <button
+                    type="button"
+                    onClick={signInWithGoogle}
+                    disabled={authLoading}
+                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-neutral-900 hover:bg-neutral-800 dark:bg-white dark:hover:bg-neutral-100 text-white dark:text-neutral-950 text-xs font-semibold shrink-0"
+                  >
+                    {authLoading ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <LogIn className="w-3.5 h-3.5" />}
+                    <span>Sign in with Google</span>
+                  </button>
                 </div>
-              </form>
+              ) : (
+                <form onSubmit={handleAddComment} className="mb-8 p-4 rounded-xl bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-800">
+                  <p className="text-xs font-medium text-neutral-600 dark:text-neutral-400 mb-3">
+                    Commenting as <strong className="text-neutral-900 dark:text-white">{user.displayName || 'Reader'}</strong>:
+                  </p>
+                  <div className="flex flex-col gap-3">
+                    <textarea
+                      rows={3}
+                      maxLength={800}
+                      placeholder="Write your question, feedback, or tip here..."
+                      value={commentText}
+                      onChange={(e) => setCommentText(e.target.value)}
+                      required
+                      className="w-full px-3 py-2 text-sm rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-neutral-950 dark:focus:ring-white"
+                    />
+                    {commentError && (
+                      <span className="text-xs text-rose-600">{commentError}</span>
+                    )}
+                    <div className="flex items-center justify-between">
+                      {commentSuccess && (
+                        <span className="text-xs text-emerald-600 dark:text-emerald-400 font-medium">
+                          ✓ Comment posted successfully!
+                        </span>
+                      )}
+                      <button
+                        type="submit"
+                        disabled={commentSubmitting}
+                        className="ml-auto inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-neutral-900 hover:bg-neutral-800 dark:bg-white dark:hover:bg-neutral-100 text-white dark:text-neutral-950 text-xs font-semibold transition-colors disabled:opacity-60"
+                      >
+                        {commentSubmitting ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Send className="w-3.5 h-3.5" />}
+                        <span>{commentSubmitting ? 'Posting...' : 'Post Comment'}</span>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              )}
 
               {/* Comments List */}
               <div className="space-y-4">
-                {comments.map((c) => (
-                  <div key={c.id} className="p-4 rounded-lg bg-neutral-50/70 dark:bg-neutral-800/40 border border-neutral-200/60 dark:border-neutral-800">
-                    <div className="flex items-center justify-between text-xs mb-1">
-                      <span className="font-semibold text-neutral-900 dark:text-white">{c.name}</span>
-                      <span className="text-neutral-400">{c.createdAt}</span>
+                {comments.length === 0 ? (
+                  <p className="text-xs text-neutral-500 dark:text-neutral-400">
+                    No comments yet on this article. Be the first to start a discussion!
+                  </p>
+                ) : (
+                  comments.map((c) => (
+                    <div key={c.id} className="p-4 rounded-lg bg-neutral-50/70 dark:bg-neutral-800/40 border border-neutral-200/60 dark:border-neutral-800">
+                      <div className="flex items-center justify-between text-xs mb-1">
+                        <span className="font-semibold text-neutral-900 dark:text-white">{c.authorName}</span>
+                        <div className="flex items-center gap-2">
+                          <span className="text-neutral-400">
+                            {new Date(c.createdAt).toLocaleDateString()}
+                          </span>
+                          {user && (user.uid === c.authorUid || isAdmin) && (
+                            <button
+                              type="button"
+                              onClick={() => handleDeleteComment(c.id)}
+                              className="text-rose-500 hover:text-rose-700"
+                              title="Delete comment"
+                            >
+                              <Trash2 className="w-3.5 h-3.5" />
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                      <p className="text-xs sm:text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed">
+                        {c.text}
+                      </p>
                     </div>
-                    <p className="text-xs sm:text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed">
-                      {c.text}
-                    </p>
-                  </div>
-                ))}
+                  ))
+                )}
               </div>
 
             </div>

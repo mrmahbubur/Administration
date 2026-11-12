@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Component, ErrorInfo, ReactNode } from 'react';
 import { Navbar } from './components/Navbar';
 import { HeroSection } from './components/HeroSection';
+import { AboutOwnerSection } from './components/AboutOwnerSection';
+import { CapabilitiesSection } from './components/CapabilitiesSection';
 import { ArticleCard } from './components/ArticleCard';
 import { ArticleReaderModal } from './components/ArticleReaderModal';
 import { StudentEarningCalculator } from './components/StudentEarningCalculator';
 import { ServicesSection } from './components/ServicesSection';
 import { ProjectsSection } from './components/ProjectsSection';
+import { ReviewsSection } from './components/ReviewsSection';
+import { OwnerInboxModal } from './components/OwnerInboxModal';
 import { BloggerCodeGeneratorModal } from './components/BloggerCodeGeneratorModal';
 import { CalendlyModal } from './components/CalendlyModal';
 import { OrderModal } from './components/OrderModal';
@@ -14,12 +18,51 @@ import { SavedArticlesDrawer } from './components/SavedArticlesDrawer';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 
-import { ARTICLES, SERVICES, PROJECTS, BLOG_METADATA } from './data/blogData';
+import { ARTICLES, SERVICES, BLOG_METADATA } from './data/blogData';
 import { Article, Service, Project } from './types';
 import { HeartHandshake, ExternalLink } from 'lucide-react';
 
+interface ErrorBoundaryState {
+  hasError: boolean;
+}
+
+class AppErrorBoundary extends Component<{ children: ReactNode }, ErrorBoundaryState> {
+  state: ErrorBoundaryState = { hasError: false };
+
+  static getDerivedStateFromError(): ErrorBoundaryState {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error: Error, info: ErrorInfo) {
+    console.error('Application render error:', error, info);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="min-h-screen flex items-center justify-center bg-neutral-50 text-neutral-900 p-6">
+          <div className="max-w-md w-full p-6 rounded-2xl bg-white border border-neutral-200 shadow-sm text-center space-y-3">
+            <h1 className="text-lg font-bold">Something went wrong</h1>
+            <p className="text-xs text-neutral-600">
+              Please refresh the page to restore the portal.
+            </p>
+            <button
+              onClick={() => window.location.reload()}
+              className="px-4 py-2 rounded-lg bg-neutral-900 text-white text-xs font-semibold hover:bg-neutral-800"
+            >
+              Reload Page
+            </button>
+          </div>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
 export default function App() {
   const [currentTab, setCurrentTab] = useState<string>('articles');
+  const [inboxOpen, setInboxOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [searchOpen, setSearchOpen] = useState(false);
   const [calendlyOpen, setCalendlyOpen] = useState(false);
@@ -138,28 +181,30 @@ export default function App() {
   };
 
   return (
-    <div className={`min-h-screen flex flex-col ${isDark ? 'dark bg-neutral-950 text-neutral-100' : 'bg-neutral-50 text-neutral-900'} transition-colors duration-200 pb-16 lg:pb-0`}>
-      
-      {/* Toast Notification */}
-      {shareToast && (
-        <div className="fixed bottom-20 sm:bottom-6 right-6 z-50 px-4 py-2.5 rounded-lg bg-neutral-900 text-white dark:bg-white dark:text-neutral-950 text-xs font-semibold shadow-lg flex items-center gap-2 animate-in slide-in-from-bottom-2">
-          <span>✓</span>
-          <span>{shareToast}</span>
-        </div>
-      )}
+    <AppErrorBoundary>
+      <div className={`min-h-screen flex flex-col ${isDark ? 'dark bg-neutral-950 text-neutral-100' : 'bg-neutral-50 text-neutral-900'} transition-colors duration-200 pb-16 lg:pb-0`}>
+        
+        {/* Toast Notification */}
+        {shareToast && (
+          <div className="fixed bottom-20 sm:bottom-6 right-6 z-50 px-4 py-2.5 rounded-lg bg-neutral-900 text-white dark:bg-white dark:text-neutral-950 text-xs font-semibold shadow-lg flex items-center gap-2 animate-in slide-in-from-bottom-2">
+            <span>✓</span>
+            <span>{shareToast}</span>
+          </div>
+        )}
 
-      {/* Navigation Header */}
-      <Navbar
-        currentTab={currentTab}
-        onSelectTab={handleSelectTab}
-        onOpenSearch={() => setSearchOpen(true)}
-        savedCount={savedIds.length}
-        onOpenSaved={() => setSavedDrawerOpen(true)}
-        isDark={isDark}
-        onToggleDark={handleToggleDark}
-        onOpenConsultation={() => setOrderModalData({ item: SERVICES[3], type: 'service' })}
-        onOpenCalendly={() => setCalendlyOpen(true)}
-      />
+        {/* Navigation Header */}
+        <Navbar
+          currentTab={currentTab}
+          onSelectTab={handleSelectTab}
+          onOpenSearch={() => setSearchOpen(true)}
+          savedCount={savedIds.length}
+          onOpenSaved={() => setSavedDrawerOpen(true)}
+          isDark={isDark}
+          onToggleDark={handleToggleDark}
+          onOpenConsultation={() => setOrderModalData({ item: SERVICES[3], type: 'service' })}
+          onOpenCalendly={() => setCalendlyOpen(true)}
+          onOpenOwnerInbox={() => setInboxOpen(true)}
+        />
 
       <main className="flex-1">
         {/* Editorial Hero Section (Unchanged Structure, Enhanced with Gravatar) */}
@@ -173,6 +218,29 @@ export default function App() {
           onOpenConsultation={() => setOrderModalData({ item: SERVICES[3], type: 'service' })}
           onReadFeatured={() => setReadingArticle(ARTICLES[0])}
           onOpenCalendly={() => setCalendlyOpen(true)}
+        />
+
+        {/* Owner Profile & Detailed About Section */}
+        <AboutOwnerSection
+          onOpenCalendly={() => setCalendlyOpen(true)}
+          onScrollToContact={() => handleSelectTab('contact')}
+        />
+
+        {/* Interactive 7-Pillar Capabilities Matrix */}
+        <CapabilitiesSection
+          onSelectService={(serviceName) => {
+            const matched =
+              SERVICES.find((s) =>
+                serviceName.toLowerCase().includes(s.id.split('-')[0])
+              ) || SERVICES[0];
+            setOrderModalData({
+              item: {
+                ...matched,
+                title: serviceName,
+              },
+              type: 'service',
+            });
+          }}
         />
 
         {/* Interactive Filter Bar & Articles Feed */}
@@ -239,6 +307,9 @@ export default function App() {
         <div id="projects-section">
           <ProjectsSection onJoinWaitlist={handleJoinWaitlist} />
         </div>
+
+        {/* Verified Client Reviews & Rating Distribution (Firestore) */}
+        <ReviewsSection />
 
         {/* Charity Foundation Highlight Section */}
         <section id="charity-section" className="py-12 sm:py-16 bg-neutral-900 text-white dark:bg-neutral-950 border-t border-neutral-800">
@@ -351,6 +422,13 @@ export default function App() {
         onClose={() => setBloggerModalOpen(false)}
       />
 
-    </div>
+      {/* Owner Inbox Modal (Admin Only) */}
+      <OwnerInboxModal
+        isOpen={inboxOpen}
+        onClose={() => setInboxOpen(false)}
+      />
+
+      </div>
+    </AppErrorBoundary>
   );
 }
