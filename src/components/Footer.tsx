@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { ExternalLink, HeartHandshake, Mail, MessageCircle, Send, Check, Phone, Calendar, ShieldCheck } from 'lucide-react';
-import { BLOG_METADATA, PROFILE_DATA } from '../data/blogData';
+import React from 'react';
+import { ExternalLink, Mail, MessageCircle, Calendar, ArrowRight } from 'lucide-react';
+import { PROFILE_DATA } from '../data/blogData';
 
 interface FooterProps {
   onSelectCategory: (category: string) => void;
@@ -8,25 +8,11 @@ interface FooterProps {
   onOpenCalendly: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onSelectCategory, onSelectTab, onOpenCalendly }) => {
-  const [email, setEmail] = useState('');
-  const [subscribed, setSubscribed] = useState(false);
-
-  const handleSubscribe = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (email) {
-      setSubscribed(true);
-      setTimeout(() => setSubscribed(false), 4000);
-      setEmail('');
-    }
-  };
-
+export const Footer: React.FC<FooterProps> = ({ onSelectTab, onOpenCalendly }) => {
   return (
     <footer className="bg-neutral-950 text-neutral-400 text-xs border-t border-neutral-800 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-        
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-10">
-          
           {/* Brand Info & Author Card */}
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center gap-3">
@@ -37,12 +23,14 @@ export const Footer: React.FC<FooterProps> = ({ onSelectCategory, onSelectTab, o
                 <span className="text-base font-bold text-white tracking-tight block">
                   {PROFILE_DATA.displayName}
                 </span>
-                <span className="text-neutral-400 text-xs">@{PROFILE_DATA.username} · Independent Remote Operations</span>
+                <span className="text-neutral-400 text-xs">
+                  @{PROFILE_DATA.username} · Independent Remote Operations
+                </span>
               </div>
             </div>
-            
+
             <p className="text-neutral-400 text-xs leading-relaxed max-w-sm">
-              Certified IT support, virtual administrative operations, and web manager. Authoring tech documentation and supporting entrepreneurs since 2018.
+              Certified IT support, virtual administrative operations, and web management. Authoring tech documentation and supporting clients since 2018.
             </p>
 
             <blockquote className="border-l border-neutral-700 pl-3 py-0.5 text-xs italic text-neutral-300 font-serif-content">
@@ -52,7 +40,9 @@ export const Footer: React.FC<FooterProps> = ({ onSelectCategory, onSelectTab, o
             {/* Quick Actions */}
             <div className="flex flex-wrap items-center gap-2 pt-2">
               <a
-                href={`https://wa.me/8809611056361?text=${encodeURIComponent('Hi M R S, connecting from your portfolio.')}`}
+                href={`https://wa.me/8809611056361?text=${encodeURIComponent(
+                  'Hi M R S, connecting from your portfolio.'
+                )}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-600/20 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-600 hover:text-white transition-colors text-xs font-medium"
@@ -195,43 +185,32 @@ export const Footer: React.FC<FooterProps> = ({ onSelectCategory, onSelectTab, o
             </ul>
           </div>
 
-          {/* Direct Newsletter Box */}
+          {/* Direct Contact Channels (No Fake Newsletter) */}
           <div className="space-y-3">
             <h4 className="text-white text-xs font-bold uppercase tracking-wider mb-2">
-              Stay Connected
+              Direct Contact
             </h4>
-            <p className="text-neutral-400 text-xs">
-              Subscribe for practical tech tutorials, productivity tricks, and project updates.
+            <p className="text-neutral-400 text-xs leading-relaxed">
+              Reach M R S directly for services, IT support, custom Blogspot themes, or inquiries.
             </p>
-
-            <form onSubmit={handleSubscribe} className="space-y-2">
-              <input
-                type="email"
-                required
-                placeholder="Your email address..."
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-3 py-2 rounded-lg bg-neutral-900 border border-neutral-800 text-xs text-white placeholder:text-neutral-500 focus:outline-none focus:border-neutral-600"
-              />
-              <button
-                type="submit"
-                className="w-full py-2 rounded-lg bg-white hover:bg-neutral-200 text-neutral-950 font-semibold text-xs transition-colors flex items-center justify-center gap-1.5"
+            <div className="space-y-2">
+              <a
+                href={`mailto:${PROFILE_DATA.email}`}
+                className="w-full px-3 py-2 rounded-lg bg-neutral-900 border border-neutral-800 hover:border-neutral-600 text-neutral-200 font-medium text-xs transition-colors flex items-center gap-2 truncate"
               >
-                {subscribed ? (
-                  <>
-                    <Check className="w-3.5 h-3.5 text-emerald-600" />
-                    <span>Subscribed!</span>
-                  </>
-                ) : (
-                  <>
-                    <Send className="w-3.5 h-3.5" />
-                    <span>Subscribe Free</span>
-                  </>
-                )}
+                <Mail className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                <span className="truncate">{PROFILE_DATA.email}</span>
+              </a>
+              <button
+                type="button"
+                onClick={() => onSelectTab('contact')}
+                className="w-full py-2 px-3 rounded-lg bg-white hover:bg-neutral-200 text-neutral-950 font-semibold text-xs transition-colors flex items-center justify-center gap-1.5"
+              >
+                <span>Open Contact Section</span>
+                <ArrowRight className="w-3.5 h-3.5" />
               </button>
-            </form>
+            </div>
           </div>
-
         </div>
 
         {/* Bottom Copyright */}
@@ -245,7 +224,6 @@ export const Footer: React.FC<FooterProps> = ({ onSelectCategory, onSelectTab, o
             <span className="text-neutral-500">{PROFILE_DATA.email}</span>
           </div>
         </div>
-
       </div>
     </footer>
   );

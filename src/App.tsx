@@ -329,7 +329,7 @@ export default function App() {
               </p>
 
               <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed max-w-xl mx-auto">
-                Part of the profits from our templates and web design services directly funds student scholarships, exam fees, and emergency food drives for underprivileged families.
+                Dedicated to supporting underprivileged individuals and student education under the M R S Charity Foundation mission.
               </p>
 
               <div className="pt-4 flex flex-wrap items-center justify-center gap-3">

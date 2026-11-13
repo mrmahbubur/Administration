@@ -73,6 +73,7 @@
   #navbar-iframe, .navbar-iframe, .Attribution,
   .post-body img, .post-body picture, .post-body figure,
   .post-body .separator, .post-body .tr-caption-container,
+  .post-body ins, .post-body iframe,
   .adsbygoogle, ins.adsbygoogle, iframe[src*="ad"],
   [id*="ad-"], [class*="ad-banner"], [class*="ad-slot"] {
     display: none !important;
@@ -846,10 +847,10 @@
 
           <a class='pillar-card' href='#projects-section'>
             <div class='pillar-title'>
-              <span>04. Loved Ones Tracking App &amp; AI</span>
+              <span>04. Planned Projects &amp; AI Tools</span>
               <span style='color: #7c3aed;'>&#8594;</span>
             </div>
-            <div class='pillar-desc'>Upcoming safety GPS connectivity for families plus personalized AI-driven productivity tools.</div>
+            <div class='pillar-desc'>Planned family tracking connectivity app alongside AI-assisted productivity tools.</div>
           </a>
         </div>
       </div>
@@ -921,37 +922,37 @@
     </div>
   </section>
 
-  <!-- Supporting Students & Aspiring Earners (Calculator) -->
+  <!-- Supporting Students & Aspiring Earners (Study-Balance Planner) -->
   <section class='section-pad' id='student-section'>
     <div class='container'>
       <div class='sec-tag'>Zero Upfront Investment</div>
       <h2 class='sec-title'>Supporting Students &amp; Aspiring Earners</h2>
-      <p class='sec-desc'>Easy-to-implement methods tailored for students to earn extra income around study hours with zero upfront capital.</p>
+      <p class='sec-desc'>Plan realistic spare hours around classes and explore zero-upfront-cost digital skills without exaggerated promises or pay-to-work schemes.</p>
 
       <div class='calc-box'>
         <div>
           <div class='calc-input-group'>
-            <label class='calc-label' for='hours-slider'>Study Spare Hours / Week: <span id='hours-val'>10</span> hrs</label>
+            <label class='calc-label' for='hours-slider'>Study-Safe Spare Hours / Week: <span id='hours-val'>10</span> hrs</label>
             <input id='hours-slider' max='25' min='4' style='width: 100%; accent-color: var(--accent);' type='range' value='10'/>
           </div>
 
           <div class='calc-input-group' style='margin-bottom: 0;'>
-            <label class='calc-label' for='skill-select'>Select Your Skill Area</label>
+            <label class='calc-label' for='skill-select'>Select Your Skill Track</label>
             <select class='calc-select' id='skill-select'>
-              <option value='12'>Content &amp; Study Notes Proofreading (~$12/hr)</option>
-              <option value='15'>Graphics &amp; Document Formatting (~$15/hr)</option>
-              <option value='10'>Data Entry &amp; Spreadsheet Cleanup (~$10/hr)</option>
-              <option value='18'>Blogger / Web Setup (~$18/hr)</option>
-              <option value='16'>Peer &amp; Subject Tutoring (~$16/hr)</option>
+              <option value='Google Docs / LibreOffice'>Content, Proofreading &amp; Study Notes</option>
+              <option value='Canva / Figma Free'>Thumbnails &amp; Social Media Graphics</option>
+              <option value='Google Sheets / Excel'>Data Entry &amp; Spreadsheet Organization</option>
+              <option value='Blogger / HTML &amp; CSS'>Blogspot &amp; Simple Web Setup</option>
+              <option value='Google Meet / Zoom Free'>Peer &amp; School Tutoring</option>
             </select>
           </div>
         </div>
 
         <div class='calc-result-box'>
-          <div style='font-size: 11px; text-transform: uppercase; font-weight: 800; letter-spacing: 0.4px;'>Projected Monthly Earnings</div>
-          <div class='calc-amount' id='calc-total'>$480</div>
-          <p style='font-size: 12px; margin-bottom: 14px;'>Based on consistent weekly hours and zero financial investment.</p>
-          <a class='btn-primary' href='https://wa.me/8809611056361?text=Hello%20M%20R%20S,%20I%20am%20a%20student%20and%20need%20guidance%20on%20online%20earning' rel='noopener noreferrer' target='_blank'>Get Guidance on WhatsApp</a>
+          <div style='font-size: 11px; text-transform: uppercase; font-weight: 800; letter-spacing: 0.4px;'>Monthly Practice &amp; Work Budget</div>
+          <div class='calc-amount' id='calc-total'>40 hrs</div>
+          <p id='calc-tools' style='font-size: 12px; margin-bottom: 14px;'>Free Tools: Google Docs / LibreOffice &#183; Zero upfront cost required.</p>
+          <a class='btn-primary' href='https://wa.me/8809611056361?text=Hello%20M%20R%20S,%20I%20am%20a%20student%20and%20need%20guidance%20on%20getting%20started' rel='noopener noreferrer' target='_blank'>Get Guidance on WhatsApp</a>
         </div>
       </div>
     </div>
@@ -1008,33 +1009,33 @@
   <section class='section-pad' id='projects-section'>
     <div class='container'>
       <div class='sec-tag'>Innovation &amp; Social Impact</div>
-      <h2 class='sec-title'>Innovative Projects &amp; Ecosystem</h2>
-      <p class='sec-desc'>We are actively developing next-generation safety tools, AI-assisted resources, and community impact platforms.</p>
+      <h2 class='sec-title'>Planned Projects &amp; Ecosystem</h2>
+      <p class='sec-desc'>Upcoming initiatives and live portals under the M R S Multiverse.</p>
 
       <div class='grid-3'>
         <div class='content-card'>
           <div>
             <div class='card-accent-line'/>
-            <h3>Loved Ones Live Tracking App</h3>
-            <p>Privacy-first family GPS connectivity with smart safe-zone geofencing alerts, low-battery monitoring, and one-touch emergency SOS.</p>
+            <h3>Loved Ones Tracking App (Planned)</h3>
+            <p>A planned safety and connectivity project focused on helping families, friends, and trusted contacts stay connected.</p>
           </div>
-          <a class='btn-outline' href='https://wa.me/8809611056361?text=Hello%20M%20R%20S,%20I%20want%20to%20join%20the%20tracking%20app%20waitlist' rel='noopener noreferrer' target='_blank'>Join Beta Waitlist</a>
+          <a class='btn-outline' href='https://wa.me/8809611056361?text=Hello%20M%20R%20S,%20I%20want%20to%20register%20interest%20in%20the%20tracking%20app' rel='noopener noreferrer' target='_blank'>Register Interest</a>
         </div>
 
         <div class='content-card'>
           <div>
             <div class='card-accent-line'/>
-            <h3>AI-Powered Earning &amp; Content Hub</h3>
-            <p>Intelligent assistant tools offering structured blogging prompts, keyword workflows, and student productivity guidance.</p>
+            <h3>AI-Assisted Resource Hub (Planned)</h3>
+            <p>Planned upgrades aimed at making resource navigation, recommendations, and support faster and simpler.</p>
           </div>
-          <a class='btn-outline' href='https://wa.me/8809611056361?text=Hello%20M%20R%20S,%20I%20want%20to%20learn%20more%20about%20the%20AI%20Content%20Hub' rel='noopener noreferrer' target='_blank'>Request Early Access</a>
+          <a class='btn-outline' href='https://wa.me/8809611056361?text=Hello%20M%20R%20S,%20I%20want%20to%20learn%20more%20about%20the%20AI%20Resource%20Hub' rel='noopener noreferrer' target='_blank'>Register Interest</a>
         </div>
 
         <div class='content-card'>
           <div>
             <div class='card-accent-line'/>
             <h3>MRX Tech Support Portal</h3>
-            <p>Sister hub dedicated to vetted free earning methods, website breakdowns, and practical digital guides for learners.</p>
+            <p>Sister hub dedicated to free earning methods, website breakdowns, and practical digital guides for learners.</p>
           </div>
           <a class='btn-outline' href='https://mrxshahin.blogspot.com/' rel='noopener noreferrer' target='_blank'>Visit Portal</a>
         </div>
@@ -1049,7 +1050,7 @@
       <h2 class='sec-title' style='color: #ffffff;'>M R S Charity Foundation</h2>
       <p class='charity-quote'>&#8220;Poverty Ends With Us &#8212; Humanity United Against Poverty&#8221;</p>
       <p style='font-size: 13px; color: #d4d4d4; max-width: 600px; margin: 0 auto 22px; line-height: 1.65;'>
-        Part of the proceeds from our web and design services directly funds student scholarships, examination fees, computer literacy workshops, and emergency food drives.
+        Dedicated to supporting underprivileged individuals and student education under the M R S Charity Foundation mission.
       </p>
       <div style='display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;'>
         <a class='btn-primary' href='https://mrscharityfoundation.blogspot.com/' rel='noopener noreferrer' style='background: #e11d48; color: #ffffff;' target='_blank'>Visit Charity Foundation</a>
@@ -1214,38 +1215,21 @@
       }
     }
 
-    // 3. Strip legacy post images and ad/monetization links from Blogger post bodies
-    var adDomains = [
-      'profitableratecpmnetwork',
-      'uplcm',
-      'adsterra',
-      'effectiveratecpm',
-      'highperformanceformat',
-      'popads',
-      'propellerads',
-      'googlesyndication',
-      'doubleclick'
-    ];
+    // 3. Strip legacy post images, ad scripts, iframes, and ad/monetization links from Blogger post bodies
+    var adPattern = /(profitableratecpm|uplcm|adsterra|effectiveratecpm|highperformanceformat|popads|propellerads|googlesyndication|doubleclick|monetag|onclick|hilltopads|clickadu|exoclick|juicyads|revenuehits|mgid|taboola|outbrain|adroll|adnxs|shrinkme|ouo\.io|adf\.ly)/i;
     var bodies = document.querySelectorAll('.post-body');
     for (var b = 0; b < bodies.length; b++) {
       var bodyEl = bodies[b];
-      var imgs = bodyEl.querySelectorAll('img, picture, figure, .separator, ins.adsbygoogle');
-      for (var m = 0; m < imgs.length; m++) {
-        if (imgs[m].parentNode) {
-          imgs[m].parentNode.removeChild(imgs[m]);
+      var mediaAndAds = bodyEl.querySelectorAll('img, picture, figure, .separator, ins, iframe, script');
+      for (var m = 0; m < mediaAndAds.length; m++) {
+        if (mediaAndAds[m].parentNode) {
+          mediaAndAds[m].parentNode.removeChild(mediaAndAds[m]);
         }
       }
       var links = bodyEl.querySelectorAll('a[href]');
       for (var l = 0; l < links.length; l++) {
-        var href = (links[l].getAttribute('href') || '').toLowerCase();
-        var isAd = false;
-        for (var d = 0; d < adDomains.length; d++) {
-          if (href.indexOf(adDomains[d]) !== -1) {
-            isAd = true;
-            break;
-          }
-        }
-        if (isAd && links[l].parentNode) {
+        var href = links[l].getAttribute('href') || '';
+        if (adPattern.test(href) && links[l].parentNode) {
           links[l].parentNode.removeChild(links[l]);
         }
       }
@@ -1264,17 +1248,19 @@
       });
     }
 
-    // 5. Student Earning Calculator
+    // 5. Student Weekly Time Planner
     var slider = document.getElementById('hours-slider');
     var skillSelect = document.getElementById('skill-select');
     function updateCalc() {
       if (!slider || !skillSelect) return;
       var hours = parseInt(slider.value, 10) || 10;
-      var rate = parseInt(skillSelect.value, 10) || 12;
+      var tools = skillSelect.value || 'Google Docs / LibreOffice';
       var hoursEl = document.getElementById('hours-val');
       var totalEl = document.getElementById('calc-total');
+      var toolsEl = document.getElementById('calc-tools');
       if (hoursEl) hoursEl.textContent = String(hours);
-      if (totalEl) totalEl.textContent = '$' + (hours * 4 * rate);
+      if (totalEl) totalEl.textContent = (hours * 4) + ' hrs / mo';
+      if (toolsEl) toolsEl.textContent = 'Free Tools: ' + tools + ' · Zero upfront cost required.';
     }
     if (slider) slider.addEventListener('input', updateCalc);
     if (skillSelect) skillSelect.addEventListener('change', updateCalc);

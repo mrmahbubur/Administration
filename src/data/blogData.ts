@@ -6,10 +6,11 @@ export const PROFILE_DATA = {
   username: 'mrxshahin',
   role: 'Founder, Web Manager & Remote Operations Specialist',
   headline: 'Remote IT Support, Virtual Assistance & Administrative Operations Specialist',
-  subHeadline: 'I help businesses, entrepreneurs, and individuals simplify their daily operations, solve technical problems, manage digital tasks, and stay productive — without the overhead of hiring a full-time employee.',
+  subHeadline:
+    'I help businesses, entrepreneurs, and individuals simplify their daily operations, solve technical problems, manage digital tasks, and stay productive — without the overhead of hiring a full-time employee.',
   availability: 'Open for Remote Contracts, Consultations & Web Solutions',
-  timezone: 'UTC+6 (Async Coverage Across US, UK, EU & APAC Time Zones)',
-  languages: ['English (Professional)', 'Bengali (Native)'],
+  timezone: 'UTC+6 · Available for Asynchronous Remote Collaboration',
+  languages: ['English', 'Bengali'],
   experienceSince: '2018',
   gravatarUrl: 'https://gravatar.com/mrxshahin',
   phone: '+8809611056361',
@@ -26,26 +27,26 @@ export const PROFILE_DATA = {
   quote: 'If you want to build something big, you have to start with a small step.',
   aboutTitle: 'About M R S — Independent Digital Operations & Multiverse Mission',
   aboutParagraphs: [
-    'I am M R S (@mrxshahin), an independent online entrepreneur, remote IT specialist, and web manager building practical digital systems since 2018. After completing a certified 360-Hour Computer Systems Course, I focused on bridging technical troubleshooting with everyday administrative and digital growth needs.',
-    'Through MRS ADMIN and the broader M R S Multiverse, my focus is straightforward: give small businesses, solo founders, and students reliable guidance and hands-on support without unnecessary complexity or inflated agency overhead.',
-    'Beyond client operations and web management, a portion of proceeds from custom services goes directly toward the M R S Charity Foundation — funding student scholarships, exam support, computer literacy workshops, and grassroots community relief.'
+    'I am M R S (@mrxshahin), an online entrepreneur, web manager, and remote operations specialist authoring technical guides and supporting digital workflows since 2018, backed by a certified 360-Hour Computer Systems Course.',
+    'Through MRS ADMIN and the M R S Multiverse ecosystem, my goal is straightforward: share practical business, side-income, and technology resources while providing direct remote IT troubleshooting, virtual assistance, website management, and professional CV design.',
+    'Alongside client services, M R S supports the M R S Charity Foundation (“Poverty Ends With Us — Humanity United Against Poverty”), dedicated to helping underprivileged individuals and students.'
   ],
   coreValues: [
     {
       title: 'Accuracy & Clean Execution',
-      detail: 'Structured spreadsheets, tested web layouts, and clear documentation delivered right the first time.'
+      detail: 'Structured spreadsheets, tested web layouts, and clear documentation delivered with careful attention to detail.'
     },
     {
-      title: 'Asynchronous Global Readiness',
-      detail: 'Reliable progress across international time zones with clear written updates and minimal back-and-forth.'
+      title: 'Asynchronous Remote Readiness',
+      detail: 'Organized progress across international time zones with clear written updates and minimal back-and-forth.'
     },
     {
-      title: 'Zero-Capital Student Empowerment',
-      detail: 'Vetted, practical earning guides designed for students without upfront fees or misleading schemes.'
+      title: 'Zero-Capital Student Guidance',
+      detail: 'Practical earning guides and digital skill roadmaps for students without upfront fees or misleading schemes.'
     },
     {
-      title: 'Direct Owner Accountability',
-      detail: 'Every task, CV, web setup, and support ticket is handled directly by M R S via WhatsApp, email, or Calendly.'
+      title: 'Direct Owner Communication',
+      detail: 'Every task, CV, web setup, and support request is handled directly with M R S via WhatsApp, email, or Calendly.'
     }
   ],
   credentials: [
@@ -80,7 +81,7 @@ export const PROFESSIONAL_CAPABILITIES = [
     icon: 'Monitor',
     title: 'IT Support & Technical Troubleshooting',
     badge: 'Core Specialty',
-    summary: 'Hardware, software, OS diagnostics, and user support to keep systems running without downtime.',
+    summary: 'Hardware, software, OS diagnostics, and user support to keep systems running reliably.',
     tasks: [
       'Windows PC troubleshooting and basic system maintenance',
       'Android device support and app-related troubleshooting',
@@ -94,7 +95,7 @@ export const PROFESSIONAL_CAPABILITIES = [
     icon: 'CheckSquare',
     title: 'Virtual Assistance & Administrative Support',
     badge: 'Operations',
-    summary: 'Free up your executive time with structured data organization, communications, and task coordination.',
+    summary: 'Free up your time with structured data organization, communications, and task coordination.',
     tasks: [
       'Data entry, data organization, and document formatting',
       'Microsoft Word, Excel, PowerPoint, and office productivity tasks',
@@ -108,7 +109,7 @@ export const PROFESSIONAL_CAPABILITIES = [
     icon: 'Globe',
     title: 'Website Management & Digital Content',
     badge: 'Web & CMS',
-    summary: 'End-to-end administration for Blogger, WordPress, and custom websites to maximize speed and reach.',
+    summary: 'Practical administration for Blogger, WordPress, and web portals to keep pages clean and responsive.',
     tasks: [
       'Website content updates and basic website administration',
       'Blog post publishing and responsive content formatting',
@@ -122,7 +123,7 @@ export const PROFESSIONAL_CAPABILITIES = [
     icon: 'FileText',
     title: 'Technical Writing & Documentation',
     badge: 'Since 2018',
-    summary: 'Translating complex technology, apps, and workflows into crystal-clear guides and knowledge bases.',
+    summary: 'Translating technology, apps, and workflows into clear guides and knowledge bases.',
     tasks: [
       'Writing technology guides, tutorials, and how-to articles',
       'Creating step-by-step troubleshooting instructions',
@@ -135,13 +136,13 @@ export const PROFESSIONAL_CAPABILITIES = [
     id: 'online-research',
     icon: 'Search',
     title: 'Online Research & Digital Problem-Solving',
-    badge: 'Market Intel',
-    summary: 'Curating vetted information, evaluating competitors, and testing tools for smart decision making.',
+    badge: 'Research',
+    summary: 'Gathering reliable information, comparing digital tools, and organizing clear findings.',
     tasks: [
-      'Finding and evaluating online resources and vendor options',
+      'Finding and evaluating online resources and options',
       'Researching websites, apps, and technology solutions',
       'Comparing digital tools and identifying practical alternatives',
-      'Organizing research findings into clear, useful executive reports',
+      'Organizing research findings into clear, useful reports',
       'Testing online services and documenting user experiences'
     ]
   },
@@ -150,12 +151,12 @@ export const PROFESSIONAL_CAPABILITIES = [
     icon: 'Sparkles',
     title: 'AI Tools & Productivity Assistance',
     badge: 'Modern Stack',
-    summary: 'Integrating practical AI tools and no-code workflows to accelerate content and research output.',
+    summary: 'Using practical AI tools and structured workflows to assist content, research, and daily tasks.',
     tasks: [
       'Using modern AI tools to support research, writing, and content development',
       'Improving repetitive workflows with practical digital tools',
       'Assisting with AI-generated content review and human editing',
-      'Developing detailed prompt systems for writing and research',
+      'Developing structured prompt systems for writing and research',
       'Exploring no-code and low-code solutions for business needs'
     ]
   },
@@ -164,7 +165,7 @@ export const PROFESSIONAL_CAPABILITIES = [
     icon: 'Share2',
     title: 'Social Media & Online Business Support',
     badge: 'Branding',
-    summary: 'Keeping channels active, consistent, and aligned with your digital services.',
+    summary: 'Supporting online channels with organized copy, schedules, and consistent messaging.',
     tasks: [
       'Preparing social media posts, captions, and content descriptions',
       'Managing content schedules and organizing publishing materials',
@@ -180,64 +181,68 @@ export const SERVICES: Service[] = [
     id: 'remote-support',
     title: 'Remote IT Support & Technical Troubleshooting',
     tagline: 'Windows PC, Android, Software & Network Problem-Solving',
-    description: 'Solve irritating technical roadblocks quickly. From Windows and Android diagnostics to software installations and step-by-step user documentation.',
+    description:
+      'Solve everyday technical roadblocks remotely. From Windows and Android troubleshooting to software setup and clear step-by-step user documentation.',
     highlights: [
       'Windows PC maintenance and troubleshooting',
       'Android device issues and app diagnostics',
       'Browser, Wi-Fi, and software configurations',
-      'Clear step-by-step guides so issues never recur'
+      'Clear step-by-step guides so issues are easier to manage'
     ],
-    deliverables: ['Issue Resolution', 'Step-by-Step Fix Guide', 'Preventative Advice'],
-    pricingHint: 'Hourly or Monthly Retainer Available',
-    badge: 'Popular',
+    deliverables: ['Issue Resolution', 'Step-by-Step Guide', 'Follow-Up Notes'],
+    pricingHint: 'Discussed directly per task scope via WhatsApp or Email',
+    badge: 'Core Service',
     whatsappPreset: 'Hi M R S, I need Remote IT Support for my system. Can we discuss?'
   },
   {
     id: 'virtual-assistant',
     title: 'Dedicated Virtual Assistance & Office Admin',
     tagline: 'Data entry, spreadsheets, email triage, and web research',
-    description: 'Offload routine administrative and data operations. Clean spreadsheets, structured Word/PowerPoint decks, inbox organization, and reliable async communication.',
+    description:
+      'Offload routine administrative and data tasks. Organized spreadsheets, structured Word/PowerPoint documents, inbox organization, and reliable async communication.',
     highlights: [
       'Data entry, verification, and spreadsheet organization (Excel & Sheets)',
-      'Email management, inbox zero triage, and correspondence',
+      'Email management, inbox organization, and correspondence',
       'Form filling, document preparation, and formatting',
-      'Accurate, deadline-focused async execution across time zones'
+      'Accurate, deadline-focused asynchronous execution'
     ],
-    deliverables: ['Organized Sheets/Docs', 'Processed Inboxes', 'Daily/Weekly Status Log'],
-    pricingHint: 'Flexible Part-time / Project-based',
-    badge: 'High Value',
+    deliverables: ['Organized Sheets/Docs', 'Inbox Support', 'Clear Status Updates'],
+    pricingHint: 'Agreed directly per task or ongoing schedule',
+    badge: 'Operations',
     whatsappPreset: 'Hello M R S, I am interested in your Virtual Assistance & Admin Support services.'
   },
   {
     id: 'cv-design',
     title: 'Advanced Professional CV & Resume Design',
-    tagline: 'Tailored for recruiters, ATS parsers, and executive impact',
-    description: 'Transform your career trajectory with a modern, ATS-friendly curriculum vitae designed to highlight your core achievements, hard skills, and unique personal brand.',
+    tagline: 'Structured for readability, ATS compatibility, and clear career presentation',
+    description:
+      'Get a clean, well-structured curriculum vitae tailored to highlight your education, experience, strengths, and practical skills.',
     highlights: [
-      'ATS-Compliant layout that passes automated applicant scanners',
-      'Custom typography and visual hierarchy tailored to your industry',
-      'Editable formats: Print-ready PDF + editable Word/Docs file',
-      'Rapid 24-48 hour turnaround with WhatsApp direct consultation'
+      'Clean, ATS-friendly layout designed for modern applications',
+      'Clear typography and structured section hierarchy',
+      'Deliverables tailored directly to your requirements via WhatsApp',
+      'Direct one-on-one consultation with M R S'
     ],
-    deliverables: ['Custom ATS PDF', 'Editable Source File', 'Cover Letter Template', 'LinkedIn Profile Tips'],
-    pricingHint: 'Affordable Rates · Special Student Discounts Available',
+    deliverables: ['Custom CV Design', 'Print-Ready PDF', 'Editable Document'],
+    pricingHint: 'Affordable rates discussed directly via WhatsApp',
     badge: 'Featured',
     whatsappPreset: 'Hi M R S, I would like to order an Advanced Professional CV. Please share the details and requirements!'
   },
   {
     id: 'blogspot-templates',
-    title: 'Premium Blogspot & WordPress CMS Management',
-    tagline: 'Ultra-fast, mobile-first themes, SEO tuning, and content publishing',
-    description: 'Stop using bloated, broken themes. We manage blog formatting, repair mobile responsiveness issues, optimize on-page SEO, and provide clean custom templates.',
+    title: 'Blogspot Templates & Website Management',
+    tagline: 'Mobile-friendly Blogspot themes, customization, and content support',
+    description:
+      'Clean, responsive Blogspot templates and custom template styling tailored to your branding, plus ongoing Blogger and WordPress management.',
     highlights: [
-      'Mobile-responsive with fluid touch navigation on ?m=1',
-      'Clean schema markup for high Google Search rankings',
-      'Routine article publishing, formatting, and usability audits',
-      'Easy 1-click XML upload with comprehensive documentation'
+      'Mobile-responsive layouts built to work cleanly on Blogger (?m=1)',
+      'Custom Blogspot template styling tailored to your branding',
+      'Routine article publishing, formatting, and usability checks',
+      'Guided theme installation and layout troubleshooting'
     ],
-    deliverables: ['Theme Remodel', 'SEO Audit', 'Content Management', 'Speed Optimization'],
-    pricingHint: 'Project or Monthly Retainer',
-    whatsappPreset: 'Hi M R S, I need assistance with my Blogspot / WordPress website management.'
+    deliverables: ['Blogspot XML Theme', 'Customization Support', 'Content & SEO Checks'],
+    pricingHint: 'Agreed directly via WhatsApp or Email',
+    whatsappPreset: 'Hi M R S, I need assistance with Blogspot templates or website management.'
   }
 ];
 
@@ -246,301 +251,249 @@ export const ARTICLES: Article[] = [
     id: 'post-1',
     slug: 'welcome-to-mrs-multiverse',
     title: 'Hello, I’m M R S — Welcome to My Portfolio & Earning Ecosystem',
-    excerpt: 'A dedicated online entrepreneur, web manager, and content creator passionate about empowering individuals to achieve their personal and financial goals through structured platforms.',
+    excerpt:
+      'An online entrepreneur, web manager, and content creator focused on empowering individuals to achieve their personal and financial goals through accessible platforms.',
     category: 'Business Hub',
-    publishedAt: 'Dec 16, 2025',
+    publishedAt: 'Owner Overview',
     readTime: '4 min read',
     featured: true,
     author: {
       name: 'M R S',
-      role: 'Remote IT Support & Digital Creator'
+      role: 'Founder & Web Manager'
     },
-    tags: ['Entrepreneurship', 'Web Management', 'Passive Income', 'Ecosystem'],
+    tags: ['Entrepreneurship', 'Web Management', 'Multiverse', 'Services'],
     content: `
 ### Welcome to My Multiverse
 
-A dedicated online entrepreneur, web manager, and content creator passionate about empowering individuals to achieve their personal and financial goals. Through my various websites and upcoming projects, I aim to provide accessible, valuable resources that can assist you at every stage of your journey.
-
-Let me tell you more about what I do, the services I offer, and what you can look forward to in the future.
+I am an online entrepreneur, web manager, and content creator focused on helping individuals work toward their personal and financial goals. Through my websites and upcoming projects, my aim is to provide accessible, practical resources for every stage of your journey.
 
 ---
 
 ### About My Websites and Services
 
 #### 1. Business Hub
-This platform serves as your comprehensive guide to starting, managing, and growing your business. Whether you’re a beginner or an experienced entrepreneur, I share insights, strategies, and practical tips to help you succeed. My goal is to make entrepreneurship straightforward and achievable for everyone.
+A guide to starting, managing, and growing an online or small business. Whether you are just beginning or already managing projects, you will find straightforward strategies and practical tips.
 
 #### 2. Money-Making Platform
-Earning online or through side gigs can be challenging without proper guidance. That’s why I created this platform — to share effective methods and strategies to help you increase your income. From simple side hustle ideas to more advanced earning techniques, I provide practical advice tailored for students, professionals, and anyone looking to boost their earnings.
+Finding genuine online work or side gigs can be difficult without trustworthy direction. This pillar focuses on practical earning methods tailored for students, professionals, and individuals looking to build side income.
 
 #### 3. Learning & Tricks Corner
-Continuous learning is key to growth. I regularly update this website with new tricks, tips, and skills that can help you improve your personal and professional life. This includes innovative online earning methods, personal development tips, and trending skills to help you stand out.
+Continuous learning supports long-term growth. This section covers practical digital tips, online skills, and technical workflows to help you work smarter.
 
 ---
 
-### Our Mission & Future Vision
+### Mission & Future Vision
 
-My main objective is to make all these services as simple, accessible, and user-friendly as possible. To achieve this, I am developing an **advanced, AI-powered website** that will enhance your experience through personalized recommendations, faster navigation, and automated support. This upgrade aims to make accessing resources seamless and efficient, saving you time and effort.
+My primary objective is to keep resources simple, accessible, and user-friendly. As part of that roadmap, I am working toward AI-assisted tools for better navigation, personalized resource recommendations, and smoother user support.
 
 ---
 
 ### Supporting Students & Aspiring Earners
 
-One of my core initiatives is creating **new earning tricks tailored for students**. I understand the financial challenges students face, and I want to provide practical, easy-to-implement methods that help them earn extra income while studying. These tricks are designed to be simple, quick, and effective, helping students gain financial independence and confidence to rise above challenges.
+One of my core initiatives is sharing practical earning methods tailored for students — straightforward approaches that can be started alongside classes without requiring upfront capital.
 
 ---
 
-### Exciting Projects & Services Coming Soon
+### Projects in Planning & Services Available Now
 
-Innovation is my passion, and I have several exciting projects in development:
-
-- **A Tracking App:** This app will allow you to keep your loved ones safe and connected. Whether it’s family, friends, or important contacts, this tool will help you monitor their location and stay in touch effortlessly, promoting safety and peace of mind.
-- **More Websites & Tools:** I am continuously working on new platforms and tools focused on safety, earning opportunities, personal development, and more.
-
----
-
-### Special Services Available Now
-
-In addition to my websites and upcoming projects, I also offer some exclusive services to help you elevate your online presence and professional image:
-
-1. **Create an Advanced, Professional CV:** Need a standout CV to impress employers or clients? I can help you design a professional, advanced CV that highlights your strengths and skills. You can get this service easily through WhatsApp — just send me a message, and I’ll assist you in creating a compelling CV tailored to your needs.
-2. **Buy Blogspot Templates:** Want a stylish, professional Blogspot template? I offer a variety of customizable templates that you can purchase directly through WhatsApp. Whether you're starting a blog or a website, I have templates suitable for all niches.
-3. **Customized Blogspot Templates:** Looking for a unique and personalized blog template? I also provide customized Blogspot templates tailored specifically to your branding and design preferences. Reach out via WhatsApp, and I’ll help you create a stunning, one-of-a-kind blog design.
-
----
-
-### Let's Work Together
-
-Thank you for visiting my portfolio. My mission is to provide valuable, easy-to-access resources and services that help you grow, succeed, and stay connected. Whether you're looking to start a business, earn extra income, learn new skills, or enhance your online presence, I’m here to support you every step of the way.
-
-Feel free to explore my websites, take advantage of the services offered, and stay tuned for the exciting new projects coming soon. Let’s work together to make success more accessible for everyone!
+- **Tracking App (Planned):** A project concept focused on helping families, friends, and loved ones stay connected and safe.
+- **Custom Services Available Now:**
+  1. **Advanced, Professional CV Design:** Tailored CVs arranged directly via WhatsApp.
+  2. **Blogspot Templates:** Clean, responsive Blogspot templates available directly through WhatsApp.
+  3. **Customized Blogspot Templates:** Personalized Blogspot layouts tailored to your branding and preferences.
 `
   },
   {
     id: 'post-2',
     slug: 'student-earning-methods-zero-investment',
-    title: 'Top 7 Legitimate Online Earning Methods for Students (Zero Upfront Cost)',
-    excerpt: 'Practical, realistic, and tested ways for college and university students to earn between $150 to $600/month around flexible study hours without scams.',
+    title: 'Practical Online Earning Paths for Students (Zero Upfront Cost)',
+    excerpt:
+      'Realistic, skill-based ways for college and university students to build experience and earn around flexible study hours without paying upfront fees.',
     category: 'Student Earning',
-    publishedAt: 'Jan 10, 2026',
-    readTime: '6 min read',
+    publishedAt: 'Student Guide',
+    readTime: '5 min read',
     featured: true,
     author: {
       name: 'M R S',
-      role: 'Student Earning Specialist'
+      role: 'Founder & Web Manager'
     },
-    tags: ['Students', 'Side Hustles', 'Zero Capital', 'Remote Work'],
+    tags: ['Students', 'Zero Capital', 'Remote Skills', 'Digital Work'],
     content: `
-### Breaking Free from Student Budget Bottlenecks
+### Earning Alongside Your Studies
 
-As students, balancing coursework, exams, and living expenses can be overwhelming. The good news is the digital economy offers numerous legitimate ways to earn real income using only a laptop or smartphone and an internet connection.
-
-Here are the top 7 vetted strategies that provide real value without requiring any upfront capital.
+Balancing coursework, exams, and living expenses is challenging. The digital economy offers genuine ways to build skills and earn using a laptop or smartphone and an internet connection — without paying to join.
 
 ---
 
-#### 1. Micro-Freelancing for Local Businesses
-Small business owners often lack time to manage basic digital tasks — formatting documents, basic photo retouching, or inputting inventory data into Google Sheets.
-- **How to start:** Reach out to local shops or online sellers offering 5 hours of remote task assistance.
-- **Estimated earnings:** $8 - $15/hour.
+#### 1. Virtual & Micro-Freelance Assistance for Small Businesses
+Many small business owners lack time for everyday digital tasks such as formatting documents, updating product lists, or organizing spreadsheets in Google Sheets and Excel.
+- **How to start:** Practice clean document and spreadsheet formatting, create two sample files, and offer part-time remote assistance to local or online businesses.
 
-#### 2. Academic & Study Notes Monetization
-If you take organized, clear notes during lectures, those study resources hold immense value for classmates and junior batches.
-- **Platforms:** Share summaries, cheat sheets, and exam prep blueprints on digital marketplaces or peer groups.
-- **Key advantage:** Work once, earn repeatedly every semester.
+#### 2. Organized Study Notes & Academic Summaries
+Well-structured summaries, formula sheets, and lecture outlines save fellow students hours of review time.
+- **Key advantage:** Builds deep mastery of your own coursework while helping peers.
 
-#### 3. AI-Assisted Transcription and Proofreading
-Content creators and podcasters constantly need transcripts cleaned up and checked for grammatical accuracy.
-- **Tools:** Use automated speech-to-text tools to get a rough draft, then manually polish grammar, speaker tags, and timestamps.
-- **Estimated earnings:** $12 - $22 per audio hour.
+#### 3. Transcription, Proofreading & Editing
+Podcast hosts, YouTube creators, and bloggers regularly need transcripts cleaned up and articles proofread for grammar and clarity.
+- **Tools:** Start with a plain text editor or Google Docs and focus on careful manual checking.
 
-#### 4. Blogspot & Micro-Site Setup Services
-Countless beginners want a clean blog but struggle with template installation, widget placement, and mobile styling.
-- **How to start:** Learn the basics of Blogger XML and CSS (or leverage MRS Admin templates) and offer a $25 "Complete Blog Setup" package.
+#### 4. Blogspot & Simple Website Setup
+Many beginners want a clean blog or portfolio page but struggle with installing themes, fixing mobile layouts, and configuring menus.
+- **How to start:** Learn Blogger Theme XML basics and mobile responsiveness checks so you can offer clean starter setups.
 
-#### 5. Social Media Graphics & Thumbnail Design
-YouTube creators and Instagram business accounts always need eye-catching thumbnails and carousel graphics.
-- **Tools:** Canva Free, Figma, or open-source vector tools.
-- **Key takeaway:** Consistency and understanding click-through rates will keep clients paying monthly retainers.
+#### 5. Social Media Graphics & Thumbnails
+Creators and small shops frequently need clean post graphics and thumbnails made with free tools like Canva or Figma.
 
-#### 6. Online Peer Tutoring & Language Practice
-If you excel in mathematics, coding, science, or English fluency, tutoring school students online is one of the highest-paying flexible student jobs.
-- **Rate:** $10 - $25/hour depending on subject complexity.
-
-#### 7. Digital Asset Packs & Notion Templates
-Create budgeting templates, student exam trackers, or social media planners once and distribute them with zero inventory overhead.
+#### 6. Online Peer Tutoring
+If you perform well in mathematics, science, English, or programming, tutoring school students online fits naturally around university schedules.
 
 ---
 
 ### Golden Rules for Student Earners
-- **Protect your study hours:** Cap side work at 10-15 hours per week.
-- **Avoid pay-to-work schemes:** Any gig asking for an "application fee" or "security deposit" is a scam.
-- **Focus on compounding skills:** Choose side gigs that build skills applicable to your future career.
+- **Protect your study hours:** Keep side work balanced so coursework never suffers.
+- **Avoid pay-to-work schemes:** Never pay an "application fee" or "security deposit" to receive work.
+- **Build compounding skills:** Choose work that strengthens your long-term career profile.
 `
   },
   {
     id: 'post-3',
     slug: 'blogger-seo-mobile-optimization-mastery',
-    title: 'Blogger SEO & Speed Mastery: Transforming Blogspot into a High-Performance Site',
-    excerpt: 'Step-by-step techniques to eliminate slow scripts, fix broken mobile responsive layouts, and configure canonical meta tags for first-page search rankings.',
+    title: 'Blogger SEO & Mobile Optimization: Making Blogspot Fast and Clean',
+    excerpt:
+      'Practical steps to remove heavy scripts, fix broken mobile ?m=1 layouts, and configure clean meta tags on Blogger.',
     category: 'Tech & Tricks',
-    publishedAt: 'Feb 02, 2026',
+    publishedAt: 'Technical Guide',
     readTime: '5 min read',
     featured: false,
     author: {
       name: 'M R S',
-      role: 'Web Manager & SEO Strategist'
+      role: 'Web Manager'
     },
     tags: ['Blogger', 'SEO', 'Web Performance', 'Mobile Friendly'],
     content: `
-### Why Most Blogspot Sites Lose Visitors on Mobile
+### Why Older Blogspot Sites Struggle on Mobile
 
-Many Blogger templates look decent on desktop monitors, but completely break down when viewed on mobile phones via the default \`?m=1\` mobile switch. Leftover code from third-party themes introduces blocking CSS, uncompressed images, and clunky navigation.
-
-Here is how you can transform your Blogspot site into a lighting-fast, mobile-friendly powerhouse.
+Many older Blogger templates look acceptable on desktop monitors but break down on phones via the \`?m=1\` mobile view due to blocking CSS, outdated scripts, or hanging preloader animations.
 
 ---
 
-#### 1. Defer or Eliminate Heavy Third-Party Scripts
-Old Blogger templates often include Font Awesome 4.7 CDN scripts, outdated jQuery libraries, and clunky preloader animations that freeze the viewport on initial load.
-- Remove preloader overlays with \`display:none !important;\`
-- Switch to modern SVG icons or lightweight CDN fonts
-- Always specify \`defer\` or \`async\` attributes on analytics scripts.
+#### 1. Remove Hanging Preloaders and Heavy Scripts
+Outdated themes often include preloader overlays and legacy JavaScript bundles that delay page rendering.
+- Hide broken preloaders cleanly via CSS
+- Remove unused third-party widgets and ad clutter
+- Load only essential scripts with \`defer\` or \`async\` where appropriate
 
-#### 2. Fix the Mobile Viewport Meta Tag
-Ensure your template head contains the modern viewport declaration:
+#### 2. Verify the Mobile Viewport Meta Tag
+Ensure your Blogger XML head contains a proper viewport declaration:
 \`\`\`html
 <meta content='width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=5' name='viewport'/>
 \`\`\`
-Without this, mobile browsers simulate desktop zoom, causing horizontal scrolling and poor Core Web Vitals.
+Without this tag, mobile browsers render zoomed-out desktop widths and cause horizontal scrolling.
 
-#### 3. Optimize Image Sizes and Serve WebP
-Instead of uploading raw 4000px camera photos, resize images to max 1200px width before uploading. Blogger's image CDN supports dynamic resizing parameters such as \`/w800/\` or \`/s800/\`.
-
-#### 4. Clean Canonical Links and Social Graph Tags
-Ensure your theme has dynamic canonical URLs and Open Graph meta tags so your posts look stunning when shared across WhatsApp, Facebook, and Twitter.
+#### 3. Keep Layouts Clean and Typography Readable
+Prioritize clear font sizing, sufficient line height, clean contrast, and lightweight CSS so articles load fast on mobile connections.
 
 ---
 
-### Need Help Optimizing Your Website?
-Check out our **Customized Web Services** right here on MRS ADMIN. We build fast, mobile-friendly layouts, configure responsive navigation, and boost page speeds.
+### Need Help With Your Blogspot Template?
+Reach out via WhatsApp or the inquiry form if you need a clean Blogspot template or custom mobile-friendly styling.
 `
   },
   {
     id: 'post-4',
     slug: 'business-hub-small-steps-to-scalable-ventures',
-    title: 'The Digital Business Playbook: Moving from Side Hustles to Scalable Ventures',
-    excerpt: 'Practical systems, mindset shifts, and operational habits needed to turn one-off freelancing gigs into a repeatable digital business.',
+    title: 'Starting Small: Turning Practical Digital Skills into Reliable Services',
+    excerpt:
+      'Operational habits and clear communication principles for moving from one-off tasks to dependable remote client work.',
     category: 'Business Hub',
-    publishedAt: 'Feb 24, 2026',
-    readTime: '7 min read',
+    publishedAt: 'Business Guide',
+    readTime: '5 min read',
     featured: false,
     author: {
       name: 'M R S',
-      role: 'Digital Entrepreneur'
+      role: 'Remote Operations Specialist'
     },
-    tags: ['Business Growth', 'Scalability', 'Operations', 'Strategy'],
+    tags: ['Business', 'Operations', 'Remote Work', 'Communication'],
     content: `
 ### The Power of Small Steps
 
-As our motto states: *"If you want to build something big, you have to start with a small step."*
+As our guiding motto states: *"If you want to build something big, you have to start with a small step."*
 
-Too many aspiring entrepreneurs wait for the "perfect idea" or large capital investment before taking action. In reality, modern digital entrepreneurship is built on rapid iteration, micro-experiments, and steady trust building.
+Waiting for a perfect big idea often delays real progress. Sustainable online work comes from solving clear, everyday problems reliably.
 
 ---
 
-#### Step 1: Identify One Specific Problem
-Don't attempt to build an "everything store" or generic agency. Target a clear pain point:
-- "Lawyers who need clean website landing pages"
-- "Students preparing for overseas university applications who need formatted CVs"
-- "Local restaurants needing WhatsApp ordering menus"
+#### Step 1: Solve One Clear Problem Well
+Focus on specific tasks people genuinely need help with — such as fixing a slow PC, formatting an ATS-friendly CV, organizing messy spreadsheets, or repairing a broken blog layout.
 
-#### Step 2: Establish Direct Communication Channels
-Email and WhatsApp remain the highest-converting communication channels worldwide. Providing direct, transparent, and respectful responses to clients wins over anonymous corporate forms every single time.
+#### Step 2: Keep Communication Direct and Clear
+Direct channels like email, WhatsApp, and scheduled calls reduce confusion. Confirm expectations, deliverables, and timelines clearly before starting work.
 
-#### Step 3: Productize Your Service
-Instead of billing hourly for ambiguous tasks, package your offering:
-- Clear scope
-- Guaranteed turnaround time
-- Upfront fixed price
-
-This builds immediate buyer confidence and eliminates pricing friction.
+#### Step 3: Document What You Deliver
+Providing organized files and step-by-step instructions makes it easy for clients to trust your work and return when new tasks come up.
 `
   },
   {
     id: 'post-5',
     slug: 'family-tracking-safety-tech-connectivity',
-    title: 'The Architecture of Safety: Why We Are Building the Loved Ones Tracking App',
-    excerpt: 'An inside look at our upcoming safety-first GPS tracking app designed to keep families connected with privacy, live geofencing, and panic alerts.',
+    title: 'Upcoming Project Vision: Keeping Loved Ones Safe and Connected',
+    excerpt:
+      'Overview of our planned tracking app concept aimed at helping families and friends stay connected with peace of mind.',
     category: 'Future Tech',
-    publishedAt: 'Mar 15, 2026',
-    readTime: '4 min read',
+    publishedAt: 'Project Roadmap',
+    readTime: '3 min read',
     featured: false,
     author: {
       name: 'M R S',
-      role: 'Project Lead & Product Manager'
+      role: 'Project Founder'
     },
-    tags: ['GPS Tracking', 'Family Safety', 'Mobile App', 'IoT'],
+    tags: ['Tracking App', 'Safety', 'Future Projects'],
     content: `
-### Keeping Your Loved Ones Safe and Connected
+### Staying Connected With the People Who Matter
 
-In an increasingly busy world, peace of mind regarding the safety of elderly parents, children, and close friends is invaluable. 
-
-As part of the **M R S Multiverse** expansion, we are engineering a dedicated **Tracking App** built on three foundational pillars:
+As part of the M R S Multiverse roadmap, one of the key projects in planning is a dedicated **Tracking App** designed to help families, friends, and important contacts stay connected and safe.
 
 ---
 
-#### 1. Real-Time Accurate Location Sharing
-Low-battery GPS streaming with intelligent background sync, giving family members instant visibility without draining smartphone batteries.
+### Core Goal of the Project
+- **Peace of Mind for Families:** Make it simple for trusted family members and loved ones to stay aware of each other’s safety.
+- **User-Friendly Design:** Keep setup and daily use straightforward so non-technical users can use it comfortably.
+- **Privacy Respect:** Build location connectivity around consent and trust rather than intrusive advertising.
 
-#### 2. Safe-Zone Geofencing Alerts
-Set designated safe perimeters (school, home, workplace, commute routes). Receive an instant notification when a family member arrives or departs safely.
-
-#### 3. One-Touch Emergency SOS
-In any uncomfortable or urgent situation, a discrete 3-second long press sends live coordinates and emergency alerts to trusted guardians simultaneously.
-
----
-
-### Privacy and Data Dignity
-Unlike invasive tracking software that sells user analytics to advertisers, our app is built with end-to-end encryption. Your family's movement data belongs exclusively to you.
-
-Join the early VIP waitlist below to test our upcoming closed beta!
+Anyone interested in following progress or joining early testing once ready can register interest through the waitlist form on this site.
 `
   },
   {
     id: 'post-6',
     slug: 'passive-income-and-smart-money-habits',
-    title: 'Passive Income Realities: Vetted Online Earning Avenues vs Shiny Traps',
-    excerpt: 'Separating genuine online revenue streams like digital assets and affiliate marketing from get-rich-quick scams.',
+    title: 'Digital Income Realities: Separating Genuine Skills from Online Traps',
+    excerpt:
+      'How to spot misleading online income promises and focus on real digital assets, freelancing, and practical web skills.',
     category: 'Money-Making',
-    publishedAt: 'Mar 28, 2026',
-    readTime: '5 min read',
+    publishedAt: 'Resource Guide',
+    readTime: '4 min read',
     featured: false,
     author: {
       name: 'M R S',
-      role: 'Financial Literacy Contributor'
+      role: 'Content Creator'
     },
-    tags: ['Passive Income', 'Financial Freedom', 'Smart Money', 'Affiliate'],
+    tags: ['Digital Skills', 'Scam Prevention', 'Online Work'],
     content: `
-### The Truth About "Passive" Income
+### Real Value Comes Before Income
 
-Passive income is never 100% effortless from day one. It requires **upfront labor and strategy** that pays dividends over time. 
-
-Understanding this distinction protects you from falling into online schemes that promise overnight wealth.
+No legitimate online income stream works magically overnight. Whether you build web templates, write helpful guides, or provide remote administrative support, real results come from solving real problems consistently.
 
 ---
 
-#### Realistic Passive Streams
-1. **Evergreen Digital Templates**: Blogspot skins, resume layouts, spreadsheet trackers.
-2. **Affiliate Content & Reviews**: High-intent tutorials recommending verified web hosts, tools, or books.
-3. **Information Hubs**: Curated blogs answering niche search questions, monetized through display networks or sponsorships.
+#### Practical Focus Areas
+1. **Reusable Digital Work:** Templates, documentation, and organized digital resources.
+2. **Client Services:** IT troubleshooting, virtual assistance, CV formatting, and CMS management.
+3. **Helpful Web Content:** Clear, honest tutorials and tool guides written for real readers.
 
 #### Red Flags to Avoid
-- Demands for upfront "joining fees" or cryptocurrency transfer deposits.
-- Claims of guaranteed 10% daily ROI.
-- Systems requiring you to recruit 3 more people to make any profit.
-
-Stick to creating genuine value for real people, and the financial returns will follow naturally.
+- Requests for upfront "joining fees" or deposits to unlock tasks.
+- Promises of guaranteed daily returns with zero skill or effort.
+- Systems where earnings depend solely on recruiting other people.
 `
   }
 ];
@@ -548,47 +501,48 @@ Stick to creating genuine value for real people, and the financial returns will 
 export const PROJECTS: Project[] = [
   {
     id: 'tracking-app',
-    title: 'Loved Ones Live Tracking App',
-    subtitle: 'Safety, connectivity, and peace of mind for families',
-    description: 'An advanced mobile application enabling real-time location tracking for family members and friends. Features smart safe-zone alerts, low-battery GPS monitoring, and emergency SOS triggers.',
-    status: 'In Development',
+    title: 'Loved Ones Tracking App',
+    subtitle: 'Planned safety & location connectivity tool for families and friends',
+    description:
+      'A planned application focused on helping families, friends, and trusted contacts stay connected and safe with straightforward location awareness.',
+    status: 'Planned Project',
     statusColor: 'amber',
     keyFeatures: [
-      'Real-time GPS tracking with high privacy encryption',
-      'Geofencing alerts when loved ones arrive at work or home',
-      'Battery status monitoring of linked devices',
-      'Instant panic/SOS broadcast with live route playback'
+      'Designed around family & close-contact safety connectivity',
+      'Simple, accessible interface for everyday users',
+      'Consent-based sharing without ad clutter'
     ],
-    ctaText: 'Join Closed Beta Waitlist',
+    ctaText: 'Register Interest / Waitlist',
     isWaitlist: true
   },
   {
     id: 'ai-portal',
-    title: 'AI-Powered Earning & Content Hub',
-    subtitle: 'Next-generation intelligent assistant for creators',
-    description: 'A specialized platform offering automated blogging prompts, niche keyword research, and personalized earning strategy recommendations driven by smart AI logic.',
-    status: 'Beta Preview',
+    title: 'AI-Assisted Website & Resource Hub',
+    subtitle: 'Planned smart navigation and personalized resource tools',
+    description:
+      'An upcoming upgrade aimed at making resource discovery, content navigation, and user guidance faster and more intuitive.',
+    status: 'Planned Upgrade',
     statusColor: 'emerald',
     keyFeatures: [
-      'Personalized earning recommendations based on user skills',
-      'Instant blog post structure and SEO keyword suggestions',
-      'Interactive tools for student productivity and study planning'
+      'Streamlined navigation to relevant guides and services',
+      'Faster resource discovery for students and entrepreneurs',
+      'Practical workflow & content tools'
     ],
-    ctaText: 'Explore Features',
+    ctaText: 'Register Interest',
     isWaitlist: true
   },
   {
     id: 'charity-foundation',
     title: 'M R S Charity Foundation',
     subtitle: '“Poverty Ends With Us” — Humanity United Against Poverty',
-    description: 'Our dedicated non-profit initiative focused on grassroots relief, student educational sponsorships, food drives, and empowering underprivileged youth with self-sustaining digital skills.',
+    description:
+      'Our dedicated non-profit initiative focused on supporting underprivileged individuals and helping students continue their education.',
     status: 'Live Foundation',
     statusColor: 'blue',
     keyFeatures: [
-      'Direct student educational aid and examination sponsorships',
-      'Community food drives and emergency winter assistance',
-      'Free computer literacy and digital skill workshops',
-      '100% transparent donation reports and photo audits'
+      'Guided by the mission: Humanity United Against Poverty',
+      'Focused on supporting underprivileged families and students',
+      'Official updates published on mrscharityfoundation.blogspot.com'
     ],
     externalUrl: 'https://mrscharityfoundation.blogspot.com/',
     ctaText: 'Visit Charity Website',
@@ -597,14 +551,15 @@ export const PROJECTS: Project[] = [
   {
     id: 'mrx-portal',
     title: 'MRX Shahin Tech Portal',
-    subtitle: 'Free earning methods, legit website reviews & inspiring thoughts',
-    description: 'A sister hub dedicated to in-depth technical tutorials, honest platform reviews, student side gigs, and motivational insights for aspiring digital pioneers.',
-    status: 'Live Foundation',
+    subtitle: 'Free earning methods, website reviews & technical guides',
+    description:
+      'A sister portal dedicated to practical tech tutorials, website reviews, student earning ideas, and motivational writing.',
+    status: 'Live Portal',
     statusColor: 'indigo',
     keyFeatures: [
-      'Daily curated free online earning methods',
-      'Vetted legitimate website breakdowns',
-      'Motivational insights and productivity frameworks'
+      'Practical online earning and skill guides',
+      'Honest website and tool breakdowns',
+      'Technology tips and motivational notes'
     ],
     externalUrl: 'https://mrxshahin.blogspot.com/',
     ctaText: 'Visit MRX Shahin Portal',
@@ -614,19 +569,19 @@ export const PROJECTS: Project[] = [
 
 export const FAQS = [
   {
-    q: 'What is M R S (mrxshahin) specializing in?',
-    a: 'M R S provides Remote IT Support, Virtual Assistance, Administrative Support, Website Content Management (Blogger & WordPress), and Technical Writing for international clients, businesses, and entrepreneurs.'
+    q: 'What does M R S (mrxshahin) specialize in?',
+    a: 'M R S provides Remote IT Support, Virtual Assistance, Administrative Support, Website Content Management (Blogger & WordPress), Professional CV Design, and Technical Writing.'
   },
   {
-    q: 'What are your certifications and background?',
-    a: 'Certified with a 360-hour Computer Systems Course, actively publishing technology guides and how-to documentation since 2018, with years of independent remote work experience across multiple time zones.'
+    q: 'What are your credentials and background?',
+    a: 'Certified with a 360-Hour Computer Systems Course, writing technical guides and managing web projects since 2018 across asynchronous remote workflows.'
   },
   {
     q: 'How can I schedule a consultation or hire you?',
-    a: 'You can book directly via Calendly (calendly.com/mrxshahin), send a message on WhatsApp (+880 9611-056361), or email mr216873@gmail.com.'
+    a: 'You can book directly via Calendly (calendly.com/mrxshahin), message on WhatsApp (+880 9611-056361), or email mr216873@gmail.com.'
   },
   {
-    q: 'Are your student earning methods really free?',
-    a: 'Yes, 100%. Every guide published under the Student Initiative requires zero upfront financial capital. We strictly denounce pay-to-work schemes and referral traps.'
+    q: 'Are your student earning guides free to access?',
+    a: 'Yes, 100%. All student guides focus on zero-upfront-cost methods and strictly warn against pay-to-work schemes.'
   }
 ];

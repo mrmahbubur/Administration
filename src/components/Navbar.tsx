@@ -82,7 +82,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <div className="mx-auto sm:mx-0 flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-emerald-400" />
               <span className="font-medium text-amber-300">
-                New: Student Earning Guides &amp; Next-Gen Tracking App Preview
+                Remote IT Support · Virtual Assistance · Student Guides &amp; Web Management
               </span>
             </div>
             <a 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Layers, ExternalLink, ArrowRight, Check, MapPin, Bell, Shield, Sparkles, HeartHandshake } from 'lucide-react';
 import { PROJECTS } from '../data/blogData';
 import { Project } from '../types';
@@ -19,10 +19,10 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onJoinWaitlist
             <span>M R S Innovation &amp; Social Impact</span>
           </div>
           <h2 className="text-2xl sm:text-3xl font-bold text-neutral-900 dark:text-white tracking-tight">
-            Innovative Projects Coming Soon
+            Planned Projects &amp; Live Portals
           </h2>
           <p className="mt-2 text-sm sm:text-base text-neutral-600 dark:text-neutral-300">
-            Exciting developments are on the horizon! We are actively developing next-generation safety tools, AI resources, and social impact platforms.
+            Upcoming initiatives and active community portals under the M R S Multiverse ecosystem.
           </p>
         </div>
 
@@ -32,27 +32,27 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onJoinWaitlist
             <div className="lg:col-span-8">
               <div className="flex items-center gap-2 text-xs font-semibold text-amber-400 uppercase tracking-wider mb-2">
                 <MapPin className="w-3.5 h-3.5" />
-                <span>Flagship Engineering Project</span>
+                <span>Planned Project Roadmap</span>
               </div>
               <h3 className="text-xl sm:text-2xl font-bold tracking-tight">
-                Loved Ones Live Tracking App
+                Loved Ones Tracking App
               </h3>
               <p className="mt-2 text-sm text-neutral-300 leading-relaxed">
-                Keep your family and loved ones safe and connected with discrete real-time GPS tracking, arrival/departure geofence alerts, and immediate panic alerts without intrusive ad trackers.
+                A planned safety and connectivity application focused on helping families, friends, and trusted contacts stay connected with peace of mind.
               </p>
 
               <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs text-neutral-300">
                 <div className="flex items-center gap-2">
                   <Shield className="w-4 h-4 text-emerald-400 shrink-0" />
-                  <span>Private E2E Encryption</span>
+                  <span>Consent &amp; Privacy Focused</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Bell className="w-4 h-4 text-amber-400 shrink-0" />
-                  <span>Geofence Arrival Alerts</span>
+                  <span>Family Safety Connectivity</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Sparkles className="w-4 h-4 text-sky-400 shrink-0" />
-                  <span>Low Battery GPS Sync</span>
+                  <span>Accessible Daily Use</span>
                 </div>
               </div>
             </div>
@@ -62,7 +62,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onJoinWaitlist
                 onClick={() => onJoinWaitlist(PROJECTS[0])}
                 className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-amber-400 hover:bg-amber-300 text-neutral-950 font-bold text-xs transition-colors shadow-sm"
               >
-                <span>Join Beta Testing Waitlist</span>
+                <span>Register Early Interest</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </button>
             </div>

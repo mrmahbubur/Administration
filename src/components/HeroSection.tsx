@@ -218,12 +218,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between">
                     <h3 className="text-sm font-semibold text-neutral-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
-                      04. Loved Ones Tracking App &amp; AI
+                      04. Planned Projects &amp; AI Tools
                     </h3>
                     <ArrowRight className="w-3.5 h-3.5 text-neutral-400 group-hover:translate-x-1 transition-transform" />
                   </div>
                   <p className="text-xs text-neutral-600 dark:text-neutral-400 mt-1 line-clamp-2">
-                    Upcoming safety GPS connectivity for families plus personalized AI-driven recommendation tools.
+                    Planned tracking connectivity app to keep loved ones safe alongside AI-assisted resource tools.
                   </p>
                 </div>
               </div>

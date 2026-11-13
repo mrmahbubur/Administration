@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { X, MessageCircle, Send, CheckCircle2, ShieldCheck, Loader2 } from 'lucide-react';
+import { X, MessageCircle, Send, CheckCircle2, ShieldCheck, Loader2, Mail } from 'lucide-react';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { Service, Project } from '../types';
 import { db, handleFirestoreError, OperationType } from '../firebase';
 import { useAuth } from '../contexts/AuthContext';
+import { PROFILE_DATA } from '../data/blogData';
 
 interface OrderModalProps {
   item: Service | Project | null;
@@ -12,12 +13,13 @@ interface OrderModalProps {
 }
 
 export const OrderModal: React.FC<OrderModalProps> = ({ item, type, onClose }) => {
-  const { user } = useAuth();
+  const { user, signInWithGoogle, authLoading } = useAuth();
   const [name, setName] = useState('');
   const [contact, setContact] = useState('');
   const [details, setDetails] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   if (!item) return null;
 
@@ -27,21 +29,30 @@ export const OrderModal: React.FC<OrderModalProps> = ({ item, type, onClose }) =
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSubmitError(null);
+
+    if (!user) {
+      setSubmitError('Sign in with Google to save your request online, or message M R S directly via WhatsApp or Email below.');
+      return;
+    }
+
     setSaving(true);
     try {
-      if (user) {
-        await addDoc(collection(db, 'inquiries'), {
-          senderUid: user.uid,
-          senderName: (name || user.displayName || 'Visitor').trim().slice(0, 80),
-          senderEmail: (contact || user.email || '').trim().slice(0, 120),
-          serviceCategory: item.title.slice(0, 100),
-          urgency: isService ? 'Service Order' : 'Beta Waitlist',
-          message: (details || `${isService ? 'Service inquiry' : 'Waitlist request'} for ${item.title}`).trim().slice(0, 2000),
-          status: 'new',
-          createdAt: serverTimestamp(),
-        });
-      }
+      await addDoc(collection(db, 'inquiries'), {
+        senderUid: user.uid,
+        senderName: (name || user.displayName || 'Visitor').trim().slice(0, 80),
+        senderEmail: (contact || user.email || '').trim().slice(0, 120),
+        serviceCategory: item.title.slice(0, 100),
+        urgency: isService ? 'Service Order' : 'Project Interest',
+        message: (details || `${isService ? 'Service inquiry' : 'Early interest'} for ${item.title}`)
+          .trim()
+          .slice(0, 2000),
+        status: 'new',
+        createdAt: serverTimestamp(),
+      });
+      setSubmitted(true);
     } catch (error) {
+      setSubmitError('Could not save right now. Please send directly via WhatsApp or Email below.');
       try {
         handleFirestoreError(error, OperationType.CREATE, 'inquiries');
       } catch {
@@ -49,29 +60,34 @@ export const OrderModal: React.FC<OrderModalProps> = ({ item, type, onClose }) =
       }
     } finally {
       setSaving(false);
-      setSubmitted(true);
     }
   };
 
-  const generateWhatsAppUrl = () => {
-    let msg = '';
+  const generateMessageText = () => {
     if (isService) {
-      msg = `Hello M R S, my name is ${name || 'a visitor'}. I am interested in: "${service.title}". Details: ${details || 'Please share more info.'} (Contact: ${contact})`;
-    } else {
-      msg = `Hello M R S, my name is ${name || 'a visitor'}. I would like to join the early waitlist for "${project.title}". (Contact: ${contact})`;
+      return `Hello M R S, my name is ${name || 'a visitor'}. I am interested in: "${service.title}". Details: ${details || 'Please share more info.'} (Contact: ${contact})`;
     }
-    return `https://wa.me/8809611056361?text=${encodeURIComponent(msg)}`;
+    return `Hello M R S, my name is ${name || 'a visitor'}. I would like to register interest in "${project.title}". (Contact: ${contact})`;
+  };
+
+  const generateWhatsAppUrl = () => {
+    return `https://wa.me/8809611056361?text=${encodeURIComponent(generateMessageText())}`;
+  };
+
+  const generateMailtoUrl = () => {
+    return `mailto:${PROFILE_DATA.email}?subject=${encodeURIComponent(
+      `${isService ? 'Service Inquiry' : 'Project Interest'}: ${item.title}`
+    )}&body=${encodeURIComponent(generateMessageText())}`;
   };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-neutral-950/70 backdrop-blur-xs animate-in fade-in duration-150">
       <div className="relative w-full max-w-lg bg-white dark:bg-neutral-900 rounded-2xl shadow-2xl border border-neutral-200 dark:border-neutral-800 overflow-hidden">
-        
         {/* Header */}
         <div className="px-6 py-4 border-b border-neutral-200 dark:border-neutral-800 flex items-center justify-between">
           <div>
             <span className="text-[10px] font-bold uppercase tracking-wider text-amber-700 dark:text-amber-400">
-              {isService ? 'Direct Service Request' : 'Beta Access Waitlist'}
+              {isService ? 'Direct Service Request' : 'Project Early Interest'}
             </span>
             <h3 className="text-base sm:text-lg font-bold text-neutral-900 dark:text-white">
               {item.title}
@@ -93,12 +109,10 @@ export const OrderModal: React.FC<OrderModalProps> = ({ item, type, onClose }) =
                 <CheckCircle2 className="w-6 h-6" />
               </div>
               <h4 className="text-lg font-bold text-neutral-900 dark:text-white">
-                {isService ? 'Inquiry Recorded!' : 'You Are On The Waitlist!'}
+                Saved to M R S Inbox!
               </h4>
               <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-300 max-w-sm mx-auto">
-                {isService
-                  ? 'Thank you! M R S will review your request and get back to you promptly. For immediate response, launch WhatsApp below.'
-                  : 'We will notify you as soon as the closed beta for testing is released.'}
+                Your submission for <strong>{item.title}</strong> is saved in Firestore. For instant discussion, you can also open WhatsApp or Email below.
               </p>
 
               <div className="pt-4 flex flex-col sm:flex-row gap-2 justify-center">
@@ -123,8 +137,8 @@ export const OrderModal: React.FC<OrderModalProps> = ({ item, type, onClose }) =
             <form onSubmit={handleSubmit} className="space-y-4">
               <p className="text-xs text-neutral-600 dark:text-neutral-400">
                 {isService
-                  ? `Reach M R S directly regarding ${service.title}. We offer flexible turnarounds and tailored deliverables.`
-                  : `Be among the first to test ${project.title}. Leave your contact details below.`}
+                  ? `Reach M R S directly regarding ${service.title}.`
+                  : `Register your interest in ${project.title} or reach M R S directly.`}
               </p>
 
               <div>
@@ -134,7 +148,7 @@ export const OrderModal: React.FC<OrderModalProps> = ({ item, type, onClose }) =
                 <input
                   type="text"
                   required
-                  placeholder="e.g. Tariq Ahmed"
+                  placeholder="Your full name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   className="w-full px-3 py-2 text-xs sm:text-sm rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-neutral-900 dark:focus:ring-white"
@@ -148,7 +162,7 @@ export const OrderModal: React.FC<OrderModalProps> = ({ item, type, onClose }) =
                 <input
                   type="text"
                   required
-                  placeholder="e.g. +8801700000000 or email@domain.com"
+                  placeholder="you@example.com or phone number"
                   value={contact}
                   onChange={(e) => setContact(e.target.value)}
                   className="w-full px-3 py-2 text-xs sm:text-sm rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-neutral-900 dark:focus:ring-white"
@@ -162,7 +176,7 @@ export const OrderModal: React.FC<OrderModalProps> = ({ item, type, onClose }) =
                   </label>
                   <textarea
                     rows={3}
-                    placeholder="Tell us about your field, target roles, or blog URL..."
+                    placeholder="Share your requirements, target role, or website URL..."
                     value={details}
                     onChange={(e) => setDetails(e.target.value)}
                     className="w-full px-3 py-2 text-xs sm:text-sm rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-neutral-900 dark:focus:ring-white"
@@ -170,15 +184,33 @@ export const OrderModal: React.FC<OrderModalProps> = ({ item, type, onClose }) =
                 </div>
               )}
 
+              {submitError && (
+                <div className="p-2.5 rounded-lg bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 text-xs text-amber-900 dark:text-amber-200">
+                  {submitError}
+                </div>
+              )}
+
               <div className="pt-2 flex flex-col sm:flex-row gap-2">
-                <button
-                  type="submit"
-                  disabled={saving}
-                  className="flex-1 inline-flex items-center justify-center gap-2 py-2.5 rounded-lg bg-neutral-900 hover:bg-neutral-800 dark:bg-white dark:hover:bg-neutral-100 text-white dark:text-neutral-950 text-xs font-semibold transition-colors disabled:opacity-60"
-                >
-                  {saving ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Send className="w-3.5 h-3.5" />}
-                  <span>{saving ? 'Submitting...' : 'Submit Request'}</span>
-                </button>
+                {user ? (
+                  <button
+                    type="submit"
+                    disabled={saving}
+                    className="flex-1 inline-flex items-center justify-center gap-2 py-2.5 rounded-lg bg-neutral-900 hover:bg-neutral-800 dark:bg-white dark:hover:bg-neutral-100 text-white dark:text-neutral-950 text-xs font-semibold transition-colors disabled:opacity-60"
+                  >
+                    {saving ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Send className="w-3.5 h-3.5" />}
+                    <span>{saving ? 'Saving...' : 'Save to Owner Inbox'}</span>
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={signInWithGoogle}
+                    disabled={authLoading}
+                    className="flex-1 inline-flex items-center justify-center gap-2 py-2.5 rounded-lg bg-neutral-900 hover:bg-neutral-800 dark:bg-white dark:hover:bg-neutral-100 text-white dark:text-neutral-950 text-xs font-semibold transition-colors disabled:opacity-60"
+                  >
+                    {authLoading ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <ShieldCheck className="w-3.5 h-3.5" />}
+                    <span>Sign in to Save Online</span>
+                  </button>
+                )}
 
                 <a
                   href={generateWhatsAppUrl()}
@@ -187,18 +219,25 @@ export const OrderModal: React.FC<OrderModalProps> = ({ item, type, onClose }) =
                   className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold transition-colors"
                 >
                   <MessageCircle className="w-4 h-4" />
-                  <span>Instant WhatsApp</span>
+                  <span>WhatsApp</span>
+                </a>
+
+                <a
+                  href={generateMailtoUrl()}
+                  className="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-lg border border-neutral-300 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-800 dark:text-neutral-200 text-xs font-semibold transition-colors"
+                >
+                  <Mail className="w-4 h-4" />
+                  <span>Email</span>
                 </a>
               </div>
 
               <div className="pt-2 flex items-center justify-center gap-1.5 text-[11px] text-neutral-400">
                 <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
-                <span>Your details remain private and are only used by M R S.</span>
+                <span>Direct communication with M R S ({PROFILE_DATA.email}).</span>
               </div>
             </form>
           )}
         </div>
-
       </div>
     </div>
   );

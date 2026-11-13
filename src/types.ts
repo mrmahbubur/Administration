@@ -32,7 +32,7 @@ export interface Project {
   title: string;
   subtitle: string;
   description: string;
-  status: 'In Development' | 'Beta Preview' | 'Live Foundation';
+  status: 'Planned Project' | 'Planned Upgrade' | 'Live Foundation' | 'Live Portal';
   statusColor: 'amber' | 'emerald' | 'blue' | 'indigo';
   keyFeatures: string[];
   externalUrl?: string;

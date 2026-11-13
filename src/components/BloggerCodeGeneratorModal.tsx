@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Copy, Check, Code, ShieldCheck, Smartphone, Globe } from 'lucide-react';
+import { X, Copy, Check, Code } from 'lucide-react';
 
 interface BloggerCodeGeneratorModalProps {
   isOpen: boolean;
@@ -40,7 +40,8 @@ html, body {
 
 /* 4. Remove legacy post images, empty separators, and ad clutter */
 .post-body img, .entry-content img, .post-body picture, .separator,
-.adsbygoogle, ins.adsbygoogle, [id*="ad-"], [class*="ad-banner"], .Attribution {
+.post-body ins, .post-body iframe,
+.adsbygoogle, ins.adsbygoogle, iframe[src*="ad"], [id*="ad-"], [class*="ad-banner"], [class*="ad-slot"], .Attribution {
   display: none !important;
 }
 

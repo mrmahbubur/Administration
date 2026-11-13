@@ -20,7 +20,7 @@ import { db, handleFirestoreError, OperationType } from '../firebase';
 import { useAuth } from '../contexts/AuthContext';
 
 export const ContactSection: React.FC = () => {
-  const { user } = useAuth();
+  const { user, signInWithGoogle, authLoading } = useAuth();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [serviceCategory, setServiceCategory] = useState('Remote IT Support & Troubleshooting');
@@ -28,28 +28,33 @@ export const ContactSection: React.FC = () => {
   const [message, setMessage] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [saving, setSaving] = useState(false);
-  const [savedToDb, setSavedToDb] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSubmitError(null);
+
+    if (!user) {
+      setSubmitError('Please sign in with Google to save your inquiry to the database, or send directly via WhatsApp or Email below.');
+      return;
+    }
+
     setSaving(true);
-    setSavedToDb(false);
     try {
-      if (user) {
-        await addDoc(collection(db, 'inquiries'), {
-          senderUid: user.uid,
-          senderName: (name || user.displayName || 'Visitor').trim().slice(0, 80),
-          senderEmail: (email || user.email || '').trim().slice(0, 120),
-          serviceCategory: serviceCategory.slice(0, 100),
-          urgency: urgency.slice(0, 60),
-          message: message.trim().slice(0, 2000),
-          status: 'new',
-          createdAt: serverTimestamp(),
-        });
-        setSavedToDb(true);
-      }
+      await addDoc(collection(db, 'inquiries'), {
+        senderUid: user.uid,
+        senderName: (name || user.displayName || 'Visitor').trim().slice(0, 80),
+        senderEmail: (email || user.email || '').trim().slice(0, 120),
+        serviceCategory: serviceCategory.slice(0, 100),
+        urgency: urgency.slice(0, 60),
+        message: message.trim().slice(0, 2000),
+        status: 'new',
+        createdAt: serverTimestamp(),
+      });
+      setSubmitted(true);
     } catch (error) {
+      setSubmitError('Could not save your inquiry to the database right now. Please use WhatsApp or direct Email below.');
       try {
         handleFirestoreError(error, OperationType.CREATE, 'inquiries');
       } catch {
@@ -57,7 +62,6 @@ export const ContactSection: React.FC = () => {
       }
     } finally {
       setSaving(false);
-      setSubmitted(true);
     }
   };
 
@@ -212,13 +216,10 @@ export const ContactSection: React.FC = () => {
                     <CheckCircle2 className="w-8 h-8" />
                   </div>
                   <h4 className="text-xl font-bold text-neutral-900 dark:text-white">
-                    Inquiry Sent Successfully!
+                    Inquiry Saved to M R S Inbox!
                   </h4>
                   <p className="text-sm text-neutral-600 dark:text-neutral-300 max-w-md mx-auto">
-                    Thank you, <strong>{name}</strong>! Your inquiry regarding <em>{serviceCategory}</em> is ready.{' '}
-                    {savedToDb
-                      ? 'It has been saved to our database inbox and you can also forward it directly below.'
-                      : 'Forward via WhatsApp or Email below for immediate delivery.'}
+                    Thank you, <strong>{name || user?.displayName}</strong>! Your inquiry regarding <em>{serviceCategory}</em> has been saved in Firestore for M R S to review. You can also message directly on WhatsApp or Email below.
                   </p>
 
                   <div className="pt-4 flex flex-col sm:flex-row gap-3 justify-center">
@@ -259,7 +260,7 @@ export const ContactSection: React.FC = () => {
                       <input
                         type="text"
                         required
-                        placeholder="e.g. Shakil Hossain"
+                        placeholder="Your full name"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         className="w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-neutral-900 dark:focus:ring-white"
@@ -273,7 +274,7 @@ export const ContactSection: React.FC = () => {
                       <input
                         type="email"
                         required
-                        placeholder="e.g. user@gmail.com"
+                        placeholder="you@example.com"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         className="w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-neutral-900 dark:focus:ring-white"
@@ -333,15 +334,33 @@ export const ContactSection: React.FC = () => {
                     />
                   </div>
 
+                  {submitError && (
+                    <div className="p-3 rounded-lg bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 text-xs text-amber-900 dark:text-amber-200">
+                      {submitError}
+                    </div>
+                  )}
+
                   <div className="pt-2 flex flex-col sm:flex-row gap-3">
-                    <button
-                      type="submit"
-                      disabled={saving}
-                      className="flex-1 inline-flex items-center justify-center gap-2 py-3 rounded-lg bg-neutral-900 hover:bg-neutral-800 dark:bg-white dark:hover:bg-neutral-100 text-white dark:text-neutral-950 text-xs font-semibold transition-colors disabled:opacity-60"
-                    >
-                      {saving ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Send className="w-3.5 h-3.5" />}
-                      <span>{saving ? 'Saving...' : 'Send Direct Message'}</span>
-                    </button>
+                    {user ? (
+                      <button
+                        type="submit"
+                        disabled={saving}
+                        className="flex-1 inline-flex items-center justify-center gap-2 py-3 rounded-lg bg-neutral-900 hover:bg-neutral-800 dark:bg-white dark:hover:bg-neutral-100 text-white dark:text-neutral-950 text-xs font-semibold transition-colors disabled:opacity-60"
+                      >
+                        {saving ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Send className="w-3.5 h-3.5" />}
+                        <span>{saving ? 'Saving to Inbox...' : 'Save Inquiry Online'}</span>
+                      </button>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={signInWithGoogle}
+                        disabled={authLoading}
+                        className="flex-1 inline-flex items-center justify-center gap-2 py-3 rounded-lg bg-neutral-900 hover:bg-neutral-800 dark:bg-white dark:hover:bg-neutral-100 text-white dark:text-neutral-950 text-xs font-semibold transition-colors disabled:opacity-60"
+                      >
+                        {authLoading ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <ShieldCheck className="w-3.5 h-3.5" />}
+                        <span>Sign in with Google to Save Inquiry</span>
+                      </button>
+                    )}
 
                     <a
                       href={`https://wa.me/8809611056361?text=${getWhatsAppMessage()}`}
@@ -351,6 +370,14 @@ export const ContactSection: React.FC = () => {
                     >
                       <MessageCircle className="w-4 h-4" />
                       <span>Send via WhatsApp</span>
+                    </a>
+
+                    <a
+                      href={`mailto:${PROFILE_DATA.email}?subject=${encodeURIComponent(`Inquiry: ${serviceCategory}`)}&body=${getWhatsAppMessage()}`}
+                      className="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-lg border border-neutral-300 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-800 dark:text-neutral-200 text-xs font-semibold transition-colors"
+                    >
+                      <Mail className="w-4 h-4" />
+                      <span>Email</span>
                     </a>
                   </div>
                 </form>
