@@ -1,26 +1,26 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { 
   Mail, 
   MessageCircle, 
-  Phone, 
   Send, 
   CheckCircle2, 
   HelpCircle, 
   ChevronDown, 
   ChevronUp, 
   Calendar, 
-  ExternalLink,
   ShieldCheck,
   UserCheck,
-  Loader2
+  Loader2,
+  Inbox
 } from 'lucide-react';
-import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
+import { addDoc, collection, onSnapshot, query, serverTimestamp, Timestamp, where } from 'firebase/firestore';
 import { BLOG_METADATA, PROFILE_DATA, FAQS } from '../data/blogData';
-import { db, handleFirestoreError, OperationType } from '../firebase';
+import { classifyFirebaseError, db, handleFirestoreError, normalizeDisplayName, OperationType } from '../firebase';
 import { useAuth } from '../contexts/AuthContext';
+import { InquiryItem } from '../types';
 
 export const ContactSection: React.FC = () => {
-  const { user, signInWithGoogle, authLoading } = useAuth();
+  const { user, authReady, signInWithGoogle, authLoading } = useAuth();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [serviceCategory, setServiceCategory] = useState('Remote IT Support & Troubleshooting');
@@ -29,7 +29,45 @@ export const ContactSection: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
   const [saving, setSaving] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [myInquiries, setMyInquiries] = useState<InquiryItem[]>([]);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+
+  useEffect(() => {
+    if (!authReady || !user || !user.emailVerified) {
+      setMyInquiries([]);
+      return;
+    }
+    const q = query(collection(db, 'inquiries'), where('senderUid', '==', user.uid));
+    const unsubscribe = onSnapshot(
+      q,
+      (snapshot) => {
+        const items: InquiryItem[] = snapshot.docs.map((docSnap) => {
+          const d = docSnap.data();
+          return {
+            id: docSnap.id,
+            senderUid: String(d.senderUid || ''),
+            senderName: String(d.senderName || ''),
+            senderEmail: String(d.senderEmail || ''),
+            serviceCategory: String(d.serviceCategory || ''),
+            urgency: String(d.urgency || ''),
+            message: String(d.message || ''),
+            status: (d.status as InquiryItem['status']) || 'new',
+            createdAt: d.createdAt instanceof Timestamp ? d.createdAt.toMillis() : Date.now(),
+          };
+        });
+        items.sort((a, b) => b.createdAt - a.createdAt);
+        setMyInquiries(items);
+      },
+      (error) => {
+        try {
+          handleFirestoreError(error, OperationType.LIST, 'inquiries');
+        } catch {
+          // Logged via handleFirestoreError
+        }
+      }
+    );
+    return () => unsubscribe();
+  }, [authReady, user]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -40,21 +78,34 @@ export const ContactSection: React.FC = () => {
       return;
     }
 
+    const cleanName = normalizeDisplayName(name || user.displayName, 'Visitor');
+    const cleanEmail = (email || user.email || '').trim().slice(0, 120);
+    const cleanMessage = message.trim().slice(0, 2000);
+
+    if (cleanName.length < 2) {
+      setSubmitError('Please enter your name (at least 2 characters).');
+      return;
+    }
+    if (cleanMessage.length < 5) {
+      setSubmitError('Please enter at least 5 characters in your message.');
+      return;
+    }
+
     setSaving(true);
     try {
       await addDoc(collection(db, 'inquiries'), {
         senderUid: user.uid,
-        senderName: (name || user.displayName || 'Visitor').trim().slice(0, 80),
-        senderEmail: (email || user.email || '').trim().slice(0, 120),
+        senderName: cleanName,
+        senderEmail: cleanEmail,
         serviceCategory: serviceCategory.slice(0, 100),
         urgency: urgency.slice(0, 60),
-        message: message.trim().slice(0, 2000),
+        message: cleanMessage,
         status: 'new',
         createdAt: serverTimestamp(),
       });
       setSubmitted(true);
     } catch (error) {
-      setSubmitError('Could not save your inquiry to the database right now. Please use WhatsApp or direct Email below.');
+      setSubmitError(classifyFirebaseError(error));
       try {
         handleFirestoreError(error, OperationType.CREATE, 'inquiries');
       } catch {
@@ -260,6 +311,8 @@ export const ContactSection: React.FC = () => {
                       <input
                         type="text"
                         required
+                        minLength={2}
+                        maxLength={80}
                         placeholder="Your full name"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
@@ -274,6 +327,7 @@ export const ContactSection: React.FC = () => {
                       <input
                         type="email"
                         required
+                        maxLength={120}
                         placeholder="you@example.com"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
@@ -327,6 +381,8 @@ export const ContactSection: React.FC = () => {
                     <textarea
                       rows={4}
                       required
+                      minLength={5}
+                      maxLength={2000}
                       placeholder="Please specify system details, problem symptoms, spreadsheet scope, or blog URL..."
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
@@ -383,6 +439,35 @@ export const ContactSection: React.FC = () => {
                 </form>
               )}
             </div>
+
+            {user && myInquiries.length > 0 && (
+              <div className="mt-6 p-5 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 shadow-xs space-y-3">
+                <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-neutral-700 dark:text-neutral-300">
+                  <Inbox className="w-4 h-4 text-amber-600 dark:text-amber-400" />
+                  <span>Your Saved Inquiries ({myInquiries.length})</span>
+                </div>
+                <div className="space-y-2.5">
+                  {myInquiries.slice(0, 4).map((item) => (
+                    <div
+                      key={item.id}
+                      className="p-3 rounded-xl border border-neutral-200/80 dark:border-neutral-800 bg-neutral-50/70 dark:bg-neutral-800/40 text-xs space-y-1"
+                    >
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="font-semibold text-neutral-900 dark:text-white truncate">
+                          {item.serviceCategory}
+                        </span>
+                        <span className="uppercase tracking-wider text-[10px] font-bold text-amber-700 dark:text-amber-400 shrink-0">
+                          {item.status}
+                        </span>
+                      </div>
+                      <p className="text-neutral-600 dark:text-neutral-300 line-clamp-2">
+                        {item.message}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
 
         </div>

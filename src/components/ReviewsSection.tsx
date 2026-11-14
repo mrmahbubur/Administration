@@ -23,7 +23,7 @@ import {
   AlertCircle,
   Loader2,
 } from 'lucide-react';
-import { db, handleFirestoreError, OperationType } from '../firebase';
+import { classifyFirebaseError, db, handleFirestoreError, normalizeDisplayName, OperationType } from '../firebase';
 import { useAuth } from '../contexts/AuthContext';
 import { ReviewItem, ReviewServiceCategory } from '../types';
 
@@ -88,7 +88,7 @@ export const ReviewsSection: React.FC = () => {
       },
       (error) => {
         setLoadingReviews(false);
-        setLoadError('Unable to load live reviews right now.');
+        setLoadError(classifyFirebaseError(error));
         try {
           handleFirestoreError(error, OperationType.LIST, 'reviews');
         } catch {
@@ -159,15 +159,11 @@ export const ReviewsSection: React.FC = () => {
       return;
     }
 
-    const cleanName = (user.displayName || 'Verified Client').trim().slice(0, 80);
+    const cleanName = normalizeDisplayName(user.displayName, 'Verified Client');
     const cleanRole = roleOrCompany.trim().slice(0, 80);
     const cleanTitle = title.trim().slice(0, 100);
     const cleanComment = comment.trim().slice(0, 1000);
 
-    if (cleanName.length < 2) {
-      setFormError('Your account display name must be at least 2 characters.');
-      return;
-    }
     if (cleanTitle.length < 3) {
       setFormError('Please enter a review headline (at least 3 characters).');
       return;
@@ -207,7 +203,7 @@ export const ReviewsSection: React.FC = () => {
       resetForm();
       setTimeout(() => setFormSuccess(null), 4000);
     } catch (error) {
-      setFormError('Could not save your review. Please check your permissions and try again.');
+      setFormError(classifyFirebaseError(error));
       try {
         handleFirestoreError(
           error,

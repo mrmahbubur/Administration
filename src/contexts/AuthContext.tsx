@@ -40,7 +40,19 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     } catch (error) {
       const message =
         error instanceof Error ? error.message : 'Unable to complete Google sign-in.';
-      if (!message.includes('popup-closed-by-user')) {
+      if (message.includes('popup-closed-by-user')) {
+        return null;
+      }
+      if (message.includes('unauthorized-domain')) {
+        const host = typeof window !== 'undefined' ? window.location.hostname : 'this domain';
+        setAuthError(
+          `Sign-in blocked: add "${host}" in Firebase Console → Authentication → Settings → Authorized domains.`
+        );
+      } else if (message.includes('popup-blocked')) {
+        setAuthError('Browser blocked the Google sign-in popup. Please enable popups for this site and retry.');
+      } else if (message.includes('network-request-failed')) {
+        setAuthError('Network error while connecting to Google Auth. Check your connection and try again.');
+      } else {
         setAuthError('Sign-in could not be completed. Please allow popups and try again.');
       }
       return null;

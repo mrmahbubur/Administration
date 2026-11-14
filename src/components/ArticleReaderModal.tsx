@@ -28,7 +28,7 @@ import {
 } from 'firebase/firestore';
 import { Article, CommentItem } from '../types';
 import { BLOG_METADATA } from '../data/blogData';
-import { db, handleFirestoreError, OperationType } from '../firebase';
+import { db, classifyFirebaseError, handleFirestoreError, normalizeDisplayName, OperationType } from '../firebase';
 import { useAuth } from '../contexts/AuthContext';
 
 interface ArticleReaderModalProps {
@@ -61,6 +61,9 @@ export const ArticleReaderModal: React.FC<ArticleReaderModalProps> = ({
 
   // Load real comments from Firestore
   useEffect(() => {
+    setComments([]);
+    setCommentError(null);
+    setCommentSuccess(false);
     if (!article) return;
     const q = query(
       collection(db, 'article_comments'),
@@ -132,7 +135,7 @@ export const ArticleReaderModal: React.FC<ArticleReaderModalProps> = ({
       await addDoc(collection(db, 'article_comments'), {
         articleId: article.id,
         authorUid: user.uid,
-        authorName: (user.displayName || 'Reader').trim().slice(0, 80),
+        authorName: normalizeDisplayName(user.displayName, 'Reader'),
         text: cleanText,
         createdAt: serverTimestamp(),
       });
@@ -140,7 +143,7 @@ export const ArticleReaderModal: React.FC<ArticleReaderModalProps> = ({
       setCommentSuccess(true);
       setTimeout(() => setCommentSuccess(false), 3000);
     } catch (error) {
-      setCommentError('Could not post comment right now.');
+      setCommentError(classifyFirebaseError(error));
       try {
         handleFirestoreError(error, OperationType.CREATE, 'article_comments');
       } catch {

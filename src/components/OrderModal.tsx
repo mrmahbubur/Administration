@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { X, MessageCircle, Send, CheckCircle2, ShieldCheck, Loader2, Mail } from 'lucide-react';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { Service, Project } from '../types';
-import { db, handleFirestoreError, OperationType } from '../firebase';
+import { classifyFirebaseError, db, handleFirestoreError, normalizeDisplayName, OperationType } from '../firebase';
 import { useAuth } from '../contexts/AuthContext';
 import { PROFILE_DATA } from '../data/blogData';
 
@@ -21,6 +21,12 @@ export const OrderModal: React.FC<OrderModalProps> = ({ item, type, onClose }) =
   const [saving, setSaving] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
+  useEffect(() => {
+    setSubmitted(false);
+    setSubmitError(null);
+    setDetails('');
+  }, [item?.id, type]);
+
   if (!item) return null;
 
   const isService = type === 'service';
@@ -36,23 +42,36 @@ export const OrderModal: React.FC<OrderModalProps> = ({ item, type, onClose }) =
       return;
     }
 
+    const cleanName = normalizeDisplayName(name || user.displayName, 'Visitor');
+    const cleanContact = (contact || user.email || '').trim().slice(0, 120);
+    const cleanMessage = (details || `${isService ? 'Service inquiry' : 'Early interest'} for ${item.title}`)
+      .trim()
+      .slice(0, 2000);
+
+    if (cleanName.length < 2) {
+      setSubmitError('Please enter your name (at least 2 characters).');
+      return;
+    }
+    if (cleanMessage.length < 5) {
+      setSubmitError('Please enter at least 5 characters of details.');
+      return;
+    }
+
     setSaving(true);
     try {
       await addDoc(collection(db, 'inquiries'), {
         senderUid: user.uid,
-        senderName: (name || user.displayName || 'Visitor').trim().slice(0, 80),
-        senderEmail: (contact || user.email || '').trim().slice(0, 120),
+        senderName: cleanName,
+        senderEmail: cleanContact,
         serviceCategory: item.title.slice(0, 100),
         urgency: isService ? 'Service Order' : 'Project Interest',
-        message: (details || `${isService ? 'Service inquiry' : 'Early interest'} for ${item.title}`)
-          .trim()
-          .slice(0, 2000),
+        message: cleanMessage,
         status: 'new',
         createdAt: serverTimestamp(),
       });
       setSubmitted(true);
     } catch (error) {
-      setSubmitError('Could not save right now. Please send directly via WhatsApp or Email below.');
+      setSubmitError(classifyFirebaseError(error));
       try {
         handleFirestoreError(error, OperationType.CREATE, 'inquiries');
       } catch {
@@ -148,6 +167,8 @@ export const OrderModal: React.FC<OrderModalProps> = ({ item, type, onClose }) =
                 <input
                   type="text"
                   required
+                  minLength={2}
+                  maxLength={80}
                   placeholder="Your full name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
@@ -162,6 +183,7 @@ export const OrderModal: React.FC<OrderModalProps> = ({ item, type, onClose }) =
                 <input
                   type="text"
                   required
+                  maxLength={120}
                   placeholder="you@example.com or phone number"
                   value={contact}
                   onChange={(e) => setContact(e.target.value)}
@@ -176,6 +198,7 @@ export const OrderModal: React.FC<OrderModalProps> = ({ item, type, onClose }) =
                   </label>
                   <textarea
                     rows={3}
+                    maxLength={2000}
                     placeholder="Share your requirements, target role, or website URL..."
                     value={details}
                     onChange={(e) => setDetails(e.target.value)}

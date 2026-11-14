@@ -9,8 +9,8 @@ import {
   Timestamp,
   updateDoc,
 } from 'firebase/firestore';
-import { X, Inbox, CheckCircle2, Archive, Trash2, Loader2, Mail } from 'lucide-react';
-import { db, handleFirestoreError, OperationType } from '../firebase';
+import { X, Inbox, CheckCircle2, Archive, Trash2, Loader2, Mail, AlertCircle } from 'lucide-react';
+import { classifyFirebaseError, db, handleFirestoreError, OperationType } from '../firebase';
 import { useAuth } from '../contexts/AuthContext';
 import { InquiryItem } from '../types';
 
@@ -23,6 +23,7 @@ export const OwnerInboxModal: React.FC<OwnerInboxModalProps> = ({ isOpen, onClos
   const { isAdmin } = useAuth();
   const [inquiries, setInquiries] = useState<InquiryItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const [inboxError, setInboxError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!isOpen || !isAdmin) return;
@@ -50,6 +51,7 @@ export const OwnerInboxModal: React.FC<OwnerInboxModalProps> = ({ isOpen, onClos
       },
       (error) => {
         setLoading(false);
+        setInboxError(classifyFirebaseError(error));
         try {
           handleFirestoreError(error, OperationType.LIST, 'inquiries');
         } catch {
@@ -63,9 +65,11 @@ export const OwnerInboxModal: React.FC<OwnerInboxModalProps> = ({ isOpen, onClos
   if (!isOpen || !isAdmin) return null;
 
   const handleStatusChange = async (id: string, status: 'reviewed' | 'archived') => {
+    setInboxError(null);
     try {
       await updateDoc(doc(db, 'inquiries', id), { status });
     } catch (error) {
+      setInboxError(classifyFirebaseError(error));
       try {
         handleFirestoreError(error, OperationType.UPDATE, `inquiries/${id}`);
       } catch {
@@ -75,9 +79,11 @@ export const OwnerInboxModal: React.FC<OwnerInboxModalProps> = ({ isOpen, onClos
   };
 
   const handleDelete = async (id: string) => {
+    setInboxError(null);
     try {
       await deleteDoc(doc(db, 'inquiries', id));
     } catch (error) {
+      setInboxError(classifyFirebaseError(error));
       try {
         handleFirestoreError(error, OperationType.DELETE, `inquiries/${id}`);
       } catch {
@@ -113,6 +119,12 @@ export const OwnerInboxModal: React.FC<OwnerInboxModalProps> = ({ isOpen, onClos
         </div>
 
         <div className="flex-1 overflow-y-auto p-6 space-y-4">
+          {inboxError && (
+            <div className="p-3 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 text-rose-700 dark:text-rose-300 text-xs flex items-center gap-2">
+              <AlertCircle className="w-4 h-4 shrink-0" />
+              <span>{inboxError}</span>
+            </div>
+          )}
           {loading ? (
             <div className="py-12 text-center text-xs text-neutral-500 flex flex-col items-center gap-2">
               <Loader2 className="w-6 h-6 animate-spin text-amber-500" />
