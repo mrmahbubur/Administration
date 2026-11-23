@@ -111,6 +111,12 @@ export const ArticleReaderModal: React.FC<ArticleReaderModalProps> = ({
     setScrollProgress(Math.min(100, Math.max(0, progress)));
   };
 
+  const handleClose = () => {
+    setCommentError(null);
+    clearAuthError();
+    onClose();
+  };
+
   if (!article) return null;
 
   const handleCopy = () => {
@@ -241,7 +247,7 @@ export const ArticleReaderModal: React.FC<ArticleReaderModalProps> = ({
         {/* Reader Top Bar */}
         <div className="px-4 sm:px-6 py-3 border-b border-neutral-200 dark:border-neutral-800 flex items-center justify-between bg-white/90 dark:bg-neutral-900/90 backdrop-blur-md shrink-0">
           <button
-            onClick={onClose}
+            onClick={handleClose}
             className="inline-flex items-center gap-1.5 text-xs font-semibold text-neutral-600 dark:text-neutral-300 hover:text-neutral-950 dark:hover:text-white transition-colors"
           >
             <ChevronLeft className="w-4 h-4" />
@@ -306,7 +312,7 @@ export const ArticleReaderModal: React.FC<ArticleReaderModalProps> = ({
 
             {/* Close */}
             <button
-              onClick={onClose}
+              onClick={handleClose}
               className="p-2 rounded-lg text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors ml-1"
             >
               <X className="w-5 h-5" />

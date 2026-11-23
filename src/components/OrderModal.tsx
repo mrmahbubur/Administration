@@ -33,6 +33,11 @@ export const OrderModal: React.FC<OrderModalProps> = ({ item, type, onClose }) =
     if (authError) clearAuthError();
   };
 
+  const handleClose = () => {
+    clearErrors();
+    onClose();
+  };
+
   if (!item) return null;
 
   const isService = type === 'service';
@@ -121,7 +126,7 @@ export const OrderModal: React.FC<OrderModalProps> = ({ item, type, onClose }) =
             </h3>
           </div>
           <button
-            onClick={onClose}
+            onClick={handleClose}
             className="p-1.5 rounded-lg text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-neutral-800"
           >
             <X className="w-5 h-5" />
@@ -153,7 +158,7 @@ export const OrderModal: React.FC<OrderModalProps> = ({ item, type, onClose }) =
                   <span>Open in WhatsApp</span>
                 </a>
                 <button
-                  onClick={onClose}
+                  onClick={handleClose}
                   className="px-5 py-2.5 rounded-lg border border-neutral-300 dark:border-neutral-700 text-xs font-semibold text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800"
                 >
                   Close

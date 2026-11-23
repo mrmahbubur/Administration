@@ -22,6 +22,7 @@ import {
   LogOut,
   AlertCircle,
   Loader2,
+  X,
 } from 'lucide-react';
 import { classifyFirebaseError, db, handleFirestoreError, normalizeDisplayName, OperationType } from '../firebase';
 import { useAuth } from '../contexts/AuthContext';
@@ -233,16 +234,18 @@ export const ReviewsSection: React.FC = () => {
     setComment(rev.comment);
     setFormError(null);
     setFormSuccess(null);
+    clearAuthError();
   };
 
   const handleDeleteReview = async (revId: string) => {
+    clearErrors();
     try {
       await deleteDoc(doc(db, 'reviews', revId));
       if (editingId === revId) {
         resetForm();
       }
     } catch (error) {
-      setFormError('Unable to delete this review.');
+      setFormError(classifyFirebaseError(error));
       try {
         handleFirestoreError(error, OperationType.DELETE, `reviews/${revId}`);
       } catch {
@@ -316,9 +319,19 @@ export const ReviewsSection: React.FC = () => {
         </div>
 
         {authError && (
-          <div className="mb-6 p-3.5 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 text-rose-800 dark:text-rose-200 text-xs flex items-center gap-2">
-            <AlertCircle className="w-4 h-4 shrink-0" />
-            <span>{authError}</span>
+          <div className="mb-6 p-3.5 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 text-rose-800 dark:text-rose-200 text-xs flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2">
+              <AlertCircle className="w-4 h-4 shrink-0" />
+              <span>{authError}</span>
+            </div>
+            <button
+              type="button"
+              onClick={clearAuthError}
+              aria-label="Dismiss authentication error"
+              className="p-1 rounded hover:bg-rose-200/60 dark:hover:bg-rose-900/60 shrink-0"
+            >
+              <X className="w-3.5 h-3.5" />
+            </button>
           </div>
         )}
 

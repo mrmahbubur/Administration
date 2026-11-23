@@ -20,6 +20,7 @@ import {
   LogIn,
   LogOut,
   Inbox,
+  AlertCircle,
 } from 'lucide-react';
 import { BLOG_METADATA, PROFILE_DATA } from '../data/blogData';
 import { useAuth } from '../contexts/AuthContext';
@@ -64,6 +65,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   ];
 
   const handleNavClick = (id: string) => {
+    if (authError) clearAuthError();
     onSelectTab(id);
     setMobileMenuOpen(false);
   };
@@ -259,7 +261,10 @@ export const Navbar: React.FC<NavbarProps> = ({
         {authError && (
           <div className="bg-amber-50 dark:bg-amber-950/60 border-t border-amber-200 dark:border-amber-800 px-4 py-2 text-xs text-amber-900 dark:text-amber-200">
             <div className="max-w-7xl mx-auto flex items-center justify-between gap-3">
-              <span>{authError}</span>
+              <div className="flex items-center gap-2 min-w-0">
+                <AlertCircle className="w-4 h-4 shrink-0 text-amber-600 dark:text-amber-400" />
+                <span>{authError}</span>
+              </div>
               <button
                 type="button"
                 onClick={clearAuthError}
