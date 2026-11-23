@@ -59,6 +59,7 @@ export const ContactSection: React.FC = () => {
         setMyInquiries(items);
       },
       (error) => {
+        setSubmitError(classifyFirebaseError(error));
         try {
           handleFirestoreError(error, OperationType.LIST, 'inquiries');
         } catch {
@@ -78,14 +79,16 @@ export const ContactSection: React.FC = () => {
       return;
     }
 
-    const cleanName = normalizeDisplayName(name || user.displayName, 'Visitor');
-    const cleanEmail = (email || user.email || '').trim().slice(0, 120);
-    const cleanMessage = message.trim().slice(0, 2000);
-
-    if (cleanName.length < 2) {
+    const typedName = name.trim();
+    if (typedName.length > 0 && typedName.length < 2) {
       setSubmitError('Please enter your name (at least 2 characters).');
       return;
     }
+
+    const cleanName = normalizeDisplayName(typedName || user.displayName, 'Visitor');
+    const cleanEmail = (email || user.email || '').trim().slice(0, 120);
+    const cleanMessage = message.trim().slice(0, 2000);
+
     if (cleanMessage.length < 5) {
       setSubmitError('Please enter at least 5 characters in your message.');
       return;

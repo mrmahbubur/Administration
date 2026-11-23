@@ -62,6 +62,7 @@ export const ArticleReaderModal: React.FC<ArticleReaderModalProps> = ({
   // Load real comments from Firestore
   useEffect(() => {
     setComments([]);
+    setCommentText('');
     setCommentError(null);
     setCommentSuccess(false);
     if (!article) return;
@@ -87,6 +88,7 @@ export const ArticleReaderModal: React.FC<ArticleReaderModalProps> = ({
         setComments(items);
       },
       (error) => {
+        setCommentError(classifyFirebaseError(error));
         try {
           handleFirestoreError(error, OperationType.LIST, 'article_comments');
         } catch {
@@ -155,9 +157,11 @@ export const ArticleReaderModal: React.FC<ArticleReaderModalProps> = ({
   };
 
   const handleDeleteComment = async (commentId: string) => {
+    setCommentError(null);
     try {
       await deleteDoc(doc(db, 'article_comments', commentId));
     } catch (error) {
+      setCommentError(classifyFirebaseError(error));
       try {
         handleFirestoreError(error, OperationType.DELETE, `article_comments/${commentId}`);
       } catch {

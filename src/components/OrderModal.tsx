@@ -42,16 +42,18 @@ export const OrderModal: React.FC<OrderModalProps> = ({ item, type, onClose }) =
       return;
     }
 
-    const cleanName = normalizeDisplayName(name || user.displayName, 'Visitor');
+    const typedName = name.trim();
+    if (typedName.length > 0 && typedName.length < 2) {
+      setSubmitError('Please enter your name (at least 2 characters).');
+      return;
+    }
+
+    const cleanName = normalizeDisplayName(typedName || user.displayName, 'Visitor');
     const cleanContact = (contact || user.email || '').trim().slice(0, 120);
     const cleanMessage = (details || `${isService ? 'Service inquiry' : 'Early interest'} for ${item.title}`)
       .trim()
       .slice(0, 2000);
 
-    if (cleanName.length < 2) {
-      setSubmitError('Please enter your name (at least 2 characters).');
-      return;
-    }
     if (cleanMessage.length < 5) {
       setSubmitError('Please enter at least 5 characters of details.');
       return;
