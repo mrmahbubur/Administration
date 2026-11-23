@@ -64,9 +64,18 @@ export const Navbar: React.FC<NavbarProps> = ({
     { id: 'contact', label: 'Contact', icon: Send },
   ];
 
-  const handleNavClick = (id: string) => {
+  const clearNavbarAuthError = () => {
     if (authError) clearAuthError();
+  };
+
+  const handleNavClick = (id: string) => {
+    clearNavbarAuthError();
     onSelectTab(id);
+    setMobileMenuOpen(false);
+  };
+
+  const closeMobileDrawer = () => {
+    clearNavbarAuthError();
     setMobileMenuOpen(false);
   };
 
@@ -154,7 +163,10 @@ export const Navbar: React.FC<NavbarProps> = ({
             <div className="flex items-center gap-2">
               {/* Calendly Booking Button */}
               <button
-                onClick={onOpenCalendly}
+                onClick={() => {
+                  clearNavbarAuthError();
+                  onOpenCalendly();
+                }}
                 className="hidden xl:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-neutral-300 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-800 dark:text-neutral-200 text-xs font-semibold transition-colors"
                 title="Book 1-on-1 meeting on Calendly"
               >
@@ -164,7 +176,10 @@ export const Navbar: React.FC<NavbarProps> = ({
 
               {/* Search Trigger */}
               <button
-                onClick={onOpenSearch}
+                onClick={() => {
+                  clearNavbarAuthError();
+                  onOpenSearch();
+                }}
                 aria-label="Search articles"
                 className="p-2 text-neutral-600 hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-white rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
                 title="Search articles & guides (Press / to search)"
@@ -174,7 +189,10 @@ export const Navbar: React.FC<NavbarProps> = ({
 
               {/* Saved Articles */}
               <button
-                onClick={onOpenSaved}
+                onClick={() => {
+                  clearNavbarAuthError();
+                  onOpenSaved();
+                }}
                 aria-label="View saved articles"
                 className="p-2 text-neutral-600 hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-white rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors relative"
                 title="Saved reading list"
@@ -200,7 +218,10 @@ export const Navbar: React.FC<NavbarProps> = ({
               {/* Owner Inbox (Admin Only) */}
               {isAdmin && (
                 <button
-                  onClick={onOpenOwnerInbox}
+                  onClick={() => {
+                    clearNavbarAuthError();
+                    onOpenOwnerInbox();
+                  }}
                   className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-neutral-950 text-xs font-bold transition-colors"
                   title="Open Owner Inquiries Inbox"
                 >
@@ -248,7 +269,14 @@ export const Navbar: React.FC<NavbarProps> = ({
 
               {/* Mobile Hamburger Toggle */}
               <button
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                onClick={() => {
+                  if (mobileMenuOpen) {
+                    closeMobileDrawer();
+                  } else {
+                    clearNavbarAuthError();
+                    setMobileMenuOpen(true);
+                  }
+                }}
                 aria-label="Toggle navigation menu"
                 className="lg:hidden p-2 text-neutral-600 hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-white rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
               >
@@ -259,17 +287,21 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
 
         {authError && (
-          <div className="bg-amber-50 dark:bg-amber-950/60 border-t border-amber-200 dark:border-amber-800 px-4 py-2 text-xs text-amber-900 dark:text-amber-200">
+          <div
+            role="alert"
+            aria-live="polite"
+            className="bg-rose-50 dark:bg-rose-950/60 border-t border-rose-200 dark:border-rose-800 px-4 py-2.5 text-xs text-rose-900 dark:text-rose-200"
+          >
             <div className="max-w-7xl mx-auto flex items-center justify-between gap-3">
               <div className="flex items-center gap-2 min-w-0">
-                <AlertCircle className="w-4 h-4 shrink-0 text-amber-600 dark:text-amber-400" />
-                <span>{authError}</span>
+                <AlertCircle className="w-4 h-4 shrink-0 text-rose-600 dark:text-rose-400" />
+                <span className="font-medium">{authError}</span>
               </div>
               <button
                 type="button"
                 onClick={clearAuthError}
                 aria-label="Dismiss sign-in error"
-                className="p-1 rounded hover:bg-amber-200/60 dark:hover:bg-amber-900/60 shrink-0"
+                className="p-1 rounded hover:bg-rose-200/60 dark:hover:bg-rose-900/60 shrink-0"
               >
                 <X className="w-3.5 h-3.5" />
               </button>
@@ -284,7 +316,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Backdrop */}
           <div 
             className="fixed inset-0 bg-neutral-950/60 backdrop-blur-xs transition-opacity"
-            onClick={() => setMobileMenuOpen(false)}
+            onClick={closeMobileDrawer}
           />
 
           {/* Drawer content */}
@@ -301,7 +333,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   </div>
                 </div>
                 <button
-                  onClick={() => setMobileMenuOpen(false)}
+                  onClick={closeMobileDrawer}
                   className="p-1.5 rounded-lg text-neutral-500 hover:bg-neutral-100 dark:hover:bg-neutral-800"
                 >
                   <X className="w-5 h-5" />
@@ -334,7 +366,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <div className="mt-6 pt-6 border-t border-neutral-200 dark:border-neutral-800 flex flex-col gap-2">
                 <button
                   onClick={() => {
-                    setMobileMenuOpen(false);
+                    closeMobileDrawer();
                     onOpenCalendly();
                   }}
                   className="flex items-center gap-3 w-full px-3.5 py-2.5 rounded-lg text-left text-sm text-neutral-600 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-800"
@@ -345,7 +377,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
                 <button
                   onClick={() => {
-                    setMobileMenuOpen(false);
+                    closeMobileDrawer();
                     onOpenSearch();
                   }}
                   className="flex items-center gap-3 w-full px-3.5 py-2.5 rounded-lg text-left text-sm text-neutral-600 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-800"
@@ -356,7 +388,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
                 <button
                   onClick={() => {
-                    setMobileMenuOpen(false);
+                    closeMobileDrawer();
                     onOpenSaved();
                   }}
                   className="flex items-center justify-between w-full px-3.5 py-2.5 rounded-lg text-left text-sm text-neutral-600 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-800"
@@ -373,7 +405,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 {isAdmin && (
                   <button
                     onClick={() => {
-                      setMobileMenuOpen(false);
+                      closeMobileDrawer();
                       onOpenOwnerInbox();
                     }}
                     className="flex items-center gap-3 w-full px-3.5 py-2.5 rounded-lg text-left text-sm font-semibold text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/30"
@@ -388,7 +420,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     <button
                       onClick={() => {
                         logout();
-                        setMobileMenuOpen(false);
+                        closeMobileDrawer();
                       }}
                       className="flex items-center justify-between w-full px-3.5 py-2.5 rounded-lg text-left text-sm text-neutral-700 dark:text-neutral-200 hover:bg-neutral-50 dark:hover:bg-neutral-800"
                     >
@@ -401,7 +433,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     <button
                       onClick={() => {
                         signInWithGoogle();
-                        setMobileMenuOpen(false);
+                        closeMobileDrawer();
                       }}
                       className="flex items-center gap-3 w-full px-3.5 py-2.5 rounded-lg text-left text-sm font-semibold text-neutral-900 dark:text-white bg-neutral-100 dark:bg-neutral-800"
                     >
@@ -442,7 +474,7 @@ export const Navbar: React.FC<NavbarProps> = ({
       <div className="fixed bottom-0 left-0 right-0 z-30 lg:hidden bg-white/95 dark:bg-neutral-900/95 backdrop-blur-md border-t border-neutral-200 dark:border-neutral-800 py-1.5 px-3">
         <div className="grid grid-cols-5 gap-1 text-center">
           <button
-            onClick={() => onSelectTab('articles')}
+            onClick={() => handleNavClick('articles')}
             className={`flex flex-col items-center justify-center py-1 rounded-md text-[11px] ${
               currentTab === 'articles' ? 'text-neutral-950 dark:text-white font-semibold' : 'text-neutral-500 dark:text-neutral-400'
             }`}
@@ -452,7 +484,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           </button>
 
           <button
-            onClick={() => onSelectTab('about')}
+            onClick={() => handleNavClick('about')}
             className={`flex flex-col items-center justify-center py-1 rounded-md text-[11px] ${
               currentTab === 'about' ? 'text-neutral-950 dark:text-white font-semibold' : 'text-neutral-500 dark:text-neutral-400'
             }`}
@@ -462,7 +494,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           </button>
 
           <button
-            onClick={() => onSelectTab('services')}
+            onClick={() => handleNavClick('services')}
             className={`flex flex-col items-center justify-center py-1 rounded-md text-[11px] ${
               currentTab === 'services' ? 'text-neutral-950 dark:text-white font-semibold' : 'text-neutral-500 dark:text-neutral-400'
             }`}
@@ -472,7 +504,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           </button>
 
           <button
-            onClick={() => onSelectTab('reviews')}
+            onClick={() => handleNavClick('reviews')}
             className={`flex flex-col items-center justify-center py-1 rounded-md text-[11px] ${
               currentTab === 'reviews' ? 'text-neutral-950 dark:text-white font-semibold' : 'text-neutral-500 dark:text-neutral-400'
             }`}
@@ -482,7 +514,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           </button>
 
           <button
-            onClick={() => onSelectTab('contact')}
+            onClick={() => handleNavClick('contact')}
             className={`flex flex-col items-center justify-center py-1 rounded-md text-[11px] ${
               currentTab === 'contact' ? 'text-neutral-950 dark:text-white font-semibold' : 'text-neutral-500 dark:text-neutral-400'
             }`}

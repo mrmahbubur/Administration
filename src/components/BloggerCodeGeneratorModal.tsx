@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { X, Copy, Check, Code } from 'lucide-react';
 
 interface BloggerCodeGeneratorModalProps {
@@ -8,6 +8,12 @@ interface BloggerCodeGeneratorModalProps {
 
 export const BloggerCodeGeneratorModal: React.FC<BloggerCodeGeneratorModalProps> = ({ isOpen, onClose }) => {
   const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    if (!isOpen) {
+      setCopied(false);
+    }
+  }, [isOpen]);
 
   if (!isOpen) return null;
 

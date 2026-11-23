@@ -415,7 +415,11 @@ export const ContactSection: React.FC = () => {
                   </div>
 
                   {(submitError || authError) && (
-                    <div className="p-3 rounded-lg bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 text-xs text-amber-900 dark:text-amber-200">
+                    <div
+                      role="alert"
+                      aria-live="polite"
+                      className="p-3 rounded-lg bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 text-xs text-amber-900 dark:text-amber-200"
+                    >
                       {submitError || authError}
                     </div>
                   )}

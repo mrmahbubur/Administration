@@ -20,10 +20,17 @@ interface OwnerInboxModalProps {
 }
 
 export const OwnerInboxModal: React.FC<OwnerInboxModalProps> = ({ isOpen, onClose }) => {
-  const { isAdmin } = useAuth();
+  const { isAdmin, clearAuthError } = useAuth();
   const [inquiries, setInquiries] = useState<InquiryItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [inboxError, setInboxError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!isOpen) {
+      setInboxError(null);
+      return;
+    }
+  }, [isOpen]);
 
   useEffect(() => {
     if (!isOpen || !isAdmin) return;
@@ -61,6 +68,12 @@ export const OwnerInboxModal: React.FC<OwnerInboxModalProps> = ({ isOpen, onClos
     );
     return () => unsubscribe();
   }, [isOpen, isAdmin]);
+
+  const handleClose = () => {
+    setInboxError(null);
+    clearAuthError();
+    onClose();
+  };
 
   if (!isOpen || !isAdmin) return null;
 
@@ -111,7 +124,7 @@ export const OwnerInboxModal: React.FC<OwnerInboxModalProps> = ({ isOpen, onClos
           </div>
 
           <button
-            onClick={onClose}
+            onClick={handleClose}
             className="p-1.5 rounded-lg text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-neutral-800"
           >
             <X className="w-5 h-5" />
@@ -120,7 +133,7 @@ export const OwnerInboxModal: React.FC<OwnerInboxModalProps> = ({ isOpen, onClos
 
         <div className="flex-1 overflow-y-auto p-6 space-y-4">
           {inboxError && (
-            <div className="p-3 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 text-rose-700 dark:text-rose-300 text-xs flex items-center gap-2">
+            <div role="alert" className="p-3 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 text-rose-700 dark:text-rose-300 text-xs flex items-center gap-2">
               <AlertCircle className="w-4 h-4 shrink-0" />
               <span>{inboxError}</span>
             </div>

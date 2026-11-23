@@ -319,7 +319,11 @@ export const ReviewsSection: React.FC = () => {
         </div>
 
         {authError && (
-          <div className="mb-6 p-3.5 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 text-rose-800 dark:text-rose-200 text-xs flex items-center justify-between gap-2">
+          <div
+            role="alert"
+            aria-live="polite"
+            className="mb-6 p-3.5 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 text-rose-800 dark:text-rose-200 text-xs flex items-center justify-between gap-2"
+          >
             <div className="flex items-center gap-2">
               <AlertCircle className="w-4 h-4 shrink-0" />
               <span>{authError}</span>
@@ -543,7 +547,11 @@ export const ReviewsSection: React.FC = () => {
                   </div>
 
                   {(formError || authError) && (
-                    <div className="p-2.5 rounded-lg bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 text-rose-700 dark:text-rose-300 text-xs">
+                    <div
+                      role="alert"
+                      aria-live="polite"
+                      className="p-2.5 rounded-lg bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 text-rose-700 dark:text-rose-300 text-xs"
+                    >
                       {formError || authError}
                     </div>
                   )}

@@ -112,6 +112,8 @@ export const ArticleReaderModal: React.FC<ArticleReaderModalProps> = ({
   };
 
   const handleClose = () => {
+    setCommentText('');
+    setCommentSuccess(false);
     setCommentError(null);
     clearAuthError();
     onClose();
@@ -457,7 +459,11 @@ export const ArticleReaderModal: React.FC<ArticleReaderModalProps> = ({
                     </button>
                   </div>
                   {(commentError || authError) && (
-                    <div className="p-3 rounded-lg bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 text-xs text-amber-900 dark:text-amber-200">
+                    <div
+                      role="alert"
+                      aria-live="polite"
+                      className="p-3 rounded-lg bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 text-xs text-amber-900 dark:text-amber-200"
+                    >
                       {commentError || authError}
                     </div>
                   )}
@@ -483,7 +489,11 @@ export const ArticleReaderModal: React.FC<ArticleReaderModalProps> = ({
                       className="w-full px-3 py-2 text-sm rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-neutral-950 dark:focus:ring-white"
                     />
                     {(commentError || authError) && (
-                      <div className="p-2.5 rounded-lg bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 text-xs text-rose-700 dark:text-rose-300">
+                      <div
+                        role="alert"
+                        aria-live="polite"
+                        className="p-2.5 rounded-lg bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 text-xs text-rose-700 dark:text-rose-300"
+                      >
                         {commentError || authError}
                       </div>
                     )}
