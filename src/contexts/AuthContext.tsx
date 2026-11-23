@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { User, onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth';
-import { auth, googleProvider } from '../firebase';
+import { auth, FIREBASE_PROJECT_ID, googleProvider } from '../firebase';
 
 interface AuthContextValue {
   user: User | null;
@@ -46,7 +46,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (message.includes('unauthorized-domain')) {
         const host = typeof window !== 'undefined' ? window.location.hostname : 'this domain';
         setAuthError(
-          `Sign-in blocked: add "${host}" in Firebase Console → Authentication → Settings → Authorized domains.`
+          `Sign-in blocked: add "${host}" in Firebase Console (project ${FIREBASE_PROJECT_ID}) → Authentication → Settings → Authorized domains.`
         );
       } else if (message.includes('popup-blocked')) {
         setAuthError('Browser blocked the Google sign-in popup. Please enable popups for this site and retry.');

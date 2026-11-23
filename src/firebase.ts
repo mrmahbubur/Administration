@@ -5,6 +5,7 @@ import firebaseConfig from '../firebase-applet-config.json';
 
 const app = initializeApp(firebaseConfig);
 
+export const FIREBASE_PROJECT_ID = firebaseConfig.projectId;
 export const db = getFirestore(app, firebaseConfig.firestoreDatabaseId);
 export const auth = getAuth(app);
 export const googleProvider = new GoogleAuthProvider();
@@ -58,7 +59,7 @@ export function classifyFirebaseError(error: unknown): string {
     return 'Unable to reach Firestore right now. Please check your internet connection and retry.';
   }
   if (lower.includes('unauthorized-domain')) {
-    return `This domain (${typeof window !== 'undefined' ? window.location.hostname : 'current host'}) is not yet added under Firebase Authentication → Settings → Authorized domains.`;
+    return `This domain (${typeof window !== 'undefined' ? window.location.hostname : 'current host'}) is not yet added in Firebase Console (project ${firebaseConfig.projectId}) → Authentication → Settings → Authorized domains.`;
   }
   return 'A database error occurred. Please check your input or contact M R S directly.';
 }
