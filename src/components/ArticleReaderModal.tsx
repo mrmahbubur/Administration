@@ -48,7 +48,7 @@ export const ArticleReaderModal: React.FC<ArticleReaderModalProps> = ({
   onSelectArticle,
   allArticles
 }) => {
-  const { user, isAdmin, signInWithGoogle, authLoading, authError } = useAuth();
+  const { user, isAdmin, signInWithGoogle, authLoading, authError, clearAuthError } = useAuth();
   const [fontSize, setFontSize] = useState<'normal' | 'large' | 'huge'>('normal');
   const [copied, setCopied] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -59,13 +59,14 @@ export const ArticleReaderModal: React.FC<ArticleReaderModalProps> = ({
   const [commentError, setCommentError] = useState<string | null>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
-  // Load real comments from Firestore and reset input state when article changes
+  // Load real comments from Firestore and reset input/scroll state when article changes
   useEffect(() => {
     setComments([]);
     setCommentText('');
     setCommentError(null);
     setCommentSuccess(false);
     setScrollProgress(0);
+    clearAuthError();
     if (contentRef.current) {
       contentRef.current.scrollTop = 0;
     }
@@ -470,6 +471,7 @@ export const ArticleReaderModal: React.FC<ArticleReaderModalProps> = ({
                       onChange={(e) => {
                         setCommentText(e.target.value);
                         if (commentError) setCommentError(null);
+                        if (authError) clearAuthError();
                       }}
                       required
                       className="w-full px-3 py-2 text-sm rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-neutral-950 dark:focus:ring-white"

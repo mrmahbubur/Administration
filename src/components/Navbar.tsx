@@ -50,7 +50,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenOwnerInbox,
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { user, isAdmin, authLoading, signInWithGoogle, logout } = useAuth();
+  const { user, isAdmin, authLoading, authError, clearAuthError, signInWithGoogle, logout } = useAuth();
 
   const navItems = [
     { id: 'articles', label: 'Articles', icon: BookOpen },
@@ -255,6 +255,22 @@ export const Navbar: React.FC<NavbarProps> = ({
             </div>
           </div>
         </div>
+
+        {authError && (
+          <div className="bg-amber-50 dark:bg-amber-950/60 border-t border-amber-200 dark:border-amber-800 px-4 py-2 text-xs text-amber-900 dark:text-amber-200">
+            <div className="max-w-7xl mx-auto flex items-center justify-between gap-3">
+              <span>{authError}</span>
+              <button
+                type="button"
+                onClick={clearAuthError}
+                aria-label="Dismiss sign-in error"
+                className="p-1 rounded hover:bg-amber-200/60 dark:hover:bg-amber-900/60 shrink-0"
+              >
+                <X className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          </div>
+        )}
       </header>
 
       {/* Mobile Slide-over Drawer */}

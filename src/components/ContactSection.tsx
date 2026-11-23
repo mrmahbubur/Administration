@@ -20,7 +20,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { InquiryItem } from '../types';
 
 export const ContactSection: React.FC = () => {
-  const { user, authReady, signInWithGoogle, authLoading, authError } = useAuth();
+  const { user, authReady, signInWithGoogle, authLoading, authError, clearAuthError } = useAuth();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [serviceCategory, setServiceCategory] = useState('Remote IT Support & Troubleshooting');
@@ -31,6 +31,11 @@ export const ContactSection: React.FC = () => {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [myInquiries, setMyInquiries] = useState<InquiryItem[]>([]);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+
+  const clearErrors = () => {
+    if (submitError) setSubmitError(null);
+    if (authError) clearAuthError();
+  };
 
   useEffect(() => {
     if (!authReady || !user || !user.emailVerified) {
@@ -297,6 +302,7 @@ export const ContactSection: React.FC = () => {
                       onClick={() => {
                         setSubmitted(false);
                         setMessage('');
+                        clearErrors();
                       }}
                       className="px-4 py-2.5 rounded-lg border border-neutral-300 dark:border-neutral-700 text-xs font-medium text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800"
                     >
@@ -320,7 +326,7 @@ export const ContactSection: React.FC = () => {
                         value={name}
                         onChange={(e) => {
                           setName(e.target.value);
-                          if (submitError) setSubmitError(null);
+                          clearErrors();
                         }}
                         className="w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-neutral-900 dark:focus:ring-white"
                       />
@@ -336,7 +342,10 @@ export const ContactSection: React.FC = () => {
                         maxLength={120}
                         placeholder="you@example.com"
                         value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={(e) => {
+                          setEmail(e.target.value);
+                          clearErrors();
+                        }}
                         className="w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-neutral-900 dark:focus:ring-white"
                       />
                     </div>
@@ -349,7 +358,10 @@ export const ContactSection: React.FC = () => {
                       </label>
                       <select
                         value={serviceCategory}
-                        onChange={(e) => setServiceCategory(e.target.value)}
+                        onChange={(e) => {
+                          setServiceCategory(e.target.value);
+                          clearErrors();
+                        }}
                         className="w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-neutral-900 dark:focus:ring-white"
                       >
                         <option value="Remote IT Support & Troubleshooting">Remote IT Support &amp; Troubleshooting</option>
@@ -369,7 +381,10 @@ export const ContactSection: React.FC = () => {
                       </label>
                       <select
                         value={urgency}
-                        onChange={(e) => setUrgency(e.target.value)}
+                        onChange={(e) => {
+                          setUrgency(e.target.value);
+                          clearErrors();
+                        }}
                         className="w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-neutral-900 dark:focus:ring-white"
                       >
                         <option value="Immediate / Emergency">Immediate / Urgent Need</option>
@@ -393,7 +408,7 @@ export const ContactSection: React.FC = () => {
                       value={message}
                       onChange={(e) => {
                         setMessage(e.target.value);
-                        if (submitError) setSubmitError(null);
+                        clearErrors();
                       }}
                       className="w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-neutral-900 dark:focus:ring-white"
                     />

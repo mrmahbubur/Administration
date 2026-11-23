@@ -28,6 +28,11 @@ export const OrderModal: React.FC<OrderModalProps> = ({ item, type, onClose }) =
     clearAuthError();
   }, [item?.id, type]);
 
+  const clearErrors = () => {
+    if (submitError) setSubmitError(null);
+    if (authError) clearAuthError();
+  };
+
   if (!item) return null;
 
   const isService = type === 'service';
@@ -176,7 +181,7 @@ export const OrderModal: React.FC<OrderModalProps> = ({ item, type, onClose }) =
                   value={name}
                   onChange={(e) => {
                     setName(e.target.value);
-                    if (submitError) setSubmitError(null);
+                    clearErrors();
                   }}
                   className="w-full px-3 py-2 text-xs sm:text-sm rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-neutral-900 dark:focus:ring-white"
                 />
@@ -192,7 +197,10 @@ export const OrderModal: React.FC<OrderModalProps> = ({ item, type, onClose }) =
                   maxLength={120}
                   placeholder="you@example.com or phone number"
                   value={contact}
-                  onChange={(e) => setContact(e.target.value)}
+                  onChange={(e) => {
+                    setContact(e.target.value);
+                    clearErrors();
+                  }}
                   className="w-full px-3 py-2 text-xs sm:text-sm rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-neutral-900 dark:focus:ring-white"
                 />
               </div>
@@ -207,7 +215,10 @@ export const OrderModal: React.FC<OrderModalProps> = ({ item, type, onClose }) =
                     maxLength={2000}
                     placeholder="Share your requirements, target role, or website URL..."
                     value={details}
-                    onChange={(e) => setDetails(e.target.value)}
+                    onChange={(e) => {
+                      setDetails(e.target.value);
+                      clearErrors();
+                    }}
                     className="w-full px-3 py-2 text-xs sm:text-sm rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-neutral-900 dark:focus:ring-white"
                   />
                 </div>

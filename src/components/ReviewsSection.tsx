@@ -37,7 +37,7 @@ const SERVICE_OPTIONS: ReviewServiceCategory[] = [
 ];
 
 export const ReviewsSection: React.FC = () => {
-  const { user, isAdmin, authLoading, authError, signInWithGoogle, logout } = useAuth();
+  const { user, isAdmin, authLoading, authError, clearAuthError, signInWithGoogle, logout } = useAuth();
   const [reviews, setReviews] = useState<ReviewItem[]>([]);
   const [loadingReviews, setLoadingReviews] = useState(true);
   const [loadError, setLoadError] = useState<string | null>(null);
@@ -138,6 +138,11 @@ export const ReviewsSection: React.FC = () => {
     return list;
   }, [reviews, serviceFilter, sortBy]);
 
+  const clearErrors = () => {
+    if (formError) setFormError(null);
+    if (authError) clearAuthError();
+  };
+
   const resetForm = () => {
     setRating(5);
     setHoverRating(0);
@@ -147,6 +152,7 @@ export const ReviewsSection: React.FC = () => {
     setComment('');
     setEditingId(null);
     setFormError(null);
+    clearAuthError();
   };
 
   const handleSubmitReview = async (e: React.FormEvent) => {
@@ -418,7 +424,10 @@ export const ReviewsSection: React.FC = () => {
                             type="button"
                             onMouseEnter={() => setHoverRating(star)}
                             onMouseLeave={() => setHoverRating(0)}
-                            onClick={() => setRating(star)}
+                            onClick={() => {
+                              setRating(star);
+                              clearErrors();
+                            }}
                             className="p-1 rounded-md hover:scale-110 transition-transform"
                             aria-label={`Rate ${star} stars`}
                           >
@@ -445,7 +454,10 @@ export const ReviewsSection: React.FC = () => {
                     </label>
                     <select
                       value={serviceUsed}
-                      onChange={(e) => setServiceUsed(e.target.value as ReviewServiceCategory)}
+                      onChange={(e) => {
+                        setServiceUsed(e.target.value as ReviewServiceCategory);
+                        clearErrors();
+                      }}
                       className="w-full px-3 py-2 text-xs sm:text-sm rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-neutral-900 dark:focus:ring-white"
                     >
                       {SERVICE_OPTIONS.map((opt) => (
@@ -466,7 +478,10 @@ export const ReviewsSection: React.FC = () => {
                       maxLength={80}
                       placeholder="e.g. Small Business Owner, Dhaka"
                       value={roleOrCompany}
-                      onChange={(e) => setRoleOrCompany(e.target.value)}
+                      onChange={(e) => {
+                        setRoleOrCompany(e.target.value);
+                        clearErrors();
+                      }}
                       className="w-full px-3 py-2 text-xs sm:text-sm rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-neutral-900 dark:focus:ring-white"
                     />
                   </div>
@@ -483,7 +498,10 @@ export const ReviewsSection: React.FC = () => {
                       maxLength={100}
                       placeholder="e.g. Fast turnaround and clean Blogspot setup"
                       value={title}
-                      onChange={(e) => setTitle(e.target.value)}
+                      onChange={(e) => {
+                        setTitle(e.target.value);
+                        clearErrors();
+                      }}
                       className="w-full px-3 py-2 text-xs sm:text-sm rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-neutral-900 dark:focus:ring-white"
                     />
                   </div>
@@ -503,14 +521,17 @@ export const ReviewsSection: React.FC = () => {
                       maxLength={1000}
                       placeholder="Share your honest experience working with M R S..."
                       value={comment}
-                      onChange={(e) => setComment(e.target.value)}
+                      onChange={(e) => {
+                        setComment(e.target.value);
+                        clearErrors();
+                      }}
                       className="w-full px-3 py-2 text-xs sm:text-sm rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-neutral-900 dark:focus:ring-white"
                     />
                   </div>
 
-                  {formError && (
+                  {(formError || authError) && (
                     <div className="p-2.5 rounded-lg bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 text-rose-700 dark:text-rose-300 text-xs">
-                      {formError}
+                      {formError || authError}
                     </div>
                   )}
 
