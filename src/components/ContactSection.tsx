@@ -20,7 +20,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { InquiryItem } from '../types';
 
 export const ContactSection: React.FC = () => {
-  const { user, authReady, signInWithGoogle, authLoading } = useAuth();
+  const { user, authReady, signInWithGoogle, authLoading, authError } = useAuth();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [serviceCategory, setServiceCategory] = useState('Remote IT Support & Troubleshooting');
@@ -318,7 +318,10 @@ export const ContactSection: React.FC = () => {
                         maxLength={80}
                         placeholder="Your full name"
                         value={name}
-                        onChange={(e) => setName(e.target.value)}
+                        onChange={(e) => {
+                          setName(e.target.value);
+                          if (submitError) setSubmitError(null);
+                        }}
                         className="w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-neutral-900 dark:focus:ring-white"
                       />
                     </div>
@@ -388,14 +391,17 @@ export const ContactSection: React.FC = () => {
                       maxLength={2000}
                       placeholder="Please specify system details, problem symptoms, spreadsheet scope, or blog URL..."
                       value={message}
-                      onChange={(e) => setMessage(e.target.value)}
+                      onChange={(e) => {
+                        setMessage(e.target.value);
+                        if (submitError) setSubmitError(null);
+                      }}
                       className="w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-neutral-900 dark:focus:ring-white"
                     />
                   </div>
 
-                  {submitError && (
+                  {(submitError || authError) && (
                     <div className="p-3 rounded-lg bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 text-xs text-amber-900 dark:text-amber-200">
-                      {submitError}
+                      {submitError || authError}
                     </div>
                   )}
 

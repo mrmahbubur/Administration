@@ -13,7 +13,7 @@ interface OrderModalProps {
 }
 
 export const OrderModal: React.FC<OrderModalProps> = ({ item, type, onClose }) => {
-  const { user, signInWithGoogle, authLoading } = useAuth();
+  const { user, signInWithGoogle, authLoading, authError, clearAuthError } = useAuth();
   const [name, setName] = useState('');
   const [contact, setContact] = useState('');
   const [details, setDetails] = useState('');
@@ -25,6 +25,7 @@ export const OrderModal: React.FC<OrderModalProps> = ({ item, type, onClose }) =
     setSubmitted(false);
     setSubmitError(null);
     setDetails('');
+    clearAuthError();
   }, [item?.id, type]);
 
   if (!item) return null;
@@ -173,7 +174,10 @@ export const OrderModal: React.FC<OrderModalProps> = ({ item, type, onClose }) =
                   maxLength={80}
                   placeholder="Your full name"
                   value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  onChange={(e) => {
+                    setName(e.target.value);
+                    if (submitError) setSubmitError(null);
+                  }}
                   className="w-full px-3 py-2 text-xs sm:text-sm rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-neutral-900 dark:focus:ring-white"
                 />
               </div>
@@ -209,9 +213,9 @@ export const OrderModal: React.FC<OrderModalProps> = ({ item, type, onClose }) =
                 </div>
               )}
 
-              {submitError && (
+              {(submitError || authError) && (
                 <div className="p-2.5 rounded-lg bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 text-xs text-amber-900 dark:text-amber-200">
-                  {submitError}
+                  {submitError || authError}
                 </div>
               )}
 

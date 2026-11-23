@@ -48,7 +48,7 @@ export const ArticleReaderModal: React.FC<ArticleReaderModalProps> = ({
   onSelectArticle,
   allArticles
 }) => {
-  const { user, isAdmin, signInWithGoogle, authLoading } = useAuth();
+  const { user, isAdmin, signInWithGoogle, authLoading, authError } = useAuth();
   const [fontSize, setFontSize] = useState<'normal' | 'large' | 'huge'>('normal');
   const [copied, setCopied] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -59,12 +59,16 @@ export const ArticleReaderModal: React.FC<ArticleReaderModalProps> = ({
   const [commentError, setCommentError] = useState<string | null>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
-  // Load real comments from Firestore
+  // Load real comments from Firestore and reset input state when article changes
   useEffect(() => {
     setComments([]);
     setCommentText('');
     setCommentError(null);
     setCommentSuccess(false);
+    setScrollProgress(0);
+    if (contentRef.current) {
+      contentRef.current.scrollTop = 0;
+    }
     if (!article) return;
     const q = query(
       collection(db, 'article_comments'),
@@ -97,7 +101,7 @@ export const ArticleReaderModal: React.FC<ArticleReaderModalProps> = ({
       }
     );
     return () => unsubscribe();
-  }, [article]);
+  }, [article?.id]);
 
   // Track scroll progress
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
@@ -430,19 +434,26 @@ export const ArticleReaderModal: React.FC<ArticleReaderModalProps> = ({
 
               {/* Add Comment Form */}
               {!user ? (
-                <div className="mb-8 p-4 rounded-xl bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-                  <p className="text-xs text-neutral-600 dark:text-neutral-400">
-                    Sign in with Google to leave a verified question or comment for M R S.
-                  </p>
-                  <button
-                    type="button"
-                    onClick={signInWithGoogle}
-                    disabled={authLoading}
-                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-neutral-900 hover:bg-neutral-800 dark:bg-white dark:hover:bg-neutral-100 text-white dark:text-neutral-950 text-xs font-semibold shrink-0"
-                  >
-                    {authLoading ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <LogIn className="w-3.5 h-3.5" />}
-                    <span>Sign in with Google</span>
-                  </button>
+                <div className="mb-8 space-y-3">
+                  <div className="p-4 rounded-xl bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                    <p className="text-xs text-neutral-600 dark:text-neutral-400">
+                      Sign in with Google to leave a verified question or comment for M R S.
+                    </p>
+                    <button
+                      type="button"
+                      onClick={signInWithGoogle}
+                      disabled={authLoading}
+                      className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-neutral-900 hover:bg-neutral-800 dark:bg-white dark:hover:bg-neutral-100 text-white dark:text-neutral-950 text-xs font-semibold shrink-0"
+                    >
+                      {authLoading ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <LogIn className="w-3.5 h-3.5" />}
+                      <span>Sign in with Google</span>
+                    </button>
+                  </div>
+                  {(commentError || authError) && (
+                    <div className="p-3 rounded-lg bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 text-xs text-amber-900 dark:text-amber-200">
+                      {commentError || authError}
+                    </div>
+                  )}
                 </div>
               ) : (
                 <form onSubmit={handleAddComment} className="mb-8 p-4 rounded-xl bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-800">
@@ -452,15 +463,21 @@ export const ArticleReaderModal: React.FC<ArticleReaderModalProps> = ({
                   <div className="flex flex-col gap-3">
                     <textarea
                       rows={3}
+                      minLength={2}
                       maxLength={800}
                       placeholder="Write your question, feedback, or tip here..."
                       value={commentText}
-                      onChange={(e) => setCommentText(e.target.value)}
+                      onChange={(e) => {
+                        setCommentText(e.target.value);
+                        if (commentError) setCommentError(null);
+                      }}
                       required
                       className="w-full px-3 py-2 text-sm rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-neutral-950 dark:focus:ring-white"
                     />
-                    {commentError && (
-                      <span className="text-xs text-rose-600">{commentError}</span>
+                    {(commentError || authError) && (
+                      <div className="p-2.5 rounded-lg bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 text-xs text-rose-700 dark:text-rose-300">
+                        {commentError || authError}
+                      </div>
                     )}
                     <div className="flex items-center justify-between">
                       {commentSuccess && (
