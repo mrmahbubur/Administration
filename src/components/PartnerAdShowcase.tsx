@@ -8,7 +8,51 @@ interface AdUnitProps {
   showCaption?: boolean;
   darkSurface?: boolean;
   maxImgHeightClass?: string;
+  eager?: boolean;
 }
+
+const PartnerBannerImage: React.FC<{
+  ad: AdCreative;
+  className?: string;
+  eager?: boolean;
+}> = ({ ad, className = '', eager = false }) => {
+  const sources = [ad.imgSrc, ad.cdnSrc, ad.localSrc];
+  const [sourceIdx, setSourceIdx] = useState(0);
+  const [allFailed, setAllFailed] = useState(false);
+
+  if (allFailed) {
+    return (
+      <div className="w-full py-5 px-4 text-center space-y-1.5">
+        <div className="text-xs font-bold text-neutral-900">
+          {ad.network} — {ad.label}
+        </div>
+        <div className="inline-flex items-center gap-1 text-[11px] font-semibold text-amber-700">
+          <span>Explore Partner Offer</span>
+          <ArrowUpRight className="w-3.5 h-3.5" />
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <img
+      src={sources[sourceIdx]}
+      width={ad.width}
+      height={ad.height}
+      alt={ad.alt}
+      loading={eager ? 'eager' : 'lazy'}
+      decoding="async"
+      onError={() => {
+        if (sourceIdx < sources.length - 1) {
+          setSourceIdx((prev) => prev + 1);
+        } else {
+          setAllFailed(true);
+        }
+      }}
+      className={className}
+    />
+  );
+};
 
 export const AdUnit: React.FC<AdUnitProps> = ({
   ad,
@@ -16,27 +60,26 @@ export const AdUnit: React.FC<AdUnitProps> = ({
   showCaption = true,
   darkSurface = false,
   maxImgHeightClass = '',
+  eager = false,
 }) => {
-  const [imgError, setImgError] = useState(false);
-
   return (
     <div
-      className={`group rounded-xl border transition-colors overflow-hidden ${
+      className={`group flex flex-col rounded-xl border transition-colors overflow-hidden shadow-xs ${
         darkSurface
           ? 'bg-neutral-900/90 border-neutral-800 hover:border-neutral-700'
-          : 'bg-white dark:bg-neutral-900 border-neutral-200 dark:border-neutral-800 hover:border-amber-400/60 dark:hover:border-amber-500/40'
+          : 'bg-white dark:bg-neutral-900 border-neutral-200 dark:border-neutral-800 hover:border-amber-400/70 dark:hover:border-amber-500/50'
       } ${className}`}
     >
       {showCaption && (
         <div
-          className={`px-3 py-1.5 flex items-center justify-between gap-2 text-[10px] font-semibold uppercase tracking-wider border-b ${
+          className={`px-3 py-1.5 flex items-center justify-between gap-2 text-[10px] font-semibold uppercase tracking-wider border-b shrink-0 ${
             darkSurface
               ? 'border-neutral-800 text-neutral-400'
               : 'border-neutral-100 dark:border-neutral-800/80 text-neutral-500 dark:text-neutral-400'
           }`}
         >
-          <span className="truncate">Sponsored · {ad.network}</span>
-          <span className="inline-flex items-center gap-1 text-amber-600 dark:text-amber-400 shrink-0">
+          <span className="truncate">Partner · {ad.network}</span>
+          <span className="inline-flex items-center gap-1 text-amber-700 dark:text-amber-400 shrink-0">
             <span>{ad.label}</span>
             <ExternalLink className="w-2.5 h-2.5" />
           </span>
@@ -47,30 +90,13 @@ export const AdUnit: React.FC<AdUnitProps> = ({
         rel="nofollow noopener noreferrer"
         href={ad.href}
         aria-label={`${ad.network} — ${ad.label}`}
-        className="flex items-center justify-center p-2.5 bg-neutral-50/70 dark:bg-neutral-950/60"
+        className="flex-1 flex items-center justify-center p-2.5 bg-white dark:bg-neutral-100"
       >
-        {imgError ? (
-          <div className="w-full py-5 px-4 text-center space-y-1.5">
-            <div className="text-xs font-bold text-neutral-900 dark:text-white">
-              {ad.network} — {ad.label}
-            </div>
-            <div className="inline-flex items-center gap-1 text-[11px] font-semibold text-amber-700 dark:text-amber-400">
-              <span>Explore Partner Offer</span>
-              <ArrowUpRight className="w-3.5 h-3.5" />
-            </div>
-          </div>
-        ) : (
-          <img
-            src={ad.imgSrc}
-            width={ad.width}
-            height={ad.height}
-            alt={ad.alt}
-            loading="lazy"
-            decoding="async"
-            onError={() => setImgError(true)}
-            className={`block max-w-full h-auto rounded-lg object-contain transition-transform duration-200 group-hover:scale-[1.01] ${maxImgHeightClass}`}
-          />
-        )}
+        <PartnerBannerImage
+          ad={ad}
+          eager={eager}
+          className={`block max-w-full h-auto rounded-lg object-contain transition-transform duration-200 group-hover:scale-[1.01] ${maxImgHeightClass}`}
+        />
       </a>
     </div>
   );
@@ -85,12 +111,13 @@ export const PartnerHeroSpotlight: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
         <AdUnit
           ad={AD_CREATIVES.alibaba_1200x628_20off}
-          maxImgHeightClass="max-h-[380px] w-full"
+          maxImgHeightClass="max-h-[380px] w-auto"
+          eager
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
-          <AdUnit ad={AD_CREATIVES.aliexpress_468x90_logo} />
-          <AdUnit ad={AD_CREATIVES.aliexpress_320x100_super} />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch">
+          <AdUnit ad={AD_CREATIVES.aliexpress_468x90_logo} className="h-full" eager />
+          <AdUnit ad={AD_CREATIVES.aliexpress_320x100_super} className="h-full" eager />
         </div>
       </div>
     </section>
@@ -102,9 +129,9 @@ export const PartnerFeedRail: React.FC = () => {
     <aside aria-label="Partner Offers Sidebar" className="space-y-5">
       <AdUnit ad={AD_CREATIVES.alibaba_300x250_freeship} />
       <AdUnit ad={AD_CREATIVES.aliexpress_300x250_bf} />
-      <div className="grid grid-cols-2 gap-3">
-        <AdUnit ad={AD_CREATIVES.alibaba_160x600_weekly} />
-        <AdUnit ad={AD_CREATIVES.aliexpress_160x600_bf} />
+      <div className="grid grid-cols-2 gap-3 items-stretch">
+        <AdUnit ad={AD_CREATIVES.alibaba_160x600_weekly} className="h-full" />
+        <AdUnit ad={AD_CREATIVES.aliexpress_160x600_bf} className="h-full" />
       </div>
     </aside>
   );
@@ -117,10 +144,10 @@ export const PartnerMidStrip: React.FC = () => {
       className="py-6 bg-white dark:bg-neutral-900 border-b border-neutral-200 dark:border-neutral-800 transition-colors"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
-          <AdUnit ad={AD_CREATIVES.aliexpress_468x90_logo} />
-          <AdUnit ad={AD_CREATIVES.aliexpress_320x100_super} />
-          <AdUnit ad={AD_CREATIVES.aliexpress_234x60_logo} />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-stretch">
+          <AdUnit ad={AD_CREATIVES.aliexpress_468x90_logo} className="h-full" />
+          <AdUnit ad={AD_CREATIVES.aliexpress_320x100_super} className="h-full" />
+          <AdUnit ad={AD_CREATIVES.aliexpress_234x60_logo} className="h-full" />
         </div>
       </div>
     </section>
@@ -148,10 +175,10 @@ export const PartnerDealsShowcaseSection: React.FC = () => {
         </div>
 
         {/* Featured Square & Portrait Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
-          <AdUnit ad={AD_CREATIVES.alibaba_500x500_freeship} />
-          <AdUnit ad={AD_CREATIVES.alibaba_320x480_weekly} />
-          <AdUnit ad={AD_CREATIVES.aliexpress_320x480_bf} />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+          <AdUnit ad={AD_CREATIVES.alibaba_500x500_freeship} className="h-full" maxImgHeightClass="max-h-[420px]" />
+          <AdUnit ad={AD_CREATIVES.alibaba_320x480_weekly} className="h-full" maxImgHeightClass="max-h-[420px]" />
+          <AdUnit ad={AD_CREATIVES.aliexpress_320x480_bf} className="h-full" maxImgHeightClass="max-h-[420px]" />
         </div>
 
         {/* Skyscraper Vertical Banners Row */}
@@ -159,12 +186,12 @@ export const PartnerDealsShowcaseSection: React.FC = () => {
           <div className="text-[11px] font-bold uppercase tracking-wider text-neutral-500 dark:text-neutral-400 mb-4">
             Featured Vertical Deal Collections
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 items-start justify-items-center">
-            <AdUnit ad={AD_CREATIVES.alibaba_160x600_homepage} className="w-full max-w-[180px]" />
-            <AdUnit ad={AD_CREATIVES.aliexpress_120x600_bf1} className="w-full max-w-[150px]" />
-            <AdUnit ad={AD_CREATIVES.aliexpress_120x600_bf2} className="w-full max-w-[150px]" />
-            <AdUnit ad={AD_CREATIVES.alibaba_160x600_weekly} className="w-full max-w-[180px]" />
-            <AdUnit ad={AD_CREATIVES.aliexpress_160x600_bf} className="w-full max-w-[180px] col-span-2 sm:col-span-1" />
+          <div className="flex flex-wrap items-stretch justify-center gap-4">
+            <AdUnit ad={AD_CREATIVES.alibaba_160x600_homepage} className="w-[155px] sm:w-[175px]" />
+            <AdUnit ad={AD_CREATIVES.aliexpress_120x600_bf1} className="w-[140px] sm:w-[150px]" />
+            <AdUnit ad={AD_CREATIVES.aliexpress_120x600_bf2} className="w-[140px] sm:w-[150px]" />
+            <AdUnit ad={AD_CREATIVES.alibaba_160x600_weekly} className="w-[155px] sm:w-[175px]" />
+            <AdUnit ad={AD_CREATIVES.aliexpress_160x600_bf} className="w-[155px] sm:w-[175px]" />
           </div>
         </div>
       </div>
@@ -179,9 +206,9 @@ export const PartnerReviewsBand: React.FC = () => {
       className="py-8 bg-white dark:bg-neutral-900 border-t border-neutral-200 dark:border-neutral-800 transition-colors"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
-          <AdUnit ad={AD_CREATIVES.alibaba_300x250_freeship} />
-          <AdUnit ad={AD_CREATIVES.aliexpress_300x250_bf} />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
+          <AdUnit ad={AD_CREATIVES.alibaba_300x250_freeship} className="h-full" />
+          <AdUnit ad={AD_CREATIVES.aliexpress_300x250_bf} className="h-full" />
         </div>
       </div>
     </section>
@@ -191,13 +218,13 @@ export const PartnerReviewsBand: React.FC = () => {
 export const ArticleInlinePartnerBanner: React.FC = () => {
   return (
     <div className="mt-8 space-y-4">
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 items-center">
-        <AdUnit ad={AD_CREATIVES.aliexpress_468x90_logo} />
-        <AdUnit ad={AD_CREATIVES.aliexpress_320x100_super} />
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 items-stretch">
+        <AdUnit ad={AD_CREATIVES.aliexpress_468x90_logo} className="h-full" />
+        <AdUnit ad={AD_CREATIVES.aliexpress_320x100_super} className="h-full" />
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <AdUnit ad={AD_CREATIVES.alibaba_300x250_freeship} />
-        <AdUnit ad={AD_CREATIVES.aliexpress_300x250_bf} />
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-stretch">
+        <AdUnit ad={AD_CREATIVES.alibaba_300x250_freeship} className="h-full" />
+        <AdUnit ad={AD_CREATIVES.aliexpress_300x250_bf} className="h-full" />
       </div>
     </div>
   );
@@ -212,6 +239,12 @@ export const PartnerCompactBanner: React.FC = () => {
 };
 
 export const FooterPartnerStrip: React.FC = () => {
+  const logos = [
+    AD_CREATIVES.aliexpress_234x60_logo,
+    AD_CREATIVES.aliexpress_216x54_logo,
+    AD_CREATIVES.aliexpress_120x30_logo,
+  ];
+
   return (
     <div className="mt-10 pt-8 border-t border-neutral-800/80">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -224,57 +257,21 @@ export const FooterPartnerStrip: React.FC = () => {
           </span>
         </div>
         <div className="flex flex-wrap items-center gap-3">
-          <a
-            target="_blank"
-            rel="nofollow noopener noreferrer"
-            href={AD_CREATIVES.aliexpress_234x60_logo.href}
-            aria-label="AliExpress WW 234x60"
-            className="p-1.5 rounded-lg bg-neutral-900 border border-neutral-800 hover:border-neutral-600 transition-colors"
-          >
-            <img
-              src={AD_CREATIVES.aliexpress_234x60_logo.imgSrc}
-              width={AD_CREATIVES.aliexpress_234x60_logo.width}
-              height={AD_CREATIVES.aliexpress_234x60_logo.height}
-              alt={AD_CREATIVES.aliexpress_234x60_logo.alt}
-              loading="lazy"
-              decoding="async"
-              className="block max-w-full h-auto rounded"
-            />
-          </a>
-          <a
-            target="_blank"
-            rel="nofollow noopener noreferrer"
-            href={AD_CREATIVES.aliexpress_216x54_logo.href}
-            aria-label="AliExpress WW 216x54"
-            className="p-1.5 rounded-lg bg-neutral-900 border border-neutral-800 hover:border-neutral-600 transition-colors"
-          >
-            <img
-              src={AD_CREATIVES.aliexpress_216x54_logo.imgSrc}
-              width={AD_CREATIVES.aliexpress_216x54_logo.width}
-              height={AD_CREATIVES.aliexpress_216x54_logo.height}
-              alt={AD_CREATIVES.aliexpress_216x54_logo.alt}
-              loading="lazy"
-              decoding="async"
-              className="block max-w-full h-auto rounded"
-            />
-          </a>
-          <a
-            target="_blank"
-            rel="nofollow noopener noreferrer"
-            href={AD_CREATIVES.aliexpress_120x30_logo.href}
-            aria-label="AliExpress WW 120x30"
-            className="p-1.5 rounded-lg bg-neutral-900 border border-neutral-800 hover:border-neutral-600 transition-colors"
-          >
-            <img
-              src={AD_CREATIVES.aliexpress_120x30_logo.imgSrc}
-              width={AD_CREATIVES.aliexpress_120x30_logo.width}
-              height={AD_CREATIVES.aliexpress_120x30_logo.height}
-              alt={AD_CREATIVES.aliexpress_120x30_logo.alt}
-              loading="lazy"
-              decoding="async"
-              className="block max-w-full h-auto rounded"
-            />
-          </a>
+          {logos.map((ad) => (
+            <a
+              key={ad.id}
+              target="_blank"
+              rel="nofollow noopener noreferrer"
+              href={ad.href}
+              aria-label={`${ad.network} ${ad.width}x${ad.height}`}
+              className="px-3 py-2 rounded-lg bg-white border border-neutral-700 hover:border-amber-400 transition-colors"
+            >
+              <PartnerBannerImage
+                ad={ad}
+                className="block max-w-full h-auto rounded"
+              />
+            </a>
+          ))}
         </div>
       </div>
     </div>

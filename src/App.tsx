@@ -227,6 +227,9 @@ export default function App() {
           onOpenCalendly={() => setCalendlyOpen(true)}
         />
 
+        {/* Featured Partner Spotlight */}
+        <PartnerHeroSpotlight />
+
         {/* Owner Profile & Detailed About Section */}
         <AboutOwnerSection
           onOpenCalendly={() => setCalendlyOpen(true)}
@@ -249,9 +252,6 @@ export default function App() {
             });
           }}
         />
-
-        {/* Featured Partner Spotlight */}
-        <PartnerHeroSpotlight />
 
         {/* Interactive Filter Bar & Articles Feed */}
         <section id="articles-feed" className="py-10 sm:py-14 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

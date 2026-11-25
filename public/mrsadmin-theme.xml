@@ -720,6 +720,9 @@
     border-radius: 14px;
     overflow: hidden;
     box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
   }
   .mrs-partner-head {
     padding: 8px 14px;
@@ -733,16 +736,18 @@
     text-transform: uppercase;
     letter-spacing: 0.4px;
     color: var(--text-muted);
+    flex-shrink: 0;
   }
   .mrs-partner-label {
     color: var(--accent);
   }
   .mrs-partner-body {
+    flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 10px;
-    background: var(--bg-page);
+    background: #ffffff;
   }
   .mrs-partner-img {
     display: block;
@@ -762,7 +767,7 @@
     grid-template-columns: 1fr;
     gap: 14px;
     margin-top: 14px;
-    align-items: center;
+    align-items: stretch;
   }
   @media (min-width: 768px) {
     .mrs-pair-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -791,12 +796,13 @@
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 10px;
+    align-items: stretch;
   }
   .mrs-deals-grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: 20px;
-    align-items: start;
+    align-items: stretch;
   }
   @media (min-width: 768px) {
     .mrs-deals-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -810,6 +816,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: stretch;
     gap: 16px;
   }
   .mrs-footer-partners {
@@ -829,13 +836,13 @@
   }
   .mrs-footer-logo-link {
     display: inline-flex;
-    padding: 6px;
+    padding: 8px 12px;
     border-radius: 8px;
-    background: #141414;
-    border: 1px solid #262626;
+    background: #ffffff;
+    border: 1px solid #404040;
   }
   .mrs-footer-logo-link:hover {
-    border-color: #525252;
+    border-color: #fbbf24;
   }
   ]]></b:skin>
 </head>
@@ -996,7 +1003,7 @@
           <span class='mrs-partner-label'>20% Off Sourcing Deals</span>
         </div>
         <a class='mrs-partner-body' href='https://rzekl.com/g/1qbjalo1djcb5002cfdd219aa26f6f/?i=4' rel='nofollow noopener noreferrer' target='_blank'>
-          <img alt='Alibaba WW' class='mrs-partner-img' height='628' loading='lazy' src='https://ad.admitad.com/b/1qbjalo1djcb5002cfdd219aa26f6f/' style='max-height: 380px; object-fit: contain;' width='1200'/>
+          <img alt='Alibaba WW' class='mrs-partner-img' height='628' loading='eager' onerror="this.onerror=null;this.src='https://cdn.admitad-connect.com/public/bs/2026/02/16/1200x628.775e.png'" src='https://ad.admitad.com/b/1qbjalo1djcb5002cfdd219aa26f6f/' style='max-height: 380px; width: auto; max-width: 100%; object-fit: contain;' width='1200'/>
         </a>
       </div>
 
@@ -1007,7 +1014,7 @@
             <span class='mrs-partner-label'>Global Deals</span>
           </div>
           <a class='mrs-partner-body' href='https://rzekl.com/g/hfzguitca6cb5002cfdd16525dc3e8/?i=4' rel='nofollow noopener noreferrer' target='_blank'>
-            <img alt='AliExpress WW' class='mrs-partner-img' height='90' loading='lazy' src='https://ad.admitad.com/b/hfzguitca6cb5002cfdd16525dc3e8/' width='468'/>
+            <img alt='AliExpress WW' class='mrs-partner-img' height='90' loading='lazy' onerror="this.onerror=null;this.src='https://cdn.admitad-connect.com/public/bs/2025/01/14/AliExpress_logo_Jan_2025_468x90.a614.png'" src='https://ad.admitad.com/b/hfzguitca6cb5002cfdd16525dc3e8/' width='468'/>
           </a>
         </div>
 
@@ -1017,7 +1024,7 @@
             <span class='mrs-partner-label'>Up to 90% Off</span>
           </div>
           <a class='mrs-partner-body' href='https://rzekl.com/g/e1z3ho64gccb5002cfdd16525dc3e8/?i=4' rel='nofollow noopener noreferrer' target='_blank'>
-            <img alt='AliExpress WW' class='mrs-partner-img' height='100' loading='lazy' src='https://ad.admitad.com/b/e1z3ho64gccb5002cfdd16525dc3e8/' width='320'/>
+            <img alt='AliExpress WW' class='mrs-partner-img' height='100' loading='lazy' onerror="this.onerror=null;this.src='https://cdn.admitad-connect.com/public/bs/2024/01/25/320-100.493d.jpg'" src='https://ad.admitad.com/b/e1z3ho64gccb5002cfdd16525dc3e8/' width='320'/>
           </a>
         </div>
       </div>
@@ -1095,7 +1102,7 @@
               <span class='mrs-partner-label'>Free Shipping</span>
             </div>
             <a class='mrs-partner-body' href='https://rzekl.com/g/n11go1amqvcb5002cfdd219aa26f6f/?i=4' rel='nofollow noopener noreferrer' target='_blank'>
-              <img alt='Alibaba WW' class='mrs-partner-img' height='250' loading='lazy' src='https://ad.admitad.com/b/n11go1amqvcb5002cfdd219aa26f6f/' width='300'/>
+              <img alt='Alibaba WW' class='mrs-partner-img' height='250' loading='lazy' onerror="this.onerror=null;this.src='https://cdn.admitad-connect.com/public/bs/2019/04/18/eb0ba85b76c29094c47832facad26a53.jpg'" src='https://ad.admitad.com/b/n11go1amqvcb5002cfdd219aa26f6f/' width='300'/>
             </a>
           </div>
 
@@ -1105,7 +1112,7 @@
               <span class='mrs-partner-label'>Black Friday Deals</span>
             </div>
             <a class='mrs-partner-body' href='https://rzekl.com/g/kyot8uekw2cb5002cfdd16525dc3e8/?i=4' rel='nofollow noopener noreferrer' target='_blank'>
-              <img alt='AliExpress WW' class='mrs-partner-img' height='250' loading='lazy' src='https://ad.admitad.com/b/kyot8uekw2cb5002cfdd16525dc3e8/' width='300'/>
+              <img alt='AliExpress WW' class='mrs-partner-img' height='250' loading='lazy' onerror="this.onerror=null;this.src='https://cdn.admitad-connect.com/public/bs/2026/11/19/EN2.0ea8.jpg'" src='https://ad.admitad.com/b/kyot8uekw2cb5002cfdd16525dc3e8/' width='300'/>
             </a>
           </div>
 
@@ -1115,7 +1122,7 @@
                 <span>Alibaba WW</span>
               </div>
               <a class='mrs-partner-body' href='https://rzekl.com/g/r2ljfjnrjgcb5002cfdd219aa26f6f/?i=4' rel='nofollow noopener noreferrer' target='_blank'>
-                <img alt='Alibaba WW' class='mrs-partner-img' height='600' loading='lazy' src='https://ad.admitad.com/b/r2ljfjnrjgcb5002cfdd219aa26f6f/' width='160'/>
+                <img alt='Alibaba WW' class='mrs-partner-img' height='600' loading='lazy' onerror="this.onerror=null;this.src='https://cdn.admitad-connect.com/public/bs/2019/04/18/bbe71ad497cc39aaba948c9a981d4982.jpg'" src='https://ad.admitad.com/b/r2ljfjnrjgcb5002cfdd219aa26f6f/' width='160'/>
               </a>
             </div>
             <div class='mrs-partner-card'>
@@ -1123,7 +1130,7 @@
                 <span>AliExpress WW</span>
               </div>
               <a class='mrs-partner-body' href='https://rzekl.com/g/ytg1jtfy3jcb5002cfdd16525dc3e8/?i=4' rel='nofollow noopener noreferrer' target='_blank'>
-                <img alt='AliExpress WW' class='mrs-partner-img' height='600' loading='lazy' src='https://ad.admitad.com/b/ytg1jtfy3jcb5002cfdd16525dc3e8/' width='160'/>
+                <img alt='AliExpress WW' class='mrs-partner-img' height='600' loading='lazy' onerror="this.onerror=null;this.src='https://cdn.admitad-connect.com/public/bs/2026/11/19/EN4.e2fb.jpg'" src='https://ad.admitad.com/b/ytg1jtfy3jcb5002cfdd16525dc3e8/' width='160'/>
               </a>
             </div>
           </div>
@@ -1175,19 +1182,19 @@
         <div class='mrs-partner-card'>
           <div class='mrs-partner-head'><span>AliExpress WW</span><span class='mrs-partner-label'>Global Deals</span></div>
           <a class='mrs-partner-body' href='https://rzekl.com/g/hfzguitca6cb5002cfdd16525dc3e8/?i=4' rel='nofollow noopener noreferrer' target='_blank'>
-            <img alt='AliExpress WW' class='mrs-partner-img' height='90' loading='lazy' src='https://ad.admitad.com/b/hfzguitca6cb5002cfdd16525dc3e8/' width='468'/>
+            <img alt='AliExpress WW' class='mrs-partner-img' height='90' loading='lazy' onerror="this.onerror=null;this.src='https://cdn.admitad-connect.com/public/bs/2025/01/14/AliExpress_logo_Jan_2025_468x90.a614.png'" src='https://ad.admitad.com/b/hfzguitca6cb5002cfdd16525dc3e8/' width='468'/>
           </a>
         </div>
         <div class='mrs-partner-card'>
           <div class='mrs-partner-head'><span>AliExpress WW</span><span class='mrs-partner-label'>Super Ofertas</span></div>
           <a class='mrs-partner-body' href='https://rzekl.com/g/e1z3ho64gccb5002cfdd16525dc3e8/?i=4' rel='nofollow noopener noreferrer' target='_blank'>
-            <img alt='AliExpress WW' class='mrs-partner-img' height='100' loading='lazy' src='https://ad.admitad.com/b/e1z3ho64gccb5002cfdd16525dc3e8/' width='320'/>
+            <img alt='AliExpress WW' class='mrs-partner-img' height='100' loading='lazy' onerror="this.onerror=null;this.src='https://cdn.admitad-connect.com/public/bs/2024/01/25/320-100.493d.jpg'" src='https://ad.admitad.com/b/e1z3ho64gccb5002cfdd16525dc3e8/' width='320'/>
           </a>
         </div>
         <div class='mrs-partner-card'>
           <div class='mrs-partner-head'><span>AliExpress WW</span><span class='mrs-partner-label'>Featured</span></div>
           <a class='mrs-partner-body' href='https://rzekl.com/g/giqeddbbgxcb5002cfdd16525dc3e8/?i=4' rel='nofollow noopener noreferrer' target='_blank'>
-            <img alt='AliExpress WW' class='mrs-partner-img' height='60' loading='lazy' src='https://ad.admitad.com/b/giqeddbbgxcb5002cfdd16525dc3e8/' width='234'/>
+            <img alt='AliExpress WW' class='mrs-partner-img' height='60' loading='lazy' onerror="this.onerror=null;this.src='https://cdn.admitad-connect.com/public/bs/2025/01/14/AliExpress_logo_Jan_2025_234x60.662c.png'" src='https://ad.admitad.com/b/giqeddbbgxcb5002cfdd16525dc3e8/' width='234'/>
           </a>
         </div>
       </div>
@@ -1255,7 +1262,7 @@
             <span class='mrs-partner-label'>Free Shipping</span>
           </div>
           <a class='mrs-partner-body' href='https://rzekl.com/g/3q21xrzcs0cb5002cfdd219aa26f6f/?i=4' rel='nofollow noopener noreferrer' target='_blank'>
-            <img alt='Alibaba WW' class='mrs-partner-img' height='500' loading='lazy' src='https://ad.admitad.com/b/3q21xrzcs0cb5002cfdd219aa26f6f/' width='500'/>
+            <img alt='Alibaba WW' class='mrs-partner-img' height='500' loading='lazy' onerror="this.onerror=null;this.src='https://cdn.admitad-connect.com/public/bs/2019/04/18/64ce59811dfbda6b89740c887347cf68.jpg'" src='https://ad.admitad.com/b/3q21xrzcs0cb5002cfdd219aa26f6f/' width='500'/>
           </a>
         </div>
 
@@ -1265,7 +1272,7 @@
             <span class='mrs-partner-label'>Weekly Deals</span>
           </div>
           <a class='mrs-partner-body' href='https://rzekl.com/g/2yynmq9itycb5002cfdd219aa26f6f/?i=4' rel='nofollow noopener noreferrer' target='_blank'>
-            <img alt='Alibaba WW' class='mrs-partner-img' height='480' loading='lazy' src='https://ad.admitad.com/b/2yynmq9itycb5002cfdd219aa26f6f/' width='320'/>
+            <img alt='Alibaba WW' class='mrs-partner-img' height='480' loading='lazy' onerror="this.onerror=null;this.src='https://cdn.admitad-connect.com/public/bs/2019/04/18/492084270d70826e1239e24e74547a1f.jpg'" src='https://ad.admitad.com/b/2yynmq9itycb5002cfdd219aa26f6f/' width='320'/>
           </a>
         </div>
 
@@ -1275,7 +1282,7 @@
             <span class='mrs-partner-label'>Black Friday</span>
           </div>
           <a class='mrs-partner-body' href='https://rzekl.com/g/nbdijtg4iscb5002cfdd16525dc3e8/?i=4' rel='nofollow noopener noreferrer' target='_blank'>
-            <img alt='AliExpress WW' class='mrs-partner-img' height='480' loading='lazy' src='https://ad.admitad.com/b/nbdijtg4iscb5002cfdd16525dc3e8/' width='320'/>
+            <img alt='AliExpress WW' class='mrs-partner-img' height='480' loading='lazy' onerror="this.onerror=null;this.src='https://cdn.admitad-connect.com/public/bs/2026/11/19/EN5.53b4.jpg'" src='https://ad.admitad.com/b/nbdijtg4iscb5002cfdd16525dc3e8/' width='320'/>
           </a>
         </div>
       </div>
@@ -1284,19 +1291,19 @@
         <div class='mrs-partner-card'>
           <div class='mrs-partner-head'><span>Alibaba WW</span></div>
           <a class='mrs-partner-body' href='https://rzekl.com/g/sg0n7lk10zcb5002cfdd219aa26f6f/?i=4' rel='nofollow noopener noreferrer' target='_blank'>
-            <img alt='Alibaba WW' class='mrs-partner-img' height='600' loading='lazy' src='https://ad.admitad.com/b/sg0n7lk10zcb5002cfdd219aa26f6f/' width='160'/>
+            <img alt='Alibaba WW' class='mrs-partner-img' height='600' loading='lazy' onerror="this.onerror=null;this.src='https://cdn.admitad-connect.com/public/bs/2020/11/02/y_3.8fe9.png'" src='https://ad.admitad.com/b/sg0n7lk10zcb5002cfdd219aa26f6f/' width='160'/>
           </a>
         </div>
         <div class='mrs-partner-card'>
           <div class='mrs-partner-head'><span>AliExpress WW</span></div>
           <a class='mrs-partner-body' href='https://rzekl.com/g/1klyrjkwp8cb5002cfdd16525dc3e8/?i=4' rel='nofollow noopener noreferrer' target='_blank'>
-            <img alt='AliExpress WW' class='mrs-partner-img' height='600' loading='lazy' src='https://ad.admitad.com/b/1klyrjkwp8cb5002cfdd16525dc3e8/' width='120'/>
+            <img alt='AliExpress WW' class='mrs-partner-img' height='600' loading='lazy' onerror="this.onerror=null;this.src='https://cdn.admitad-connect.com/public/bs/2026/11/19/en1.12ec.jpg'" src='https://ad.admitad.com/b/1klyrjkwp8cb5002cfdd16525dc3e8/' width='120'/>
           </a>
         </div>
         <div class='mrs-partner-card'>
           <div class='mrs-partner-head'><span>AliExpress WW</span></div>
           <a class='mrs-partner-body' href='https://rzekl.com/g/ypv5dkrd52cb5002cfdd16525dc3e8/?i=4' rel='nofollow noopener noreferrer' target='_blank'>
-            <img alt='AliExpress WW' class='mrs-partner-img' height='600' loading='lazy' src='https://ad.admitad.com/b/ypv5dkrd52cb5002cfdd16525dc3e8/' width='120'/>
+            <img alt='AliExpress WW' class='mrs-partner-img' height='600' loading='lazy' onerror="this.onerror=null;this.src='https://cdn.admitad-connect.com/public/bs/2026/11/19/EN1.c53e.jpg'" src='https://ad.admitad.com/b/ypv5dkrd52cb5002cfdd16525dc3e8/' width='120'/>
           </a>
         </div>
       </div>
@@ -1364,13 +1371,13 @@
         <div class='mrs-partner-card'>
           <div class='mrs-partner-head'><span>Sponsored &#183; Alibaba WW</span><span class='mrs-partner-label'>Free Shipping</span></div>
           <a class='mrs-partner-body' href='https://rzekl.com/g/n11go1amqvcb5002cfdd219aa26f6f/?i=4' rel='nofollow noopener noreferrer' target='_blank'>
-            <img alt='Alibaba WW' class='mrs-partner-img' height='250' loading='lazy' src='https://ad.admitad.com/b/n11go1amqvcb5002cfdd219aa26f6f/' width='300'/>
+            <img alt='Alibaba WW' class='mrs-partner-img' height='250' loading='lazy' onerror="this.onerror=null;this.src='https://cdn.admitad-connect.com/public/bs/2019/04/18/eb0ba85b76c29094c47832facad26a53.jpg'" src='https://ad.admitad.com/b/n11go1amqvcb5002cfdd219aa26f6f/' width='300'/>
           </a>
         </div>
         <div class='mrs-partner-card'>
           <div class='mrs-partner-head'><span>Sponsored &#183; AliExpress WW</span><span class='mrs-partner-label'>Black Friday</span></div>
           <a class='mrs-partner-body' href='https://rzekl.com/g/kyot8uekw2cb5002cfdd16525dc3e8/?i=4' rel='nofollow noopener noreferrer' target='_blank'>
-            <img alt='AliExpress WW' class='mrs-partner-img' height='250' loading='lazy' src='https://ad.admitad.com/b/kyot8uekw2cb5002cfdd16525dc3e8/' width='300'/>
+            <img alt='AliExpress WW' class='mrs-partner-img' height='250' loading='lazy' onerror="this.onerror=null;this.src='https://cdn.admitad-connect.com/public/bs/2026/11/19/EN2.0ea8.jpg'" src='https://ad.admitad.com/b/kyot8uekw2cb5002cfdd16525dc3e8/' width='300'/>
           </a>
         </div>
       </div>
@@ -1497,13 +1504,13 @@
         </div>
         <div class='mrs-footer-logos'>
           <a class='mrs-footer-logo-link' href='https://rzekl.com/g/giqeddbbgxcb5002cfdd16525dc3e8/?i=4' rel='nofollow noopener noreferrer' target='_blank'>
-            <img alt='AliExpress WW' class='mrs-partner-img' height='60' loading='lazy' src='https://ad.admitad.com/b/giqeddbbgxcb5002cfdd16525dc3e8/' width='234'/>
+            <img alt='AliExpress WW' class='mrs-partner-img' height='60' loading='lazy' onerror="this.onerror=null;this.src='https://cdn.admitad-connect.com/public/bs/2025/01/14/AliExpress_logo_Jan_2025_234x60.662c.png'" src='https://ad.admitad.com/b/giqeddbbgxcb5002cfdd16525dc3e8/' width='234'/>
           </a>
           <a class='mrs-footer-logo-link' href='https://rzekl.com/g/bzkgpak5cacb5002cfdd16525dc3e8/?i=4' rel='nofollow noopener noreferrer' target='_blank'>
-            <img alt='AliExpress WW' class='mrs-partner-img' height='54' loading='lazy' src='https://ad.admitad.com/b/bzkgpak5cacb5002cfdd16525dc3e8/' width='216'/>
+            <img alt='AliExpress WW' class='mrs-partner-img' height='54' loading='lazy' onerror="this.onerror=null;this.src='https://cdn.admitad-connect.com/public/bs/2025/01/14/AliExpress_logo_Jan_2025_216x54.8227.png'" src='https://ad.admitad.com/b/bzkgpak5cacb5002cfdd16525dc3e8/' width='216'/>
           </a>
           <a class='mrs-footer-logo-link' href='https://rzekl.com/g/78wcl1iixpcb5002cfdd16525dc3e8/?i=4' rel='nofollow noopener noreferrer' target='_blank'>
-            <img alt='AliExpress WW' class='mrs-partner-img' height='30' loading='lazy' src='https://ad.admitad.com/b/78wcl1iixpcb5002cfdd16525dc3e8/' width='120'/>
+            <img alt='AliExpress WW' class='mrs-partner-img' height='30' loading='lazy' onerror="this.onerror=null;this.src='https://cdn.admitad-connect.com/public/bs/2025/01/14/AliExpress_logo_Jan_2025_120x30.71f1.png'" src='https://ad.admitad.com/b/78wcl1iixpcb5002cfdd16525dc3e8/' width='120'/>
           </a>
         </div>
       </div>
