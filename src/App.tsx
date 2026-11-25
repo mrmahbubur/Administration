@@ -17,6 +17,13 @@ import { SearchModal } from './components/SearchModal';
 import { SavedArticlesDrawer } from './components/SavedArticlesDrawer';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
+import {
+  PartnerHeroSpotlight,
+  PartnerFeedRail,
+  PartnerMidStrip,
+  PartnerDealsShowcaseSection,
+  PartnerReviewsBand,
+} from './components/PartnerAdShowcase';
 
 import { ARTICLES, SERVICES, BLOG_METADATA } from './data/blogData';
 import { Article, Service, Project } from './types';
@@ -243,6 +250,9 @@ export default function App() {
           }}
         />
 
+        {/* Featured Partner Spotlight */}
+        <PartnerHeroSpotlight />
+
         {/* Interactive Filter Bar & Articles Feed */}
         <section id="articles-feed" className="py-10 sm:py-14 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
@@ -274,18 +284,23 @@ export default function App() {
             </div>
           </div>
 
-          {/* Grid of Articles */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {filteredArticles.map((article) => (
-              <ArticleCard
-                key={article.id}
-                article={article}
-                onRead={(art) => setReadingArticle(art)}
-                isSaved={savedIds.includes(article.id)}
-                onToggleSave={handleToggleSave}
-                onShare={handleShareArticle}
-              />
-            ))}
+          {/* Grid of Articles + Sticky Partner Rail */}
+          <div className="xl:grid xl:grid-cols-12 xl:gap-8 xl:items-start">
+            <div className="xl:col-span-9 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-2 gap-6 lg:gap-8">
+              {filteredArticles.map((article) => (
+                <ArticleCard
+                  key={article.id}
+                  article={article}
+                  onRead={(art) => setReadingArticle(art)}
+                  isSaved={savedIds.includes(article.id)}
+                  onToggleSave={handleToggleSave}
+                  onShare={handleShareArticle}
+                />
+              ))}
+            </div>
+            <div className="mt-10 xl:mt-0 xl:col-span-3 xl:sticky xl:top-24">
+              <PartnerFeedRail />
+            </div>
           </div>
 
         </section>
@@ -295,6 +310,9 @@ export default function App() {
           <StudentEarningCalculator />
         </div>
 
+        {/* Mid-Page Partner Deals Strip */}
+        <PartnerMidStrip />
+
         {/* Services & Templates Section */}
         <div id="services-section">
           <ServicesSection
@@ -303,6 +321,9 @@ export default function App() {
           />
         </div>
 
+        {/* Partner Deals Showcase Section */}
+        <PartnerDealsShowcaseSection />
+
         {/* Future Projects & Tracking App Section */}
         <div id="projects-section">
           <ProjectsSection onJoinWaitlist={handleJoinWaitlist} />
@@ -310,6 +331,9 @@ export default function App() {
 
         {/* Verified Client Reviews & Rating Distribution (Firestore) */}
         <ReviewsSection />
+
+        {/* Pre-Footer Partner Deals Band */}
+        <PartnerReviewsBand />
 
         {/* Charity Foundation Highlight Section */}
         <section id="charity-section" className="py-12 sm:py-16 bg-neutral-900 text-white dark:bg-neutral-950 border-t border-neutral-800">

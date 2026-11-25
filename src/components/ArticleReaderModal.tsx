@@ -30,6 +30,7 @@ import { Article, CommentItem } from '../types';
 import { BLOG_METADATA } from '../data/blogData';
 import { db, classifyFirebaseError, handleFirestoreError, normalizeDisplayName, OperationType } from '../firebase';
 import { useAuth } from '../contexts/AuthContext';
+import { ArticleInlinePartnerBanner } from './PartnerAdShowcase';
 
 interface ArticleReaderModalProps {
   article: Article | null;
@@ -411,6 +412,9 @@ export const ArticleReaderModal: React.FC<ArticleReaderModalProps> = ({
                 </a>
               </div>
             </div>
+
+            {/* In-Article Partner Offer */}
+            <ArticleInlinePartnerBanner />
 
             {/* Next Recommendation */}
             {nextArticle && (

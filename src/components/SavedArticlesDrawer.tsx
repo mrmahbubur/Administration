@@ -1,6 +1,7 @@
 import React from 'react';
 import { X, Bookmark, Trash2, ArrowRight } from 'lucide-react';
 import { Article } from '../types';
+import { PartnerCompactBanner } from './PartnerAdShowcase';
 
 interface SavedArticlesDrawerProps {
   isOpen: boolean;
@@ -95,23 +96,26 @@ export const SavedArticlesDrawer: React.FC<SavedArticlesDrawerProps> = ({
             </div>
           </div>
 
-          {/* Footer */}
-          {savedArticles.length > 0 && (
-            <div className="p-6 border-t border-neutral-200 dark:border-neutral-800 flex items-center justify-between bg-neutral-50 dark:bg-neutral-900/60">
-              <button
-                onClick={onClearAll}
-                className="text-xs text-rose-600 hover:underline font-medium"
-              >
-                Clear all saved
-              </button>
-              <button
-                onClick={onClose}
-                className="px-4 py-2 text-xs font-semibold rounded-lg bg-neutral-900 hover:bg-neutral-800 dark:bg-white dark:hover:bg-neutral-100 text-white dark:text-neutral-950"
-              >
-                Done
-              </button>
-            </div>
-          )}
+          <div className="mt-auto">
+            <PartnerCompactBanner />
+            {/* Footer */}
+            {savedArticles.length > 0 && (
+              <div className="p-6 border-t border-neutral-200 dark:border-neutral-800 flex items-center justify-between bg-neutral-50 dark:bg-neutral-900/60">
+                <button
+                  onClick={onClearAll}
+                  className="text-xs text-rose-600 hover:underline font-medium"
+                >
+                  Clear all saved
+                </button>
+                <button
+                  onClick={onClose}
+                  className="px-4 py-2 text-xs font-semibold rounded-lg bg-neutral-900 hover:bg-neutral-800 dark:bg-white dark:hover:bg-neutral-100 text-white dark:text-neutral-950"
+                >
+                  Done
+                </button>
+              </div>
+            )}
+          </div>
 
         </div>
       </div>

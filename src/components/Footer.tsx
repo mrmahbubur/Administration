@@ -1,6 +1,7 @@
 import React from 'react';
 import { ExternalLink, Mail, MessageCircle, Calendar, ArrowRight } from 'lucide-react';
 import { PROFILE_DATA } from '../data/blogData';
+import { FooterPartnerStrip } from './PartnerAdShowcase';
 
 interface FooterProps {
   onSelectCategory: (category: string) => void;
@@ -213,8 +214,10 @@ export const Footer: React.FC<FooterProps> = ({ onSelectTab, onOpenCalendly }) =
           </div>
         </div>
 
+        <FooterPartnerStrip />
+
         {/* Bottom Copyright */}
-        <div className="mt-12 pt-6 border-t border-neutral-800/80 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-neutral-500">
+        <div className="mt-8 pt-6 border-t border-neutral-800/80 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-neutral-500">
           <div>
             &copy; 2026 <strong>{PROFILE_DATA.displayName}</strong>. All rights reserved.
           </div>

@@ -707,6 +707,136 @@
     gap: 12px;
     color: #737373;
   }
+
+  /* Partner Promotions & Responsive Ad Placements */
+  .mrs-partner-band {
+    padding: 24px 0;
+    border-bottom: 1px solid var(--border-color);
+    background: var(--bg-page);
+  }
+  .mrs-partner-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+  }
+  .mrs-partner-head {
+    padding: 8px 14px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    color: var(--text-muted);
+  }
+  .mrs-partner-label {
+    color: var(--accent);
+  }
+  .mrs-partner-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    background: var(--bg-page);
+  }
+  .mrs-partner-img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border: 0;
+    border-radius: 8px;
+  }
+  .mrs-desktop-only { display: none; }
+  .mrs-mobile-only { display: block; }
+  @media (min-width: 640px) {
+    .mrs-desktop-only { display: block; }
+    .mrs-mobile-only { display: none; }
+  }
+  .mrs-pair-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin-top: 14px;
+    align-items: center;
+  }
+  @media (min-width: 768px) {
+    .mrs-pair-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  .mrs-feed-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+  @media (min-width: 1080px) {
+    .mrs-feed-layout {
+      grid-template-columns: minmax(0, 1fr) 340px;
+    }
+    .mrs-feed-rail {
+      position: sticky;
+      top: 88px;
+    }
+  }
+  .mrs-feed-rail {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .mrs-skyscraper-pair {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .mrs-deals-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    align-items: start;
+  }
+  @media (min-width: 768px) {
+    .mrs-deals-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+  .mrs-sky-row {
+    margin-top: 20px;
+    padding: 18px;
+    border-radius: 14px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+  }
+  .mrs-footer-partners {
+    border-top: 1px solid #262626;
+    padding: 22px 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .mrs-footer-logos {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+  }
+  .mrs-footer-logo-link {
+    display: inline-flex;
+    padding: 6px;
+    border-radius: 8px;
+    background: #141414;
+    border: 1px solid #262626;
+  }
+  .mrs-footer-logo-link:hover {
+    border-color: #525252;
+  }
   ]]></b:skin>
 </head>
 <body>
@@ -857,6 +987,43 @@
     </div>
   </section>
 
+  <!-- Partner Spotlight Band -->
+  <section aria-label='Featured Partner Promotions' class='mrs-partner-band'>
+    <div class='container'>
+      <div class='mrs-partner-card'>
+        <div class='mrs-partner-head'>
+          <span>Sponsored &#183; Alibaba WW</span>
+          <span class='mrs-partner-label'>20% Off Sourcing Deals</span>
+        </div>
+        <a class='mrs-partner-body' href='https://rzekl.com/g/1qbjalo1djcb5002cfdd219aa26f6f/?i=4' rel='nofollow noopener noreferrer' target='_blank'>
+          <img alt='Alibaba WW' class='mrs-partner-img' height='628' loading='lazy' src='https://ad.admitad.com/b/1qbjalo1djcb5002cfdd219aa26f6f/' style='max-height: 380px; object-fit: contain;' width='1200'/>
+        </a>
+      </div>
+
+      <div class='mrs-pair-grid'>
+        <div class='mrs-partner-card'>
+          <div class='mrs-partner-head'>
+            <span>Sponsored &#183; AliExpress WW</span>
+            <span class='mrs-partner-label'>Global Deals</span>
+          </div>
+          <a class='mrs-partner-body' href='https://rzekl.com/g/hfzguitca6cb5002cfdd16525dc3e8/?i=4' rel='nofollow noopener noreferrer' target='_blank'>
+            <img alt='AliExpress WW' class='mrs-partner-img' height='90' loading='lazy' src='https://ad.admitad.com/b/hfzguitca6cb5002cfdd16525dc3e8/' width='468'/>
+          </a>
+        </div>
+
+        <div class='mrs-partner-card'>
+          <div class='mrs-partner-head'>
+            <span>Sponsored &#183; AliExpress WW</span>
+            <span class='mrs-partner-label'>Up to 90% Off</span>
+          </div>
+          <a class='mrs-partner-body' href='https://rzekl.com/g/e1z3ho64gccb5002cfdd16525dc3e8/?i=4' rel='nofollow noopener noreferrer' target='_blank'>
+            <img alt='AliExpress WW' class='mrs-partner-img' height='100' loading='lazy' src='https://ad.admitad.com/b/e1z3ho64gccb5002cfdd16525dc3e8/' width='320'/>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Main Blog & Posts Feed -->
   <section class='section-pad' id='post-section' style='background: var(--bg-card);'>
     <div class='container'>
@@ -869,56 +1036,99 @@
         <input aria-label='Filter posts' class='search-input' id='post-filter-input' placeholder='Filter posts by keyword...' type='search'/>
       </div>
 
-      <b:section class='main' id='main' showaddelement='yes'>
-        <b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog'>
-          <b:includable id='main' var='top'>
-            <b:if cond='data:posts.empty'>
-              <div class='post-card'>
-                <h3>No posts published yet</h3>
-                <p style='font-size: 13px; color: var(--text-secondary);'>New guides and updates from M R S Multiverse will appear here soon.</p>
-              </div>
-            <b:else/>
-              <b:loop values='data:posts' var='post'>
-                <article class='post-card'>
-                  <div class='post-meta'>
-                    <span>By M R S</span>
-                    <b:if cond='data:post.timestamp'>
-                      <span>&#183;</span>
-                      <span><data:post.timestamp/></span>
-                    </b:if>
-                    <b:if cond='data:post.labels'>
-                      <span>&#183;</span>
-                      <b:loop values='data:post.labels' var='label'>
-                        <a expr:href='data:label.url' style='color: var(--accent); font-weight: 600;'><data:label.name/></a>
-                        <b:if cond='not data:label.isLast'><span>, </span></b:if>
-                      </b:loop>
-                    </b:if>
-                  </div>
-                  <h2 class='post-title'>
-                    <a expr:href='data:post.url'><data:post.title/></a>
-                  </h2>
-                  <div class='post-body'>
-                    <data:post.body/>
-                  </div>
-                </article>
-              </b:loop>
+      <div class='mrs-feed-layout'>
+        <b:section class='main' id='main' showaddelement='yes'>
+          <b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog'>
+            <b:includable id='main' var='top'>
+              <b:if cond='data:posts.empty'>
+                <div class='post-card'>
+                  <h3>No posts published yet</h3>
+                  <p style='font-size: 13px; color: var(--text-secondary);'>New guides and updates from M R S Multiverse will appear here soon.</p>
+                </div>
+              <b:else/>
+                <b:loop values='data:posts' var='post'>
+                  <article class='post-card'>
+                    <div class='post-meta'>
+                      <span>By M R S</span>
+                      <b:if cond='data:post.timestamp'>
+                        <span>&#183;</span>
+                        <span><data:post.timestamp/></span>
+                      </b:if>
+                      <b:if cond='data:post.labels'>
+                        <span>&#183;</span>
+                        <b:loop values='data:post.labels' var='label'>
+                          <a expr:href='data:label.url' style='color: var(--accent); font-weight: 600;'><data:label.name/></a>
+                          <b:if cond='not data:label.isLast'><span>, </span></b:if>
+                        </b:loop>
+                      </b:if>
+                    </div>
+                    <h2 class='post-title'>
+                      <a expr:href='data:post.url'><data:post.title/></a>
+                    </h2>
+                    <div class='post-body'>
+                      <data:post.body/>
+                    </div>
+                  </article>
+                </b:loop>
 
-              <div class='pager-row'>
-                <div>
-                  <b:if cond='data:newerPageUrl'>
-                    <a class='btn-outline' expr:href='data:newerPageUrl'>&#8592; Newer Posts</a>
-                  </b:if>
+                <div class='pager-row'>
+                  <div>
+                    <b:if cond='data:newerPageUrl'>
+                      <a class='btn-outline' expr:href='data:newerPageUrl'>&#8592; Newer Posts</a>
+                    </b:if>
+                  </div>
+                  <div>
+                    <b:if cond='data:olderPageUrl'>
+                      <a class='btn-outline' expr:href='data:olderPageUrl'>Older Posts &#8594;</a>
+                    </b:if>
+                  </div>
                 </div>
-                <div>
-                  <b:if cond='data:olderPageUrl'>
-                    <a class='btn-outline' expr:href='data:olderPageUrl'>Older Posts &#8594;</a>
-                  </b:if>
-                </div>
+              </b:if>
+            </b:includable>
+          </b:widget>
+        </b:section>
+
+        <aside aria-label='Partner Offers Sidebar' class='mrs-feed-rail'>
+          <div class='mrs-partner-card'>
+            <div class='mrs-partner-head'>
+              <span>Sponsored &#183; Alibaba WW</span>
+              <span class='mrs-partner-label'>Free Shipping</span>
+            </div>
+            <a class='mrs-partner-body' href='https://rzekl.com/g/n11go1amqvcb5002cfdd219aa26f6f/?i=4' rel='nofollow noopener noreferrer' target='_blank'>
+              <img alt='Alibaba WW' class='mrs-partner-img' height='250' loading='lazy' src='https://ad.admitad.com/b/n11go1amqvcb5002cfdd219aa26f6f/' width='300'/>
+            </a>
+          </div>
+
+          <div class='mrs-partner-card'>
+            <div class='mrs-partner-head'>
+              <span>Sponsored &#183; AliExpress WW</span>
+              <span class='mrs-partner-label'>Black Friday Deals</span>
+            </div>
+            <a class='mrs-partner-body' href='https://rzekl.com/g/kyot8uekw2cb5002cfdd16525dc3e8/?i=4' rel='nofollow noopener noreferrer' target='_blank'>
+              <img alt='AliExpress WW' class='mrs-partner-img' height='250' loading='lazy' src='https://ad.admitad.com/b/kyot8uekw2cb5002cfdd16525dc3e8/' width='300'/>
+            </a>
+          </div>
+
+          <div class='mrs-skyscraper-pair'>
+            <div class='mrs-partner-card'>
+              <div class='mrs-partner-head'>
+                <span>Alibaba WW</span>
               </div>
-            </b:if>
-          </b:includable>
-        </b:widget>
-      </b:section>
+              <a class='mrs-partner-body' href='https://rzekl.com/g/r2ljfjnrjgcb5002cfdd219aa26f6f/?i=4' rel='nofollow noopener noreferrer' target='_blank'>
+                <img alt='Alibaba WW' class='mrs-partner-img' height='600' loading='lazy' src='https://ad.admitad.com/b/r2ljfjnrjgcb5002cfdd219aa26f6f/' width='160'/>
+              </a>
+            </div>
+            <div class='mrs-partner-card'>
+              <div class='mrs-partner-head'>
+                <span>AliExpress WW</span>
+              </div>
+              <a class='mrs-partner-body' href='https://rzekl.com/g/ytg1jtfy3jcb5002cfdd16525dc3e8/?i=4' rel='nofollow noopener noreferrer' target='_blank'>
+                <img alt='AliExpress WW' class='mrs-partner-img' height='600' loading='lazy' src='https://ad.admitad.com/b/ytg1jtfy3jcb5002cfdd16525dc3e8/' width='160'/>
+              </a>
+            </div>
+          </div>
+        </aside>
+      </div>
     </div>
   </section>
 
@@ -953,6 +1163,32 @@
           <div class='calc-amount' id='calc-total'>40 hrs</div>
           <p id='calc-tools' style='font-size: 12px; margin-bottom: 14px;'>Free Tools: Google Docs / LibreOffice &#183; Zero upfront cost required.</p>
           <a class='btn-primary' href='https://wa.me/8809611056361?text=Hello%20M%20R%20S,%20I%20am%20a%20student%20and%20need%20guidance%20on%20getting%20started' rel='noopener noreferrer' target='_blank'>Get Guidance on WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mid-Page Partner Deals Strip -->
+  <section aria-label='Mid-Page Partner Promotions' class='mrs-partner-band'>
+    <div class='container'>
+      <div class='mrs-deals-grid'>
+        <div class='mrs-partner-card'>
+          <div class='mrs-partner-head'><span>AliExpress WW</span><span class='mrs-partner-label'>Global Deals</span></div>
+          <a class='mrs-partner-body' href='https://rzekl.com/g/hfzguitca6cb5002cfdd16525dc3e8/?i=4' rel='nofollow noopener noreferrer' target='_blank'>
+            <img alt='AliExpress WW' class='mrs-partner-img' height='90' loading='lazy' src='https://ad.admitad.com/b/hfzguitca6cb5002cfdd16525dc3e8/' width='468'/>
+          </a>
+        </div>
+        <div class='mrs-partner-card'>
+          <div class='mrs-partner-head'><span>AliExpress WW</span><span class='mrs-partner-label'>Super Ofertas</span></div>
+          <a class='mrs-partner-body' href='https://rzekl.com/g/e1z3ho64gccb5002cfdd16525dc3e8/?i=4' rel='nofollow noopener noreferrer' target='_blank'>
+            <img alt='AliExpress WW' class='mrs-partner-img' height='100' loading='lazy' src='https://ad.admitad.com/b/e1z3ho64gccb5002cfdd16525dc3e8/' width='320'/>
+          </a>
+        </div>
+        <div class='mrs-partner-card'>
+          <div class='mrs-partner-head'><span>AliExpress WW</span><span class='mrs-partner-label'>Featured</span></div>
+          <a class='mrs-partner-body' href='https://rzekl.com/g/giqeddbbgxcb5002cfdd16525dc3e8/?i=4' rel='nofollow noopener noreferrer' target='_blank'>
+            <img alt='AliExpress WW' class='mrs-partner-img' height='60' loading='lazy' src='https://ad.admitad.com/b/giqeddbbgxcb5002cfdd16525dc3e8/' width='234'/>
+          </a>
         </div>
       </div>
     </div>
@@ -1000,6 +1236,68 @@
             <p>Ultra-fast, mobile-first themes, responsive layout repairs, SEO tuning, and clean ad-free publishing setups.</p>
           </div>
           <a class='btn-primary' href='https://wa.me/8809611056361?text=Hello%20M%20R%20S,%20I%20need%20Customized%20Blogspot%20and%20Web%20Management' rel='noopener noreferrer' target='_blank'>Order via WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Affiliate Partner Promotions Showcase -->
+  <section class='section-pad' id='partner-deals-section'>
+    <div class='container'>
+      <div class='sec-tag'>Affiliate Partner Promotions</div>
+      <h2 class='sec-title'>Global Marketplace &amp; Seasonal Deals</h2>
+      <p class='sec-desc'>Curated partner offers from Alibaba WW and AliExpress WW for global sourcing and seasonal savings.</p>
+
+      <div class='mrs-deals-grid'>
+        <div class='mrs-partner-card'>
+          <div class='mrs-partner-head'>
+            <span>Sponsored &#183; Alibaba WW</span>
+            <span class='mrs-partner-label'>Free Shipping</span>
+          </div>
+          <a class='mrs-partner-body' href='https://rzekl.com/g/3q21xrzcs0cb5002cfdd219aa26f6f/?i=4' rel='nofollow noopener noreferrer' target='_blank'>
+            <img alt='Alibaba WW' class='mrs-partner-img' height='500' loading='lazy' src='https://ad.admitad.com/b/3q21xrzcs0cb5002cfdd219aa26f6f/' width='500'/>
+          </a>
+        </div>
+
+        <div class='mrs-partner-card'>
+          <div class='mrs-partner-head'>
+            <span>Sponsored &#183; Alibaba WW</span>
+            <span class='mrs-partner-label'>Weekly Deals</span>
+          </div>
+          <a class='mrs-partner-body' href='https://rzekl.com/g/2yynmq9itycb5002cfdd219aa26f6f/?i=4' rel='nofollow noopener noreferrer' target='_blank'>
+            <img alt='Alibaba WW' class='mrs-partner-img' height='480' loading='lazy' src='https://ad.admitad.com/b/2yynmq9itycb5002cfdd219aa26f6f/' width='320'/>
+          </a>
+        </div>
+
+        <div class='mrs-partner-card'>
+          <div class='mrs-partner-head'>
+            <span>Sponsored &#183; AliExpress WW</span>
+            <span class='mrs-partner-label'>Black Friday</span>
+          </div>
+          <a class='mrs-partner-body' href='https://rzekl.com/g/nbdijtg4iscb5002cfdd16525dc3e8/?i=4' rel='nofollow noopener noreferrer' target='_blank'>
+            <img alt='AliExpress WW' class='mrs-partner-img' height='480' loading='lazy' src='https://ad.admitad.com/b/nbdijtg4iscb5002cfdd16525dc3e8/' width='320'/>
+          </a>
+        </div>
+      </div>
+
+      <div class='mrs-sky-row'>
+        <div class='mrs-partner-card'>
+          <div class='mrs-partner-head'><span>Alibaba WW</span></div>
+          <a class='mrs-partner-body' href='https://rzekl.com/g/sg0n7lk10zcb5002cfdd219aa26f6f/?i=4' rel='nofollow noopener noreferrer' target='_blank'>
+            <img alt='Alibaba WW' class='mrs-partner-img' height='600' loading='lazy' src='https://ad.admitad.com/b/sg0n7lk10zcb5002cfdd219aa26f6f/' width='160'/>
+          </a>
+        </div>
+        <div class='mrs-partner-card'>
+          <div class='mrs-partner-head'><span>AliExpress WW</span></div>
+          <a class='mrs-partner-body' href='https://rzekl.com/g/1klyrjkwp8cb5002cfdd16525dc3e8/?i=4' rel='nofollow noopener noreferrer' target='_blank'>
+            <img alt='AliExpress WW' class='mrs-partner-img' height='600' loading='lazy' src='https://ad.admitad.com/b/1klyrjkwp8cb5002cfdd16525dc3e8/' width='120'/>
+          </a>
+        </div>
+        <div class='mrs-partner-card'>
+          <div class='mrs-partner-head'><span>AliExpress WW</span></div>
+          <a class='mrs-partner-body' href='https://rzekl.com/g/ypv5dkrd52cb5002cfdd16525dc3e8/?i=4' rel='nofollow noopener noreferrer' target='_blank'>
+            <img alt='AliExpress WW' class='mrs-partner-img' height='600' loading='lazy' src='https://ad.admitad.com/b/ypv5dkrd52cb5002cfdd16525dc3e8/' width='120'/>
+          </a>
         </div>
       </div>
     </div>
@@ -1055,6 +1353,26 @@
       <div style='display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;'>
         <a class='btn-primary' href='https://mrscharityfoundation.blogspot.com/' rel='noopener noreferrer' style='background: #e11d48; color: #ffffff;' target='_blank'>Visit Charity Foundation</a>
         <a class='btn-outline' href='#contact-section' style='border-color: #404040; color: #f5f5f5;'>Partner With Us</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pre-Contact Partner Deals Band -->
+  <section aria-label='Pre-Contact Partner Promotions' class='mrs-partner-band'>
+    <div class='container'>
+      <div class='mrs-pair-grid' style='margin-top: 0;'>
+        <div class='mrs-partner-card'>
+          <div class='mrs-partner-head'><span>Sponsored &#183; Alibaba WW</span><span class='mrs-partner-label'>Free Shipping</span></div>
+          <a class='mrs-partner-body' href='https://rzekl.com/g/n11go1amqvcb5002cfdd219aa26f6f/?i=4' rel='nofollow noopener noreferrer' target='_blank'>
+            <img alt='Alibaba WW' class='mrs-partner-img' height='250' loading='lazy' src='https://ad.admitad.com/b/n11go1amqvcb5002cfdd219aa26f6f/' width='300'/>
+          </a>
+        </div>
+        <div class='mrs-partner-card'>
+          <div class='mrs-partner-head'><span>Sponsored &#183; AliExpress WW</span><span class='mrs-partner-label'>Black Friday</span></div>
+          <a class='mrs-partner-body' href='https://rzekl.com/g/kyot8uekw2cb5002cfdd16525dc3e8/?i=4' rel='nofollow noopener noreferrer' target='_blank'>
+            <img alt='AliExpress WW' class='mrs-partner-img' height='250' loading='lazy' src='https://ad.admitad.com/b/kyot8uekw2cb5002cfdd16525dc3e8/' width='300'/>
+          </a>
+        </div>
       </div>
     </div>
   </section>
@@ -1169,6 +1487,24 @@
             <li><a href='https://mrscharityfoundation.blogspot.com/' rel='noopener noreferrer' style='color: #fb7185;' target='_blank'>M R S Charity Foundation</a></li>
             <li><a href='https://mrxshahin.blogspot.com/' rel='noopener noreferrer' target='_blank'>MRX Tech Portal</a></li>
           </ul>
+        </div>
+      </div>
+
+      <div class='mrs-footer-partners'>
+        <div>
+          <div style='color: #f5f5f5; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;'>Official Affiliate Partners</div>
+          <div style='color: #737373; font-size: 11px; margin-top: 2px;'>Alibaba WW &amp; AliExpress WW verified partner links</div>
+        </div>
+        <div class='mrs-footer-logos'>
+          <a class='mrs-footer-logo-link' href='https://rzekl.com/g/giqeddbbgxcb5002cfdd16525dc3e8/?i=4' rel='nofollow noopener noreferrer' target='_blank'>
+            <img alt='AliExpress WW' class='mrs-partner-img' height='60' loading='lazy' src='https://ad.admitad.com/b/giqeddbbgxcb5002cfdd16525dc3e8/' width='234'/>
+          </a>
+          <a class='mrs-footer-logo-link' href='https://rzekl.com/g/bzkgpak5cacb5002cfdd16525dc3e8/?i=4' rel='nofollow noopener noreferrer' target='_blank'>
+            <img alt='AliExpress WW' class='mrs-partner-img' height='54' loading='lazy' src='https://ad.admitad.com/b/bzkgpak5cacb5002cfdd16525dc3e8/' width='216'/>
+          </a>
+          <a class='mrs-footer-logo-link' href='https://rzekl.com/g/78wcl1iixpcb5002cfdd16525dc3e8/?i=4' rel='nofollow noopener noreferrer' target='_blank'>
+            <img alt='AliExpress WW' class='mrs-partner-img' height='30' loading='lazy' src='https://ad.admitad.com/b/78wcl1iixpcb5002cfdd16525dc3e8/' width='120'/>
+          </a>
         </div>
       </div>
 

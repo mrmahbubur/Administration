@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Search, X, Clock, ArrowRight, Tag } from 'lucide-react';
 import { Article } from '../types';
+import { PartnerCompactBanner } from './PartnerAdShowcase';
 
 interface SearchModalProps {
   isOpen: boolean;
@@ -132,6 +133,8 @@ export const SearchModal: React.FC<SearchModalProps> = ({
             ))
           )}
         </div>
+
+        <PartnerCompactBanner />
 
       </div>
     </div>
